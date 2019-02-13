@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>404 - Gestor de historias interactivas</title>
+  <title>Gestor de historias interactivas</title>
   <meta name="description" content="Gestor de historias interactivas">
 
   <!-- style -->
@@ -38,13 +38,31 @@
         </ul>
       </div>
   </nav>
+
+
   <div class="container">
-    <div class="col-md-11 col-md-offset-1">
-      <br><br><br>
-      <br><br><br>
-      <h1 align="center" style="font-size:40px;">404</h1>
-      <p align="center" style="font-size:20px;">La ruta no se ha encontrado. Ir a la <a href="/">página principal.</a></p>
-    </div>
-  </div>
-</body>
-</html>
+   <div class="col-md-12">
+     <br><br><br><br>
+     <h1>Monitorización</h1>
+     <hr>
+     <div id="map"></div>
+   </div>
+ </div>
+
+ <script>
+   function initMap() {
+     // The location of Uluru
+     var uluru = {lat: -25.344, lng: 131.036};
+     // The map, centered at Uluru
+     var map = new google.maps.Map(
+         document.getElementById('map'), {zoom: 4, center: uluru});
+     // The marker, positioned at Uluru
+     var marker = new google.maps.Marker({position: uluru, map: map});
+   }
+ </script>
+   <!-- Google Maps API -->
+ <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmX8bFwZOjk5ZnH68cWd64eJ1G0SXVG8s&callback=initMap">
+ </script>
+ </body>
+ </html>

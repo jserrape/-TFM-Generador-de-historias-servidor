@@ -3,11 +3,15 @@ import os, sys
 from declaracionVariables import *
 
 @app.route('/', methods=['GET'])
-def hola_mundo():
+def get_index():
     return render_template('index.html')
 
+@app.route('/monitorizacion', methods=['GET'])
+def get_monitorizacion():
+    return render_template('monitorizacion.html')
+
 @app.route('/rest/status', methods=['GET'])
-def GET_status():
+def get_status():
     response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
     return response
 
