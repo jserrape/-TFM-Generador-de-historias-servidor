@@ -2,9 +2,14 @@ import os, sys
 
 from declaracionVariables import *
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def hola_mundo():
-    return 'Hello, World!'
+    return render_template('index.html')
+
+@app.route('/rest/status', methods=['GET'])
+def GET_status():
+    response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
+    return response
 
 @app.errorhandler(404)
 def page_not_found(e):
