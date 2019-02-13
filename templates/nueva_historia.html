@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Nueva historia - Gestor de historias interactivas</title>
+      <meta name="description" content="Gestor de historias interactivas">
+      <!-- style -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/main.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <!-- scripts -->
+      <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <nav class="navbar navbar-default navbar-fixed-top">
+         <div class="container">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+            <b>Inicio</b>
+            </a>
+         </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li class="divider-vertical"></li>
+               <li><a href="/nueva_historia"><span class="glyphicon glyphicon-plus-sign"></span> Nueva historia</a></li>
+               <li class="divider-vertical"></li>
+               <li><a class="active" href="/s"><span class="glyphicon glyphicon-map-marker"></span> Historias</a></li>
+               <li class="divider-vertical"></li>
+               <li><a href="/"><span class="glyphicon glyphicon-user"></span> Usuarios</a></li>
+               <li class="divider-vertical"></li>
+               <li><a href="/monitorizacion"><span class="glyphicon glyphicon-eye-open"></span> Monitorización</a></li>
+            </ul>
+         </div>
+      </nav>
+
+      <div class="container">
+         <div class="col-md-12">
+            <br><br><br><br>
+            <h1>Nueva historia</h1>
+            <hr>
+            <form id="add-pharmacy-form">
+               <div class="form-group">
+                  <label for="id">Nombre de la historia</label>
+                  <input name="name" type="text" class="form-control" value="" placeholder="Introduzca nombre de la historia" />
+               </div>
+               <div class="form-group">
+                  <label for="id">Imagen de título</label>
+                  <input name="name" type="text" class="form-control" value="" placeholder="Añada imagen de título" />
+               </div>
+               <div class="form-group">
+                  <label for="id">Latitud inicial</label>
+                  <input name="latitude" type="number" step="0.0001" class="form-control" value="37.197" placeholder="Introduzca la latitud inicial" />
+               </div>
+               <div class="form-group">
+                  <label for="id">Longitud inicial</label>
+                  <input name="longitude" type="number" step="0.0001" class="form-control" value="-3.62" placeholder="Introduzca la longitud inicial" />
+               </div>
+               <div class="form-group">
+                  <label for="id">Zoom de la cámara</label>
+                  <input name="name" type="text" class="form-control" value="" placeholder="Introduzca el zoom inicial" />
+               </div>
+               <div class="form-group">
+                  <label for="id">Descripción de la historia</label>
+                  <input name="name" type="text" class="form-control" value="" placeholder="Introduzca la descripción de la historia" />
+               </div>
+
+               <hr>
+
+               <h2>Misión #1</h2>
+
+
+               <div class="form-group">
+                  <input value="Crear historia" type="submit" class="btn btn-primary" />
+               </div>
+
+            </form>
+         </div>
+      </div>
+   </body>
+</html>

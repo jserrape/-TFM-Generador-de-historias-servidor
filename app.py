@@ -6,6 +6,10 @@ from declaracionVariables import *
 def get_index():
     return render_template('index.html')
 
+@app.route('/nueva_historia', methods=['GET'])
+def get_nueva_historia():
+    return render_template('nueva_historia.html')
+
 @app.route('/monitorizacion', methods=['GET'])
 def get_monitorizacion():
     return render_template('monitorizacion.html')
