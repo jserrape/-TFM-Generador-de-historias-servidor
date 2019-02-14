@@ -10,8 +10,14 @@ from flask import request
 from flask import abort
 from flask import Response
 
+import sqlite3
+
 # Flask initialisation
 app = Flask(__name__)
+
+#BBDD https://www.python-course.eu/sql_python.php
+connection = sqlite3.connect("company.db")
+cursor = connection.cursor()
 
 # Metadata
 server_info = {}
