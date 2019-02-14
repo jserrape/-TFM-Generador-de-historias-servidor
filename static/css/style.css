@@ -1,0 +1,9 @@
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+
+h1.titulo {
+    text-align: center;
+}

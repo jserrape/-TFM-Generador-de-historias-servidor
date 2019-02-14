@@ -1,13 +1,13 @@
-{% extends 'base/header.html' %}
+{% extends 'base.html' %}
 {% block content %}
     <div class="container">
        <div class="col-md-12">
           <br><br><br><br>
-          <h1>Bienvenido al editor de narrativas interactivas geolocalizadas.</h1>
+          <h1 class="titulo">Bienvenido al editor de narrativas interactivas geolocalizadas.</h1>
           <hr>
           <div class="row">
              <div class="col-md-6 col-md-offset-4">
-                <img src="/img/logo.jpg" alt="Logo" height="250" vspace="40">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" height="250" vspace="40">
              </div>
           </div>
           <div class="row">
@@ -59,6 +59,7 @@
             });
           }
      </script>
+     <script type="text/javascript" href="{{ url_for('static', filename='js/jquery.js') }}"></script>
   </body>
 </html>
 {% endblock %}
