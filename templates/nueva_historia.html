@@ -8,7 +8,7 @@
             <form id="nueva-historia-form">
                <div class="form-group">
                   <label for="id">Nombre de la historia</label>
-                  <input name="nombre_hisrotia" type="text" class="form-control" value="" placeholder="Introduzca nombre de la historia" />
+                  <input name="nombre_historia" type="text" class="form-control" value="" placeholder="Introduzca nombre de la historia" />
                </div>
                <div class="form-group">
                   <label for="id">Imagen de título</label>
@@ -28,7 +28,7 @@
                </div>
                <div class="form-group">
                   <label for="id">Descripción de la historia</label>
-                  <input name="discripcion_historia" type="text" class="form-control" value="" placeholder="Introduzca la descripción de la historia" />
+                  <input name="descripcion_historia" type="text" class="form-control" value="" placeholder="Introduzca la descripción de la historia" />
                </div>
 
                <hr>
@@ -45,7 +45,29 @@
       </div>
 
    <script>
+     var debug = true;
+     if ( debug ){
+       var HISTORIA_REST_URL = "http://localhost/rest/historia";
+     }else{
+       var HISTORIA_REST_URL = "https://tfm-historias.herokuapp.com/rest/historia";
+     }
 
+     $(function POST_pharmacy(){
+      $('#nueva-historia-form').submit(function(){
+        $.ajax({
+          url: HISTORIA_REST_URL,
+          type: 'POST',
+          data: $('#nueva-historia-form').serialize(),
+          success: function (){
+            location.reload();
+          },
+          error: function (request, message, error){
+            console.log("Error performing POST on " + HISTORIA_REST_URL);
+          }
+        });
+        return false;
+      });
+    })
    </script>
  </body>
 </html>
