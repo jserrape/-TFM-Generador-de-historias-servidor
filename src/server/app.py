@@ -33,8 +33,10 @@ def GET_historia(nombre_historia):
     historia = DAOHistoria.instance().buscar( nombre_historia )
 
     if historia is not None:
+        print("-------------> No none")
         response = Response(json.dumps( historia.toJSON(), indent=4 ), status=201, mimetype='application/json')
     else:
+        print("-------------> Si none")
         response = Response( {}, status=201, mimetype='application/json')
     return response
 
