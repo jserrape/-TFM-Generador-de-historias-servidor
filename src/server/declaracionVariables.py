@@ -2,6 +2,10 @@ import os
 
 import json
 
+from modelo.DAOHistoria import DAOHistoria
+
+from modelo.Historia import Historia
+
 from flask import Flask
 from flask import send_from_directory
 from flask import render_template

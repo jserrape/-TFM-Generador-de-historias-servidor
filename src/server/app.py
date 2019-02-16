@@ -24,6 +24,7 @@ def get_status():
 def POST_historia():
     historia_dict = request.form.to_dict()
     print('POST/PUT on historia: ' + str( historia_dict ))
+    nueva_historia = Historia(dict=historia_dict)
     return "Ok"
 
 @app.errorhandler(404)
