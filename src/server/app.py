@@ -27,6 +27,17 @@ def POST_historia():
     nueva_historia = Historia(dict=historia_dict)
     return "Ok"
 
+@app.route('/rest/historia/<string:nombre_historia>', methods=['GET'])
+def GET_historia(nombre_historia):
+    print('GET on HISTORIAS: ' + name)
+    historia = DAOHistoria.instance().buscar( nombre_historia )
+
+    if historia is not None:
+        response = Response(json.dumps( historia.toJSON(), indent=4 ), status=201, mimetype='application/json')
+    else:
+        response = Response( {}, status=201, mimetype='application/json')
+    return response
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

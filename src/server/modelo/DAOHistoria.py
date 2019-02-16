@@ -10,6 +10,23 @@ class DAOHistoria(InterfaceDAO):
     def __init__(self):
         self.preparar_ddbb()
 
+    def buscar(self, nombre_historia):
+        query = "SELECT * FROM Historias WHERE nombre_historia='{}'".format( nombre_historia )
+        row = self.execute_query( query )
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print(row)
+        if row:
+            p = Historia(row[0][1], row[0][2], row[0][3], row[0][4], row[0][5])
+            return p
+
+        return None
+
     def preparar_ddbb(self):
         query = "DROP TABLE IF EXISTS Historias"
         self.ejecutar_query( query )
