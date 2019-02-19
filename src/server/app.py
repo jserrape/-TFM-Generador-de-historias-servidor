@@ -24,21 +24,16 @@ def get_status():
 def POST_historia():
     historia_dict = request.form.to_dict()
     print('POST/PUT on historia: ' + str( historia_dict ))
-    nueva_historia = Historia(dict=historia_dict)
+    #nueva_historia = Historia(dict=historia_dict)
     return "Ok"
 
-@app.route('/rest/historia/<string:nombre_historia>', methods=['GET'])
-def GET_historia(nombre_historia):
-    print('GET on HISTORIAS: ' + name)
-    historia = DAOHistoria.instance().buscar( nombre_historia )
+@app.route('/rest/mision', methods=['POST', 'PUT'])
+def POST_mision():
+    mision_dict = request.form.to_dict()
+    print('POST/PUT on mision: ' + str( mision_dict ))
+    #nueva_historia = Historia(dict=historia_dict)
+    return "Ok"
 
-    if historia is not None:
-        print("-------------> No none")
-        response = Response(json.dumps( historia.toJSON(), indent=4 ), status=201, mimetype='application/json')
-    else:
-        print("-------------> Si none")
-        response = Response( {}, status=201, mimetype='application/json')
-    return response
 
 @app.errorhandler(404)
 def page_not_found(e):
