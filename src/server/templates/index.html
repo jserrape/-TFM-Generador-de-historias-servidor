@@ -42,7 +42,7 @@
               type: 'GET',
               dataType: 'json',
               success: function (status_json){
-                $("#desarrollador").html("<b>desarrollador:</b> " + status_json.desarrollador);
+                $("#desarrollador").html("<b>Desarrollador:</b> " + status_json.desarrollador);
                 $("#email").html("<b>Email:</b> " + status_json.email);
                 $("#twitter").html("<b>Twitter:</b> " + status_json.twitter);
                 $("#server_repository").html("<b>Repositorio GitHub del servidor:</b> " + "<a href=" + status_json.server_repository + ">" + status_json.server_repository + "</a>");
