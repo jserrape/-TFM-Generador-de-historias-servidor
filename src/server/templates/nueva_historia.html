@@ -7,14 +7,21 @@
           <hr>
 
           <!--Historia -->
-          <form id="nueva_historia_form">
+          <form id="nueva_historia_form" enctype="multipart/form-data">
              <div class="form-group">
                 <label for="id">Nombre de la historia</label>
-                <input name="nombre_historia" type="text" class="form-control" value="" placeholder="Introduzca nombre de la historia" />
+                <input name="nombre_historia" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca nombre de la historia" />
+             </div>
+             <div class="form-group">
+                <label for="id">Idioma de la historia</label>
+                <select name="idioma_historia">
+                  <option value="es">Español</option>
+                  <option value="en">Inglés</option>
+                </select>
              </div>
              <div class="form-group">
                 <label for="id">Imagen de título</label>
-                <input name="imagen_historia" type="text" class="form-control" value="" placeholder="Añada imagen de título" />
+                <input name="imagen_historia" type="file" accept=".jpg,.png" class="form-control" value="" autocomplete="off" placeholder="Añada imagen de título" />
              </div>
              <div class="form-group">
                 <label for="id">Latitud inicial</label>
@@ -26,11 +33,11 @@
              </div>
              <div class="form-group">
                 <label for="id">Zoom de la cámara</label>
-                <input name="zoom" type="text" class="form-control" value="" placeholder="Introduzca el zoom inicial" />
+                <input name="zoom" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca el zoom inicial" />
              </div>
              <div class="form-group">
                 <label for="id">Descripción de la historia</label>
-                <input name="descripcion_historia" type="text" class="form-control" value="" placeholder="Introduzca la descripción de la historia" />
+                <input name="descripcion_historia" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca la descripción de la historia" />
              </div>
           </form>
 
@@ -46,12 +53,12 @@
              <div class="col-md-12">
                 <div class="col-md-6">
                    <div class="form-group">
-                      <input value="Nueva misión" class="btn btn-success" id="btn_add_mision"/>
+                      <input value="Nueva misión" class="btn btn-success" id="btn_add_mision" autocomplete="off"/>
                    </div>
                 </div>
                 <div class="col-md-6">
                    <div class="form-group">
-                      <input value="Crear historia" class="btn btn-primary" id="btn_add_historia"/>
+                      <input value="Crear historia" class="btn btn-primary" id="btn_add_historia" autocomplete="off"/>
                    </div>
                 </div>
              </div>
@@ -61,7 +68,7 @@
     <!-- FINAL -->
 
    <script>
-     var debug = true;
+     var debug = false;
      var num = 1;
      if ( debug ){
        var MISION_REST_URL = "http://localhost/rest/mision";
@@ -79,13 +86,13 @@
        element.appendChild(para);
 
        //Titulo mision
-       document.getElementById("form_mision_"+num).innerHTML = '<h1>Misión #' + num + '</h1>';
+       document.getElementById("form_mision_"+num).innerHTML = '<h1 class="titulo">Misión #' + num + '</h1>';
 
        //Nombre de la mision
        document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Nombre de la misión</label><input id="nombre_mision_' + num + '" name="nombre_mision_' + num + '" type="text" class="form-control" value="" placeholder="Introduzca nombre de la misión" /></div>';
 
        //Icono de la mision
-       document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Icono</label><input id="icono_mision_1" name="icono_mision" type="text" class="form-control" value="" placeholder="Introduzca el icono" /></div>';
+       document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Icono</label><input id="icono_mision_1" name="icono_mision" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca el icono" /></div>';
 
        //Latitud de la mision
        document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Latitud</label><input id="latitud_mision_1" name="latitud_mision" type="number" step="0.0001" class="form-control" value="37.197" placeholder="Introduzca la latitud" /></div>';
@@ -103,7 +110,7 @@
        document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Precedentes</label><input id="precedentes_mision_1" name="precedentes_mision" type="text" class="form-control" value="" placeholder="Introduzca las misiones precedentes" /></div>';
 
        //Audio de la mision
-       document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Pista de audio</label><input id="audio_mision_1" name="audio_mision" type="text" class="form-control" value="" placeholder="Introduzca la pista de audio" /></div>';
+       document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Pista de audio</label><input id="audio_mision_1" name="audio_mision" type="file" accept=".mp3" class="form-control" value="" placeholder="Introduzca la pista de audio" /></div>';
 
        //Descripción de la mision
        document.getElementById("form_mision_"+num).innerHTML = document.getElementById("form_mision_"+num).innerHTML + '<div class="form-group"><label for="id">Descripción</label><input id="descripcion_mision_1" name="descripcion_mision" type="text" class="form-control" value="" placeholder="Introduzca la descripción de la misión" /></div>';
