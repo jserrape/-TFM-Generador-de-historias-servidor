@@ -30,3 +30,23 @@
 //para.appendChild(node);
 //var element = document.getElementById("div_mision_"+num);
 //element.appendChild(para);
+
+
+historia_dict = request.form.to_dict()
+
+#print('POST/PUT on historia: ' + nombre)
+if request.method == 'POST':
+    print("Post")
+    nombre_historia = historia_dict["nombre_historia"]
+    idioma_historia = historia_dict["idioma_historia"]
+    #imagen_historia = historia_dict["imagen_historia"]
+    latitud_historia = historia_dict["latitud_historia"]
+    longitud_historia = historia_dict["longitud_historia"]
+    zoom = historia_dict["zoom"]
+    descripcion_historia = historia_dict["descripcion_historia"]
+
+    conn = sql.connect('database.db')
+    conn.execute("INSERT INTO historia (nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?)",(nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) )
+    conn.close()
+#nueva_historia = Historia(dict=historia_dict)
+return "Ok"

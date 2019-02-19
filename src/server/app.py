@@ -20,12 +20,41 @@ def get_status():
     response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
     return response
 
-@app.route('/rest/historia', methods=['POST', 'PUT'])
+@app.route('/rest/historia', methods=['POST'])
 def POST_historia():
-    historia_dict = request.form.to_dict()
-    print('POST/PUT on historia: ' + str( historia_dict ))
+    if request.method == 'POST':
+        try:
+            nombre_historia = request.form["nombre_historia"]
+            idioma_historia = request.form["idioma_historia"]
+            #imagen_historia = request.form["imagen_historia"]
+            latitud_historia = request.form["latitud_historia"]
+            longitud_historia = request.form["longitud_historia"]
+            zoom = request.form["zoom"]
+            descripcion_historia = request.form["descripcion_historia"]
+
+            with sql.connect("database.db") as con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?)",(nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) )
+                con.commit()
+        except:
+            con.rollback()
+        finally:
+            return ""
+            con.close()
     #nueva_historia = Historia(dict=historia_dict)
     return "Ok"
+
+@app.route('/rest/list/historia', methods=['GET'])
+def GET_historia():
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+
+   cur = con.cursor()
+   cur.execute("select * from historia")
+
+   rows = cur.fetchall();
+   print(rows)
+   return render_template("list_historia.html",rows = rows)
 
 @app.route('/rest/mision', methods=['POST', 'PUT'])
 def POST_mision():
@@ -47,4 +76,4 @@ def page_not_found(e):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
     #crear_modelo()
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)

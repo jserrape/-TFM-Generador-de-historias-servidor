@@ -1,5 +1,7 @@
 import os
 
+import sqlite3 as sql
+
 import json
 
 from flask import Flask
@@ -10,14 +12,17 @@ from flask import request
 from flask import abort
 from flask import Response
 
-import sqlite3
-
 # Flask initialisation
 app = Flask(__name__)
 
 #BBDD https://www.python-course.eu/sql_python.php
-connection = sqlite3.connect("company.db")
-cursor = connection.cursor()
+#https://www.tutorialspoint.com/flask/flask_sqlite.htm
+conn = sql.connect('database.db')
+print("Opened database successfully")
+conn.execute('DROP TABLE historia')
+conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
+print("Table created successfully")
+conn.close()
 
 # Metadata
 server_info = {}
