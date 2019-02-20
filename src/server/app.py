@@ -22,25 +22,28 @@ def get_status():
 
 @app.route('/rest/historia', methods=['POST'])
 def POST_historia():
-    if request.method == 'POST':
-        try:
-            nombre_historia = request.form["nombre_historia"]
-            idioma_historia = request.form["idioma_historia"]
-            #imagen_historia = request.form["imagen_historia"]
-            latitud_historia = request.form["latitud_historia"]
-            longitud_historia = request.form["longitud_historia"]
-            zoom = request.form["zoom"]
-            descripcion_historia = request.form["descripcion_historia"]
+    print("Hola mundo desde post")
+    file = request.files['imagen_historia']
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER_HISTORIA'], filename))
 
-            with sql.connect("database.db") as con:
-                cur = con.cursor()
-                cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?)",(nombre_historia,idioma_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) )
-                con.commit()
-        except:
-            con.rollback()
-        finally:
-            return ""
-            con.close()
+    nombre_historia = request.form["nombre_historia"]
+    idioma_historia = request.form["idioma_historia"]
+    imagen_historia = app.config['UPLOAD_FOLDER_HISTORIA'] + "/" + filename
+    latitud_historia = request.form["latitud_historia"]
+    longitud_historia = request.form["longitud_historia"]
+    zoom = request.form["zoom"]
+    descripcion_historia = request.form["descripcion_historia"]
+
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?,?)",(nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) )
+        con.commit()
+    con.close()
+
+    print(">:"+filename)
+
+    print("----------")
     #nueva_historia = Historia(dict=historia_dict)
     return "Ok"
 
@@ -63,15 +66,10 @@ def POST_mision():
     #nueva_historia = Historia(dict=historia_dict)
     return "Ok"
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
-#@app.route('/bbdd', methods=['GET'])
-#def get_bbdd():
-#    select_employee()
-#    return "Hola mundo"
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))

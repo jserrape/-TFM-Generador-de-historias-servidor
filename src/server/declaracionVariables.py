@@ -1,6 +1,10 @@
 import os
 
+import base64
+
 import sqlite3 as sql
+
+from werkzeug.utils import secure_filename
 
 import json
 
@@ -15,12 +19,16 @@ from flask import Response
 # Flask initialisation
 app = Flask(__name__)
 
+UPLOAD_FOLDER_HISTORIA = "./documentos/imagenes_historias"
+app.config['UPLOAD_FOLDER_HISTORIA'] = UPLOAD_FOLDER_HISTORIA
+
 #BBDD https://www.python-course.eu/sql_python.php
 #https://www.tutorialspoint.com/flask/flask_sqlite.htm
 conn = sql.connect('database.db')
 print("Opened database successfully")
 conn.execute('DROP TABLE historia')
-conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
+#conn.execute('CREATE TABLE IF NOT EXISTS mision ()')
 print("Table created successfully")
 conn.close()
 
