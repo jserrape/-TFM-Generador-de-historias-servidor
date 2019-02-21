@@ -20,13 +20,12 @@ def get_status():
     response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
     return response
 
-@app.route('/rest/historia', methods=['POST'])
-def POST_historia():
-    print("Hola mundo desde post")
+@app.route('/rest/historia/<post_id>', methods=['POST'])
+def POST_historia(post_id):
+    #Insertar historia
     file = request.files['imagen_historia']
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER_HISTORIA'], filename))
-
     nombre_historia = request.form["nombre_historia"]
     idioma_historia = request.form["idioma_historia"]
     imagen_historia = app.config['UPLOAD_FOLDER_HISTORIA'] + "/" + filename
@@ -41,10 +40,19 @@ def POST_historia():
         con.commit()
     con.close()
 
-    print(">:"+filename)
+    #Insertar misiones
+    for i in range(int(post_id)):
+        num=i+1
+        print(request.form)
+        nombre_mision = request.form["nombre_mision_1"]
+        print("Voy a insertar una mision:"+nombre_mision)
 
-    print("----------")
-    #nueva_historia = Historia(dict=historia_dict)
+
+        with sql.connect("database.db") as con:
+            cur = con.cursor()
+            cur.execute("INSERT INTO mision (nombre_mision) VALUES (?)",(nombre_mision,) )
+            con.commit()
+        con.close()
     return "Ok"
 
 @app.route('/rest/list/historia', methods=['GET'])
@@ -58,6 +66,18 @@ def GET_historia():
    rows = cur.fetchall();
    print(rows)
    return render_template("list_historia.html",rows = rows)
+
+@app.route('/rest/list/mision', methods=['GET'])
+def GET_mision():
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+
+   cur = con.cursor()
+   cur.execute("select * from mision")
+
+   rows = cur.fetchall();
+   print(rows)
+   return render_template("list_mision.html",rows = rows)
 
 @app.route('/rest/mision', methods=['POST', 'PUT'])
 def POST_mision():

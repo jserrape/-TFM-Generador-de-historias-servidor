@@ -27,8 +27,9 @@ app.config['UPLOAD_FOLDER_HISTORIA'] = UPLOAD_FOLDER_HISTORIA
 conn = sql.connect('database.db')
 print("Opened database successfully")
 conn.execute('DROP TABLE historia')
+conn.execute('DROP TABLE mision')
 conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
-#conn.execute('CREATE TABLE IF NOT EXISTS mision ()')
+conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_mision TEXT)')
 print("Table created successfully")
 conn.close()
 
