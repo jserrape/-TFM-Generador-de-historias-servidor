@@ -20,16 +20,20 @@ from flask import Response
 app = Flask(__name__)
 
 UPLOAD_FOLDER_HISTORIA = "./documentos/imagenes_historias"
+UPLOAD_FOLDER_MISION_ICON = "./documentos/imagenes_misiones"
+UPLOAD_FOLDER_MISION_AUDIO = "./documentos/audios_misiones"
 app.config['UPLOAD_FOLDER_HISTORIA'] = UPLOAD_FOLDER_HISTORIA
+app.config['UPLOAD_FOLDER_MISION_ICON'] = UPLOAD_FOLDER_MISION_ICON
+app.config['UPLOAD_FOLDER_MISION_AUDIO'] = UPLOAD_FOLDER_MISION_AUDIO
 
 #BBDD https://www.python-course.eu/sql_python.php
 #https://www.tutorialspoint.com/flask/flask_sqlite.htm
 conn = sql.connect('database.db')
 print("Opened database successfully")
-conn.execute('DROP TABLE historia')
-conn.execute('DROP TABLE mision')
+#conn.execute('DROP TABLE historia')
+#conn.execute('DROP TABLE mision')
 conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_mision TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, nombre_mision TEXT, icono_mision TEXT, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio TEXT, descripcion TEXT, FOREIGN KEY(nombre_historia) REFERENCES historia(nombre_historia))')
 print("Table created successfully")
 conn.close()
 

@@ -1,18 +1,45 @@
-<!doctype html>
-<html>
-   <body>
-      <table border = 1>
-         <thead>
-            <td>id</td>
-            <td>nombre_mision</td>
-         </thead>
+{% extends 'base.html' %}
+{% block content %}
+      <div class="container">
+         <div class="col-md-12">
+            <br><br><br><br>
+            <h1 class="titulo">Listado de misiones.</h1>
+            <hr>
+            <table border = 1 class="table table-striped">
+               <thead>
+                  <td>id</td>
+                  <td>nombre_historia</td>
+                  <td>nombre_mision</td>
+                  <td>icono_mision</td>
+                  <td>latitud_mision</td>
+                  <td>longitud_mision</td>
+                  <td>interaccion</td>
+                  <td>codigo_interaccion</td>
+                  <td>precedentes</td>
+                  <td>pista_audio</td>
+                  <td>descripcion</td>
+               </thead>
 
-         {% for row in rows %}
-            <tr>
-               <td>{{row["id"]}}</td>
-               <td>{{row["nombre_mision"]}}</td>
-            </tr>
-         {% endfor %}
-      </table>
+               {% for row in rows %}
+                  <tr>
+                     <td>{{row["id"]}}</td>
+                     <td>{{row["nombre_historia"]}}</td>
+                     <td>{{row["nombre_mision"]}}</td>
+                     <td>{{row["icono_mision"]}}</td>
+                     <td>{{row["latitud_mision"]}}</td>
+                     <td>{{row["longitud_mision"]}}</td>
+                     <td>{{row["interaccion"]}}</td>
+                     <td>{{row["codigo_interaccion"]}}</td>
+                     <td>{{row["precedentes"]}}</td>
+                     <td>{{row["pista_audio"]}}</td>
+                     <td>{{row["descripcion"]}}</td>
+                  </tr>
+               {% endfor %}
+            </table>
+         </div>
+      </div>
+
+      <script type="text/javascript" href="{{ url_for('static', filename='js/jquery.js') }}"></script>
    </body>
-</html>
+ </html>
+ {% endblock %}

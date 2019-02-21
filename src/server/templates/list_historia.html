@@ -1,28 +1,37 @@
-<!doctype html>
-<html>
-   <body>
-      <table border = 1>
-         <thead>
-            <td>nombre_historia</td>
-            <td>idioma_historia</td>
-            <td>imagen_historia</td>
-            <td>latitud_historia</td>
-            <td>longitud_historia</td>
-            <td>zoom</td>
-            <td>descripcion_historia</td>
-         </thead>
+{% extends 'base.html' %}
+{% block content %}
+      <div class="container">
+         <div class="col-md-12">
+            <br><br><br><br>
+            <h1 class="titulo">Listado de historias.</h1>
+            <hr>
+            <table border = 1 class="table table-striped">
+               <thead>
+                  <td>nombre_historia</td>
+                  <td>idioma_historia</td>
+                  <td>imagen_historia</td>
+                  <td>latitud_historia</td>
+                  <td>longitud_historia</td>
+                  <td>zoom</td>
+                  <td>descripcion_historia</td>
+               </thead>
 
-         {% for row in rows %}
-            <tr>
-               <td>{{row["nombre_historia"]}}</td>
-               <td>{{row["idioma_historia"]}}</td>
-               <td> {{ row["imagen_historia"]}}</td>
-               <td>{{row['latitud_historia']}}</td>
-               <td>{{row["longitud_historia"]}}</td>
-               <td> {{ row["zoom"]}}</td>
-               <td>{{row['descripcion_historia']}}</td>
-            </tr>
-         {% endfor %}
-      </table>
-   </body>
-</html>
+               {% for row in rows %}
+                  <tr>
+                     <td>{{row["nombre_historia"]}}</td>
+                     <td>{{row["idioma_historia"]}}</td>
+                     <td> {{ row["imagen_historia"]}}</td>
+                     <td>{{row['latitud_historia']}}</td>
+                     <td>{{row["longitud_historia"]}}</td>
+                     <td> {{ row["zoom"]}}</td>
+                     <td>{{row['descripcion_historia']}}</td>
+                  </tr>
+               {% endfor %}
+            </table>
+      </div>
+   </div>
+
+   <script type="text/javascript" href="{{ url_for('static', filename='js/jquery.js') }}"></script>
+ </body>
+ </html>
+ {% endblock %}

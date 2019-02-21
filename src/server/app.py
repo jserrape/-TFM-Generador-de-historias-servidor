@@ -15,6 +15,10 @@ def get_nueva_historia():
 def get_monitorizacion():
     return render_template('monitorizacion.html')
 
+@app.route('/rutas', methods=['GET'])
+def get_rutas():
+    return render_template('rutas.html')
+
 @app.route('/rest/status', methods=['GET'])
 def get_status():
     response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
@@ -28,7 +32,7 @@ def POST_historia(post_id):
     file.save(os.path.join(app.config['UPLOAD_FOLDER_HISTORIA'], filename))
     nombre_historia = request.form["nombre_historia"]
     idioma_historia = request.form["idioma_historia"]
-    imagen_historia = app.config['UPLOAD_FOLDER_HISTORIA'] + "/" + filename
+    imagen_historia = app.config['UPLOAD_FOLDER_HISTORIA'] + "/" + filename #<--------
     latitud_historia = request.form["latitud_historia"]
     longitud_historia = request.form["longitud_historia"]
     zoom = request.form["zoom"]
@@ -43,14 +47,31 @@ def POST_historia(post_id):
     #Insertar misiones
     for i in range(int(post_id)):
         num=i+1
-        print(request.form)
-        nombre_mision = request.form["nombre_mision_1"]
-        print("Voy a insertar una mision:"+nombre_mision)
+
+        nombre_mision = request.form["nombre_mision_"+str(num)]
+
+        file = request.files['icono_mision_' + str(num)]
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER_MISION_ICON'], filename))
+        icono_mision = app.config['UPLOAD_FOLDER_MISION_ICON'] + "/" + filename #<--------
+
+        latitud_mision = request.form["latitud_mision_" + str(num) ]
+        longitud_mision = request.form["longitud_mision_" + str(num)]
+        interaccion = request.form["tipo_mision_" + str(num)]
+        codigo_interaccion = request.form["codigo_tipo_mision_" + str(num)]
+        precedentes = request.form["precedentes_mision_" + str(num)]
+
+        file = request.files['audio_mision_' + str(num)]
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER_MISION_AUDIO'], filename))
+        pista_audio = app.config['UPLOAD_FOLDER_MISION_AUDIO'] + "/" + filename
+
+        descripcion = request.form["descripcion_mision_" + str(num)]
 
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO mision (nombre_mision) VALUES (?)",(nombre_mision,) )
+            cur.execute("INSERT INTO mision (nombre_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) VALUES (?,?,?,?,?,?,?,?,?,?)",(nombre_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) )
             con.commit()
         con.close()
     return "Ok"
