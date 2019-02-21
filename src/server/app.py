@@ -1,6 +1,7 @@
 import os, sys
 
 from declaracionVariables import *
+from generar_json import *
 #from modelo import *
 
 @app.route('/', methods=['GET'])
@@ -23,6 +24,10 @@ def get_rutas():
 def get_status():
     response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
     return response
+
+@app.route('/historia/<id>', methods=['GET'])
+def GET_historia(id):
+    return historia_json(id)
 
 @app.route('/rest/historia/<post_id>', methods=['POST'])
 def POST_historia(post_id):
@@ -82,7 +87,7 @@ def POST_historia(post_id):
     return "Ok"
 
 @app.route('/rest/list/historia', methods=['GET'])
-def GET_historia():
+def GET_historias():
    con = sql.connect("database.db")
    con.row_factory = sql.Row
 

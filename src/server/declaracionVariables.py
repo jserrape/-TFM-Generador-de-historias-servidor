@@ -1,7 +1,5 @@
 import os
 
-import base64
-
 import sqlite3 as sql
 
 from werkzeug.utils import secure_filename
