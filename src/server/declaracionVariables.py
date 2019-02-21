@@ -30,10 +30,10 @@ app.config['UPLOAD_FOLDER_MISION_AUDIO'] = UPLOAD_FOLDER_MISION_AUDIO
 #https://www.tutorialspoint.com/flask/flask_sqlite.htm
 conn = sql.connect('database.db')
 print("Opened database successfully")
-#conn.execute('DROP TABLE historia')
-#conn.execute('DROP TABLE mision')
-conn.execute('CREATE TABLE IF NOT EXISTS historia (nombre_historia TEXT PRIMARY KEY, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, nombre_mision TEXT, icono_mision TEXT, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio TEXT, descripcion TEXT, FOREIGN KEY(nombre_historia) REFERENCES historia(nombre_historia))')
+#conn.execute('DROP TABLE IF EXISTS historia')
+#conn.execute('DROP TABLE IF EXISTS mision')
+conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision TEXT, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio TEXT, descripcion TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
 print("Table created successfully")
 conn.close()
 

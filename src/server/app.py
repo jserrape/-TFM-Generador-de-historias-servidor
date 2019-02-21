@@ -42,7 +42,11 @@ def POST_historia(post_id):
         cur = con.cursor()
         cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?,?)",(nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) )
         con.commit()
+        cur.execute('SELECT id FROM historia WHERE nombre_historia="' + nombre_historia + '"')
+        for row in cur.fetchall():
+            id_historia = row[0]
     con.close()
+
 
     #Insertar misiones
     for i in range(int(post_id)):
@@ -71,9 +75,10 @@ def POST_historia(post_id):
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO mision (nombre_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) VALUES (?,?,?,?,?,?,?,?,?,?)",(nombre_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) )
+            cur.execute("INSERT INTO mision (id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) VALUES (?,?,?,?,?,?,?,?,?,?)",(id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) )
             con.commit()
         con.close()
+
     return "Ok"
 
 @app.route('/rest/list/historia', methods=['GET'])

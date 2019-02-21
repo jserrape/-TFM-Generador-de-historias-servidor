@@ -7,6 +7,7 @@
             <hr>
             <table border = 1 class="table table-striped">
                <thead>
+                  <td>id</td>
                   <td>nombre_historia</td>
                   <td>idioma_historia</td>
                   <td>imagen_historia</td>
@@ -18,6 +19,7 @@
 
                {% for row in rows %}
                   <tr>
+                     <td>{{row["id"]}}</td>
                      <td>{{row["nombre_historia"]}}</td>
                      <td>{{row["idioma_historia"]}}</td>
                      <td> {{ row["imagen_historia"]}}</td>
