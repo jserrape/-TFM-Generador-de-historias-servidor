@@ -29,12 +29,7 @@
             GET_server_status();
           });
 
-          var debug = false;
-          if ( debug ){
-            var STATUS_REST_URL = "http://localhost/rest/status";
-          }else{
-            var STATUS_REST_URL = "https://tfm-historias.herokuapp.com/rest/status";
-          }
+          var STATUS_REST_URL = "/rest/status";
 
           function GET_server_status(){
             $.ajax({

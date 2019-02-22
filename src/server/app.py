@@ -29,6 +29,10 @@ def get_status():
 def GET_historia(id):
     return historia_json(id)
 
+@app.route('/mision/<id>', methods=['GET'])
+def GET_mision(id):
+    return mision_json(id)
+
 @app.route('/rest/historia/<post_id>', methods=['POST'])
 def POST_historia(post_id):
     #Insertar historia
@@ -99,7 +103,7 @@ def GET_historias():
    return render_template("list_historia.html",rows = rows)
 
 @app.route('/rest/list/mision', methods=['GET'])
-def GET_mision():
+def GET_misiones():
    con = sql.connect("database.db")
    con.row_factory = sql.Row
 

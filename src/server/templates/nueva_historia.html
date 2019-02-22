@@ -63,15 +63,12 @@
 </div>
 <!-- FINAL -->
 <script>
-   var debug = true;
+
    var num = 0;
-   if ( debug ){
-     var MISION_REST_URL = "http://localhost/rest/mision";
-     var HISTORIA_REST_URL = "http://localhost/rest/historia";
-   }else{
-     var MISION_REST_URL = "https://tfm-historias.herokuapp.com/rest/mision";
-     var HISTORIA_REST_URL = "https://tfm-historias.herokuapp.com/rest/historia";
-   }
+
+   var MISION_REST_URL = "/rest/mision";
+   var HISTORIA_REST_URL = "/rest/historia";
+
 
    $('input#btn_add_mision').on('click', function() {
      num= num + 1;
