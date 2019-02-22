@@ -118,12 +118,14 @@ def GET_misiones():
    print(rows)
    return render_template("list_mision.html",rows = rows)
 
+'''
 @app.route('/rest/mision', methods=['POST', 'PUT'])
 def POST_mision():
     mision_dict = request.form.to_dict()
     print('POST/PUT on mision: ' + str( mision_dict ))
     #nueva_historia = Historia(dict=historia_dict)
     return "Ok"
+'''
 
 @app.errorhandler(404)
 def page_not_found(e):
