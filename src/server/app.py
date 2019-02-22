@@ -33,6 +33,10 @@ def GET_historia(id):
 def GET_mision(id):
     return mision_json(id)
 
+@app.route('/misiones_asociadas/<id_historia>', methods=['GET'])
+def GET_misiones_asociadas(id_historia):
+    return misiones_historia_to_json(id_historia,True)
+
 @app.route('/rest/historia/<post_id>', methods=['POST'])
 def POST_historia(post_id):
     #Insertar historia
