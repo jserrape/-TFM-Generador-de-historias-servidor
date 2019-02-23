@@ -17,21 +17,13 @@ from flask import Response
 # Flask initialisation
 app = Flask(__name__)
 
-UPLOAD_FOLDER_HISTORIA = "./documentos/imagenes_historias"
-UPLOAD_FOLDER_MISION_ICON = "./documentos/imagenes_misiones"
-UPLOAD_FOLDER_MISION_AUDIO = "./documentos/audios_misiones"
-app.config['UPLOAD_FOLDER_HISTORIA'] = UPLOAD_FOLDER_HISTORIA
-app.config['UPLOAD_FOLDER_MISION_ICON'] = UPLOAD_FOLDER_MISION_ICON
-app.config['UPLOAD_FOLDER_MISION_AUDIO'] = UPLOAD_FOLDER_MISION_AUDIO
-
-#BBDD https://www.python-course.eu/sql_python.php
-#https://www.tutorialspoint.com/flask/flask_sqlite.htm
+#BBDD
 conn = sql.connect('database.db')
 print("Opened database successfully")
 #conn.execute('DROP TABLE IF EXISTS historia')
 #conn.execute('DROP TABLE IF EXISTS mision')
-conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia TEXT, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision TEXT, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio TEXT, descripcion TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
+conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision BLOB, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio BLOB, descripcion TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
 print("Table created successfully")
 conn.close()
 
