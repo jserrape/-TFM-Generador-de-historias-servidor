@@ -1,4 +1,6 @@
 import os, sys
+import urllib
+import base64
 
 from declaracionVariables import *
 from generar_json import *
@@ -118,14 +120,13 @@ def GET_misiones():
    print(rows)
    return render_template("list_mision.html",rows = rows)
 
-'''
-@app.route('/rest/mision', methods=['POST', 'PUT'])
-def POST_mision():
-    mision_dict = request.form.to_dict()
-    print('POST/PUT on mision: ' + str( mision_dict ))
-    #nueva_historia = Historia(dict=historia_dict)
-    return "Ok"
-'''
+
+@app.route('/prueba', methods=['GET'])
+def prueba():
+    data = urllib.request.urlopen('https://www.google.es/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png').read()
+    image_64_encode = base64.encodestring(data)
+    return image_64_encode
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -135,4 +136,4 @@ def page_not_found(e):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
     #crear_modelo()
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
