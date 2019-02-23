@@ -22,11 +22,21 @@ def GET_usuarios():
    print(rows)
    return render_template("list_usuario.html",rows = rows)
 
+@app.route('/rest/delete/usuario/<string:mail>', methods=['DELETE'])
+def DELETE_usuario(mail):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM usuario WHERE email='" + mail + "'")
+        con.commit()
+    con.close()
+
+    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
+
 def existe_usuario(email):
     mail = False
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute('SELECT * FROM usuario WHERE email="' + email + '"')
+        cur.execute('SELECT email FROM usuario WHERE email="' + email + '"')
         for row in cur.fetchall():
             mail = True
     con.close()

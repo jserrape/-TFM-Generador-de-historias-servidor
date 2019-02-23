@@ -29,9 +29,8 @@
             GET_server_status();
           });
 
-          var STATUS_REST_URL = "/rest/status";
-
           function GET_server_status(){
+            var STATUS_REST_URL = "/rest/status";
             $.ajax({
               url: STATUS_REST_URL,
               type: 'GET',
@@ -49,7 +48,6 @@
             });
           }
      </script>
-     <script type="text/javascript" href="{{ url_for('static', filename='js/jquery.js') }}"></script>
   </body>
 </html>
 {% endblock %}

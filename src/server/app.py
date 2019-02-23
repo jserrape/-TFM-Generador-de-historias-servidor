@@ -10,6 +10,15 @@ def get_index():
 def get_nueva_historia():
     return render_template('nueva_historia.html')
 
+@app.route('/usuarios', methods=['GET'])
+def get_eliminar_usuarios():
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select email, nombre, apellidos from usuario")
+    rows = cur.fetchall();
+    return render_template('eliminar_usuarios.html',rows = rows)
+
 @app.route('/monitorizacion', methods=['GET'])
 def get_monitorizacion():
     return render_template('monitorizacion.html')

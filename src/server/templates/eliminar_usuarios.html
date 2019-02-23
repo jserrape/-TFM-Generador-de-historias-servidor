@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Eliminar usuario.</h1>
+      <hr>
+      <div class="tab-content">
+         <br>
+         <div id="see-users-tab" class="tab-pane fade in active">
+            <table class="table table-hover" id="table-users">
+               <thead>
+                  <td>Email</td>
+                  <td>Nombre</td>
+                  <td>Apellidos</td>
+                  <td>Eliminar</td>
+               </thead>
+               {% for row in rows %}
+               <tr>
+                  <td>{{row["email"]}}</td>
+                  <td>{{row["nombre"]}}</td>
+                  <td>{{row["apellidos"]}}</td>
+                  <td><button class="btn btn-danger col-md-5 delete-user-btn" id="{{row['email']}}" type="button" onclick="eliminarUsuario(this)"><span class="glyphicon glyphicon-trash"></span></button></td>
+               </tr>
+               {% endfor %}
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript">
+   function eliminarUsuario(bot){
+     let mail = bot.id;
+     console.log(mail);
+     $.ajax({
+      url: "/rest/delete/usuario/" + mail,
+      type: 'DELETE',
+      data: {},
+      success: function (){
+        location.reload();
+      },
+      error: function (request, message, error){
+        console.log("Error eliminando usuario");
+      }
+    });
+   }
+</script>
+</body>
+</html>
+{% endblock %}
