@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Nuevo Usuario</h1>
+      <hr>
+
+      <form name="nueva_historia_form" id="nueva_historia_form" action="/rest/usuario" method="POST" enctype="multipart/form-data">
+         <div class="form-group">
+            <label for="id">Nombre</label>
+            <input name="nombre" type="text" class="form-control" value="" autocomplete="off" placeholder="" />
+         </div>
+         <div class="form-group">
+            <label for="id">Apellidos</label>
+            <input name="apellidos" type="text" class="form-control" value="" autocomplete="off" placeholder="" />
+         </div>
+         <div class="form-group">
+            <label for="id">Email</label>
+            <input name="email" type="text" class="form-control" value="" autocomplete="off" placeholder="" />
+         </div>
+         <div class="form-group">
+            <label for="id">Password</label>
+            <input name="password" type="text" class="form-control" value="" autocomplete="off" placeholder="" />
+         </div>
+         <div class="form-group">
+            <label for="id">Imagen</label>
+            <input name="imagen" type="text" class="form-control" value="" autocomplete="off" placeholder="" />
+         </div>
+
+         <br>
+
+         <input value="Crear historia" type="submit" class="btn btn-primary" id="btn_add_historia" autocomplete="off"/>
+      </form>
+   </div>
+</div>
+</body>
+</html>
+{% endblock %}

@@ -1,13 +1,11 @@
-import os
+import os, sys
+import base64
 
 import sqlite3 as sql
 
-from werkzeug.utils import secure_filename
-
 import json
 
-from flask import Flask
-from flask import send_from_directory
+from flask import Flask, redirect
 from flask import render_template
 from flask import jsonify
 from flask import request
@@ -22,8 +20,10 @@ conn = sql.connect('database.db')
 print("Opened database successfully")
 #conn.execute('DROP TABLE IF EXISTS historia')
 #conn.execute('DROP TABLE IF EXISTS mision')
+#conn.execute('DROP TABLE IF EXISTS usuario')
 conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision BLOB, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio BLOB, descripcion TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
+conn.execute('CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, apellidos TEXT, password TEXT, imagen BLOB)')
 print("Table created successfully")
 conn.close()
 
