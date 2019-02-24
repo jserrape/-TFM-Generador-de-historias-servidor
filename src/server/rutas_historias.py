@@ -40,6 +40,8 @@ def POST_historia(post_id):
             id_historia = row[0]
     con.close()
 
+    zip = zipfile.ZipFile('qr/qr_' + nombre_historia.replace(" ","_") + '.zip', 'w')
+
     #Insertar misiones
     for i in range(int(post_id)):
         num=i+1
@@ -52,6 +54,14 @@ def POST_historia(post_id):
         precedentes = request.form["precedentes_mision_" + str(num)]
         descripcion = request.form["descripcion_mision_" + str(num)]
 
+        if interaccion == 'qr':
+            img = qrcode.make(codigo_interaccion)
+            f = open("qr/" + nombre_historia + "___" + nombre_mision + ".png", "wb")
+            img.save(f)
+            f.close()
+            zip.write("qr/" + nombre_historia + "___" + nombre_mision + ".png", compress_type=zipfile.ZIP_DEFLATED)
+            os.remove("qr/" + nombre_historia + "___" + nombre_mision + ".png")
+
         #pista_audio = str(base64.b64encode((request.files['audio_mision_' + str(num)]).read()))
         pista_audio = ""
         icono_mision = str(base64.b64encode((request.files['icono_mision_' + str(num)]).read()))
@@ -62,7 +72,7 @@ def POST_historia(post_id):
             cur.execute("INSERT INTO mision (id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) VALUES (?,?,?,?,?,?,?,?,?,?)",(id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) )
             con.commit()
         con.close()
-
+    zip.close()
     return redirect("/historias", code=302)
 
 @app.route('/rest/list/historia', methods=['GET'])

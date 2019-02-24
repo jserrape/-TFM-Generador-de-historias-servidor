@@ -4,7 +4,6 @@ from generar_json import *
 @app.route('/rest/usuario', methods=['POST', 'PUT'])
 def POST_usuario():
     usu_dict = request.form.to_dict()
-    print(str( usu_dict ))
     existe = existe_usuario(usu_dict['email'])
     if existe:
         return Response(json.dumps( {'status': '400','resultado': 'Ya existe un usuario con ese email'}, indent=4 ), status=400, mimetype='application/json')
@@ -21,7 +20,6 @@ def GET_usuarios():
    cur = con.cursor()
    cur.execute("select * from usuario")
    rows = cur.fetchall();
-   print(rows)
    return render_template("list_usuario.html",rows = rows)
 
 @app.route('/editar_usuario/<string:mail>', methods=['GET'])
@@ -83,10 +81,6 @@ def existe_usuario(email):
         for row in cur.fetchall():
             mail = True
     con.close()
-    if mail:
-        print("Usuario existe")
-    else:
-        print("Usuario NO existe")
     return mail
 
 def insertar_usuario(email, nombre, apellidos, password, imagen):

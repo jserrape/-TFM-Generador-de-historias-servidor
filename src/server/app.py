@@ -1,6 +1,5 @@
 from rutas_historias import *
 from rutas_usuario import *
-#from modelo import *
 
 @app.route('/', methods=['GET'])
 def get_index():
@@ -36,9 +35,9 @@ def get_status():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-@app.route('/prueba', methods=['GET'])
+@app.route('/registro', methods=['GET'])
 def prueba():
-    return render_template('prueba_post.html')
+    return render_template('registro_usuario.html')
 
 
 if __name__ == '__main__':

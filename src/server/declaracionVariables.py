@@ -1,6 +1,10 @@
 import os, sys
 import base64
 
+import zipfile
+
+import qrcode
+
 import sqlite3 as sql
 
 import json
@@ -11,6 +15,7 @@ from flask import jsonify
 from flask import request
 from flask import abort
 from flask import Response
+from flask import send_from_directory
 
 # Flask initialisation
 app = Flask(__name__)
@@ -26,6 +31,13 @@ conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCR
 conn.execute('CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, apellidos TEXT, password TEXT, imagen BLOB)')
 print("Table created successfully")
 conn.close()
+
+#Crear directorio qr
+directorio = "qr"
+try:
+    os.stat(directorio)
+except:
+    os.mkdir(directorio)
 
 # Metadata
 server_info = {}
