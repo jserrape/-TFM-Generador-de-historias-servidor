@@ -7,3 +7,11 @@
 h1.titulo {
     text-align: center;
 }
+
+img.img_perfil {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: auto;
+    border: 1px double;
+}

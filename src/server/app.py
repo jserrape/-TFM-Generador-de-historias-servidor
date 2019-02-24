@@ -17,7 +17,7 @@ def get_eliminar_usuarios():
     cur = con.cursor()
     cur.execute("select email, nombre, apellidos from usuario")
     rows = cur.fetchall();
-    return render_template('eliminar_usuarios.html',rows = rows)
+    return render_template('gestionar_usuarios.html',rows = rows)
 
 @app.route('/monitorizacion', methods=['GET'])
 def get_monitorizacion():

@@ -24,6 +24,8 @@ def POST_historia(post_id):
     zoom = request.form["zoom"]
     descripcion_historia = request.form["descripcion_historia"]
 
+    imagen_historia = str(imagen_historia[2:(len(imagen_historia))-1])
+
     #decoded_string = base64.b64decode(imagen_historia)
     #with open("test_img.png", "wb") as image_file2:
     #    image_file2.write(decoded_string);
@@ -53,6 +55,7 @@ def POST_historia(post_id):
         #pista_audio = str(base64.b64encode((request.files['audio_mision_' + str(num)]).read()))
         pista_audio = ""
         icono_mision = str(base64.b64encode((request.files['icono_mision_' + str(num)]).read()))
+        icono_mision = str(icono_mision[2:(len(icono_mision))-1])
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
