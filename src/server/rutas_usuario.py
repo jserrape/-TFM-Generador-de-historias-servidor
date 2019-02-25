@@ -1,6 +1,9 @@
 from declaracionVariables import *
 from generar_json import *
 
+"""
+Ruta para el registro de usuarios
+"""
 @app.route('/rest/usuario', methods=['POST', 'PUT'])
 def POST_usuario():
     usu_dict = request.form.to_dict()
@@ -13,6 +16,9 @@ def POST_usuario():
         insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['apellidos'], usu_dict['password'], imagen_usu)
         return Response(json.dumps( {'status': '201','resultado': 'Se ha registrado correctamente'}, indent=4 ), status=201, mimetype='application/json')
 
+"""
+Vista auxiliar que muestra la tabla usuario
+"""
 @app.route('/rest/list/usuario', methods=['GET'])
 def GET_usuarios():
    con = sql.connect("database.db")
@@ -22,6 +28,9 @@ def GET_usuarios():
    rows = cur.fetchall();
    return render_template("list_usuario.html",rows = rows)
 
+"""
+Vista para la edición de un usuario a partir de su email
+"""
 @app.route('/editar_usuario/<string:mail>', methods=['GET'])
 def GET_editar_usuarios(mail):
    con = sql.connect("database.db")
@@ -31,6 +40,9 @@ def GET_editar_usuarios(mail):
    rows = cur.fetchall();
    return render_template("editar_usuario.html",rows = rows)
 
+"""
+Ruta para eliminar un usuario a partir de su email
+"""
 @app.route('/rest/delete/usuario/<string:mail>', methods=['DELETE'])
 def DELETE_usuario(mail):
     with sql.connect("database.db") as con:
@@ -40,6 +52,9 @@ def DELETE_usuario(mail):
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
+"""
+Ruta para actualizar el email de un usuario
+"""
 @app.route('/rest/update_mail/usuario', methods=['POST'])
 def UPDATE_mail_usuario():
     emailNuevo = request.form['emailNuevo']
@@ -51,6 +66,9 @@ def UPDATE_mail_usuario():
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
+"""
+Ruta para actualizar el nombre de un usuario
+"""
 @app.route('/rest/update_nombre/usuario', methods=['POST'])
 def UPDATE_nombre_usuario():
     nombrelNuevo = request.form['nombreNuevo']
@@ -62,6 +80,9 @@ def UPDATE_nombre_usuario():
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
+"""
+Ruta para actualizar el apellido de un usuario
+"""
 @app.route('/rest/update_apellidos/usuario', methods=['POST'])
 def UPDATE_apellidos_usuario():
     apellidosNuevo = request.form['apellidosNuevo']
@@ -73,6 +94,9 @@ def UPDATE_apellidos_usuario():
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
+"""
+Función para comprobar si existe un usuario
+"""
 def existe_usuario(email):
     mail = False
     with sql.connect("database.db") as con:
@@ -83,6 +107,9 @@ def existe_usuario(email):
     con.close()
     return mail
 
+"""
+Función para insertar un usuario
+"""
 def insertar_usuario(email, nombre, apellidos, password, imagen):
     with sql.connect("database.db") as con:
         cur = con.cursor()

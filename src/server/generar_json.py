@@ -1,5 +1,9 @@
 from declaracionVariables import *
 
+"""
+Función que devuelve una historia a partir de su id con todas
+sus misiones en formato JSON
+"""
 def historia_json(id):
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -19,6 +23,9 @@ def historia_json(id):
     con.close()
     return json.dumps(data)
 
+"""
+Función que devuelve una misión a partir de su id en formato JSON
+"""
 def mision_json(id):
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -39,6 +46,10 @@ def mision_json(id):
     con.close()
     return json.dumps(data)
 
+"""
+Función que devuelve todas las misiones asociadas al id de una historia
+en formato JSON o como cadena de texto
+"""
 def misiones_historia_to_json(id_historia,jso):
     with sql.connect("database.db") as con:
         cur = con.cursor()

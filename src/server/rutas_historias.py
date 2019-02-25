@@ -1,18 +1,30 @@
 from declaracionVariables import *
 from generar_json import *
 
+"""
+Vista que devuelve un JSON completo de una historia a partir de su id
+"""
 @app.route('/historia/<id>', methods=['GET'])
 def GET_historia(id):
     return historia_json(id)
 
+"""
+Vista que devuelve un JSON completo de una misión a partir de su id
+"""
 @app.route('/mision/<id>', methods=['GET'])
 def GET_mision(id):
     return mision_json(id)
 
+"""
+Vista que devuelve el JSON completo de las misiones asociadas a un historia en formato JSON
+"""
 @app.route('/misiones_asociadas/<id_historia>', methods=['GET'])
 def GET_misiones_asociadas(id_historia):
     return misiones_historia_to_json(id_historia,True)
 
+"""
+Ruta para el registro de una historia y sus misiones asociadas
+"""
 @app.route('/rest/historia/<post_id>', methods=['POST'])
 def POST_historia(post_id):
     #Insertar historia
@@ -29,7 +41,6 @@ def POST_historia(post_id):
     #decoded_string = base64.b64decode(imagen_historia)
     #with open("test_img.png", "wb") as image_file2:
     #    image_file2.write(decoded_string);
-
 
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -75,6 +86,9 @@ def POST_historia(post_id):
     zip.close()
     return redirect("/historias", code=302)
 
+"""
+Vista auxiliar que muestra la tabla historia
+"""
 @app.route('/rest/list/historia', methods=['GET'])
 def GET_historias():
    con = sql.connect("database.db")
@@ -85,6 +99,9 @@ def GET_historias():
    print(rows)
    return render_template("list_historia.html",rows = rows)
 
+"""
+Vista auxiliar que muestra la tabla mision
+"""
 @app.route('/rest/list/mision', methods=['GET'])
 def GET_misiones():
    con = sql.connect("database.db")
