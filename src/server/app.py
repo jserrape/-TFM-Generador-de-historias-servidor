@@ -10,13 +10,22 @@ def get_nueva_historia():
     return render_template('nueva_historia.html')
 
 @app.route('/usuarios', methods=['GET'])
-def get_eliminar_usuarios():
+def get_gestionar_usuarios():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select email, nombre, apellidos from usuario")
+    cur.execute("SELECT email, nombre, apellidos FROM usuario")
     rows = cur.fetchall();
     return render_template('gestionar_usuarios.html',rows = rows)
+
+@app.route('/historias', methods=['GET'])
+def get_gestionar_historias():
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT id, nombre_historia FROM historia")
+    rows = cur.fetchall();
+    return render_template('gestionar_historias.html',rows = rows)
 
 @app.route('/monitorizacion', methods=['GET'])
 def get_monitorizacion():
