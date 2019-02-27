@@ -111,3 +111,16 @@ def GET_misiones():
    rows = cur.fetchall();
    print(rows)
    return render_template("list_mision.html",rows = rows)
+
+"""
+Ruta para eliminar una historia y sus misiones asociadas
+"""
+@app.route('/rest/delete/historia/<string:id>', methods=['DELETE'])
+def DELETE_historia(id):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM mision WHERE id_historia='" + id + "'")
+        cur.execute("DELETE FROM historia WHERE id='" + id + "'")
+        con.commit()
+    con.close()
+    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
