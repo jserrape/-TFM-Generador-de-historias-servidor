@@ -124,3 +124,15 @@ def DELETE_historia(id):
         con.commit()
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
+Vista para la edición de una historia a partir de su id
+"""
+@app.route('/editar_historia/<string:id>', methods=['GET'])
+def GET_editar_historias(id):
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+   cur = con.cursor()
+   cur.execute("SELECT * FROM historia WHERE id='" + id + "'")
+   rows = cur.fetchall();
+   return render_template("editar_historia.html",rows = rows)
