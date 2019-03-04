@@ -24,6 +24,22 @@ def historia_json(id):
     return json.dumps(data)
 
 """
+Función que devuelve en formato JSON todas las historias con sus atributos id y nombre
+"""
+def historia_json_list():
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT id, nombre_historia FROM historia')
+        data_max = []
+        for row in cur.fetchall():
+            data_min = {}
+            data_min['id'] = row[0]
+            data_min['nombre_historia'] = row[1]
+            data_max.append(data_min)
+    con.close()
+    return  json.dumps(data_max)
+
+"""
 Función que devuelve una misión a partir de su id en formato JSON
 """
 def mision_json(id):

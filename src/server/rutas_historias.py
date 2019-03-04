@@ -9,6 +9,13 @@ def GET_historia(id):
     return historia_json(id)
 
 """
+Vista que devuelve un JSON con el id y nombre de todas las historias
+"""
+@app.route('/historia/list', methods=['GET'])
+def GET_historias_list():
+    return historia_json_list()
+
+"""
 Vista que devuelve un JSON completo de una misión a partir de su id
 """
 @app.route('/mision/<id>', methods=['GET'])
