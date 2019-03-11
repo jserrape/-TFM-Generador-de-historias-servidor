@@ -1,5 +1,6 @@
 from rutas_historias import *
 from rutas_usuario import *
+from flask import send_file
 
 """
 Vista principal de la web que muestra información de la aplicación
@@ -67,16 +68,20 @@ def get_status():
 """
 Vista mostrada al acceder a una vista que no existe
 """
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+#@app.errorhandler(404)
+#def page_not_found(e):
+#    return render_template('404.html'), 404
 
 """
 Vista de prueba para el registro de usuarios
 """
 @app.route('/registro', methods=['GET'])
-def prueba():
+def registro():
     return render_template('registro_usuario.html')
+
+@app.route('/descargar', methods=['GET', 'POST'])
+def descarga():
+    return send_from_directory(directory='qr', filename='qr_1.zip', as_attachment=True)
 
 """
 Función de ejecución principal del sistema

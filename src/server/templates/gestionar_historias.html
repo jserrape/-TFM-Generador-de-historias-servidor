@@ -12,6 +12,7 @@
                <thead>
                   <td>Id</td>
                   <td>Nombre de la historia</td>
+                  <td>Descargar</td>
                   <td>Editar</td>
                   <td>Eliminar</td>
                </thead>
@@ -19,6 +20,7 @@
                <tr>
                   <td>{{row["id"]}}</td>
                   <td>{{row["nombre_historia"]}}</td>
+                  <td><button class="btn btn-primary col-md-5 edit-user-btn" id="{{row['id']}}" type="button" onclick=""><span class="glyphicon glyphicon-download-alt"></span></button></td>
                   <td><button class="btn btn-success col-md-5 edit-user-btn" id="{{row['id']}}" type="button" onclick="editarHistoria(this)"><span class="glyphicon glyphicon-pencil"></span></button></td>
                   <td><button class="btn btn-danger col-md-5 delete-user-btn" id="{{row['id']}}" type="button" onclick="eliminarHistoria(this)"><span class="glyphicon glyphicon-trash"></span></button></td>
                </tr>

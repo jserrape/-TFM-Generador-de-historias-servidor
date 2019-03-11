@@ -142,4 +142,8 @@ def GET_editar_historias(id):
    cur = con.cursor()
    cur.execute("SELECT * FROM historia WHERE id='" + id + "'")
    rows = cur.fetchall();
-   return render_template("editar_historia.html",rows = rows)
+
+   cur.execute("SELECT id, nombre_mision FROM mision WHERE id_historia='" + id + "'")
+   rowsM = cur.fetchall();
+
+   return render_template("editar_historia.html",rows = rows, rowsM = rowsM)

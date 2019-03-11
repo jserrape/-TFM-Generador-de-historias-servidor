@@ -3,7 +3,7 @@
 <div class="container">
    <div class="col-md-12">
       <br><br><br><br>
-      <h1 class="titulo">Editar historia.</h1>
+      <h1 class="titulo">Editar historia</h1>
       <hr>
       <form name="" id="" action="" method="POST" enctype="multipart/form-data" data-toggle="validator" role="form">
         <div class="form-group">
@@ -33,6 +33,33 @@
            <label for="id">Descripción de la historia</label>
            <input name="descripcion_historia" type="text" class="form-control" value="{{rows[0][7]}}" autocomplete="off" placeholder="Introduzca la descripción de la historia" />
         </div>
+
+        <!-- -->
+
+        <br>
+        <div id="see-misiones-tab" class="tab-pane edit-misiones fade in active">
+           <h3 class="titulo">Misiones asociadas</h3>
+           <table class="table table-hover" id="table-misiones">
+              <thead>
+                 <td>Id</td>
+                 <td>Nombre de la misión</td>
+                 <td>Editar</td>
+                 <td>Eliminar</td>
+              </thead>
+              {% for row in rowsM %}
+              <tr>
+                 <td>{{row["id"]}}</td>
+                 <td>{{row["nombre_mision"]}}</td>
+                 <td><button class="btn btn-success col-md-5 edit-user-btn" id="{{row['id']}}" type="button" onclick="editarMision(this)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                 <td><button class="btn btn-danger col-md-5 delete-user-btn" id="{{row['id']}}" type="button" onclick="eliminarMision(this)"><span class="glyphicon glyphicon-trash"></span></button></td>
+              </tr>
+              {% endfor %}
+           </table>
+        </div>
+        <br>
+        <br>
+
+        <!-- -->
 
          <!-- BOTONES -->
          <div class="row">
@@ -66,12 +93,24 @@
         element.value = idioma;
       });
 
+      //Botones de la historia
       function irHistorias(){
         window.location.href = "/historias";
       }
 
       function actualizarHistorias(){
 
+      }
+
+      //Botones de las misiones
+      function editarMision(bot){
+        let id = bot.id;
+        console.log(id);
+      }
+
+      function eliminarMision(bot){
+        let id = bot.id;
+        console.log(id);
       }
  </script>
 </body>
