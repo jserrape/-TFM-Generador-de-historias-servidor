@@ -6,7 +6,9 @@ Ruta para el registro de usuarios
 """
 @app.route('/rest/usuario', methods=['POST', 'PUT'])
 def POST_usuario():
+    print("Ha llegado una peticion post")
     usu_dict = request.form.to_dict()
+    print("dic mail: "+usu_dict['email'])
     existe = existe_usuario(usu_dict['email'])
     if existe:
         return Response(json.dumps( {'status': '400','resultado': 'Ya existe un usuario con ese email'}, indent=4 ), status=400, mimetype='application/json')
@@ -84,6 +86,7 @@ def UPDATE_nombre_usuario():
 Función para comprobar si existe un usuario
 """
 def existe_usuario(email):
+    print("Compruebo si existe el usuario")
     mail = False
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -97,6 +100,7 @@ def existe_usuario(email):
 Función para insertar un usuario
 """
 def insertar_usuario(email, nombre, password, imagen):
+    print("Inserto el nuevo usuario en la bbdd")
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",(email, nombre, password, imagen) )
