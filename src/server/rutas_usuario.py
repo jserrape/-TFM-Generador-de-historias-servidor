@@ -12,7 +12,7 @@ def POST_usuario():
     existe = existe_usuario(usu_dict['email'])
     if existe:
         print("Ya existe el usuario")
-        return Response(json.dumps( {'status': '400','resultado': 'Ya existe un usuario con ese email'}, indent=4 ), status=400, mimetype='application/json')
+        return Response(json.dumps( {'status': '401','resultado': 'Ya existe un usuario con ese email'}, indent=4 ), status=400, mimetype='application/json')
     else:
         print("El usuario no existe")
         #imagen_usu = str(base64.b64encode((request.files['imagen']).read()))
