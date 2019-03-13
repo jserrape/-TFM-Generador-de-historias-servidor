@@ -11,10 +11,13 @@ def POST_usuario():
     print("dic mail: "+usu_dict['email'])
     existe = existe_usuario(usu_dict['email'])
     if existe:
+        print("Ya existe el usuario")
         return Response(json.dumps( {'status': '400','resultado': 'Ya existe un usuario con ese email'}, indent=4 ), status=400, mimetype='application/json')
     else:
-        imagen_usu = str(base64.b64encode((request.files['imagen']).read()))
-        imagen_usu = str(imagen_usu[2:(len(imagen_usu))-1])
+        print("El usuario no existe")
+        #imagen_usu = str(base64.b64encode((request.files['imagen']).read()))
+        #imagen_usu = str(imagen_usu[2:(len(imagen_usu))-1])
+        #insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], usu_dict['imagen_usu'])
         insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], imagen_usu)
         return Response(json.dumps( {'status': '201','resultado': 'Se ha registrado correctamente'}, indent=4 ), status=201, mimetype='application/json')
 
