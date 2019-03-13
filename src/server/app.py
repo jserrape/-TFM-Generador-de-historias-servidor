@@ -25,7 +25,7 @@ def get_gestionar_usuarios():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT email, nombre, apellidos FROM usuario")
+    cur.execute("SELECT email, nombre FROM usuario")
     rows = cur.fetchall();
     return render_template('gestionar_usuarios.html',rows = rows)
 

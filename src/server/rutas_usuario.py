@@ -13,7 +13,7 @@ def POST_usuario():
     else:
         imagen_usu = str(base64.b64encode((request.files['imagen']).read()))
         imagen_usu = str(imagen_usu[2:(len(imagen_usu))-1])
-        insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['apellidos'], usu_dict['password'], imagen_usu)
+        insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], imagen_usu)
         return Response(json.dumps( {'status': '201','resultado': 'Se ha registrado correctamente'}, indent=4 ), status=201, mimetype='application/json')
 
 """
@@ -81,20 +81,6 @@ def UPDATE_nombre_usuario():
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
 """
-Ruta para actualizar el apellido de un usuario
-"""
-@app.route('/rest/update_apellidos/usuario', methods=['POST'])
-def UPDATE_apellidos_usuario():
-    apellidosNuevo = request.form['apellidosNuevo']
-    correo = request.form['correo']
-    with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute("UPDATE usuario SET apellidos ='" + apellidosNuevo +"' WHERE email='" + correo +"'")
-        con.commit()
-    con.close()
-    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
-
-"""
 Función para comprobar si existe un usuario
 """
 def existe_usuario(email):
@@ -110,9 +96,9 @@ def existe_usuario(email):
 """
 Función para insertar un usuario
 """
-def insertar_usuario(email, nombre, apellidos, password, imagen):
+def insertar_usuario(email, nombre, password, imagen):
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute("INSERT INTO usuario (email, nombre, apellidos, password, imagen) VALUES (?,?,?,?,?)",(email, nombre, apellidos, password, imagen) )
+        cur.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",(email, nombre, password, imagen) )
         con.commit()
     con.close()

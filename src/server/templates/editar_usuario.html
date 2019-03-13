@@ -7,15 +7,11 @@
       <hr>
       <form name="" id="" action="" method="POST" enctype="multipart/form-data" data-toggle="validator" role="form">
         <div class="form-group">
-          <img class="img_perfil" src="data:image/png;base64, {{rows[0][4]}}" alt="Imagen de perfil" />
+          <img class="img_perfil" src="data:image/png;base64, {{rows[0][3]}}" alt="Imagen de perfil" />
         </div>
         <div class="form-group">
-           <label for="id">Nombre</label>
+           <label for="id">Usuario</label>
            <input name="nombre" type="text" class="form-control" value="{{rows[0][1]}}" autocomplete="off" required/>
-        </div>
-        <div class="form-group">
-           <label for="id">Apellidos</label>
-           <input name="apellidos" type="text" class="form-control" value="{{rows[0][2]}}" autocomplete="off" required/>
         </div>
         <div class="form-group">
            <label for="id">Email</label>
@@ -44,7 +40,6 @@
       $( document ).ready(function(){
         correo = "{{rows[0][0]}}"
         nombre = "{{rows[0][1]}}"
-        apellidos = "{{rows[0][2]}}"
       });
 
       function irUsuarios(){
@@ -54,7 +49,6 @@
       function actualizarUsuarios(){
         var emailNuevo = document.getElementsByName("email")[0].value;
         var nombreNuevo = document.getElementsByName("nombre")[0].value;
-        var apellidosNuevo = document.getElementsByName("apellidos")[0].value;
 
         console.log(emailNuevo);
         console.log(correo);
@@ -67,17 +61,6 @@
            url: "/rest/update_nombre/usuario",
            type: 'POST',
            data: {correo, nombreNuevo}
-         });
-        }
-
-        if(apellidos == apellidosNuevo){
-          console.log("NO ha cambiado el apellidos");
-        }else{
-          console.log("Sí ha cambiado el apellidos");
-          $.ajax({
-           url: "/rest/update_apellidos/usuario",
-           type: 'POST',
-           data: {correo, apellidosNuevo}
          });
         }
 
