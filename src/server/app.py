@@ -68,16 +68,16 @@ def get_status():
 """
 Vista mostrada al acceder a una vista que no existe
 """
-#@app.errorhandler(404)
-#def page_not_found(e):
-#    return render_template('404.html'), 404
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 """
 Vista de prueba para el registro de usuarios
 """
-@app.route('/registro', methods=['GET'])
+@app.route('/prueba', methods=['GET'])
 def registro():
-    return render_template('registro_usuario.html')
+    return passwordCprrecto("hkjnjkjb","klnknkn")
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():

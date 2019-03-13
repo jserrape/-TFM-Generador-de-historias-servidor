@@ -22,6 +22,21 @@ def POST_usuario():
         return Response(json.dumps( {'status': '201','resultado': 'Se ha registrado correctamente'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para el login de los usuarios
+"""
+@app.route('/rest/login', methods=['POST', 'PUT'])
+def POST_login():
+    print("Ha llegado una peticion post de login")
+    usu_dict = request.form.to_dict()
+    correcto = passwordCprrecto(usu_dict['email'], usu_dict['password'])
+    if correcto:
+        print("Login correcto")
+        return Response(json.dumps( {'status': '200','resultado': 'Inicio de sesión correcto'}, indent=4 ), status=201, mimetype='application/json')
+    else:
+        print("Login incorrecto")
+        return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
 Vista auxiliar que muestra la tabla usuario
 """
 @app.route('/rest/list/usuario', methods=['GET'])
@@ -98,6 +113,19 @@ def existe_usuario(email):
             mail = True
     con.close()
     return mail
+
+"""
+Comprueba si una contraseña está asociada a un correo
+"""
+def passwordCprrecto(email, password):
+    res = False
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT email FROM usuario WHERE email="' + email + '" AND password="' + password + '"')
+        for row in cur.fetchall():
+            res = True
+    con.close()
+    return res
 
 """
 Función para insertar un usuario
