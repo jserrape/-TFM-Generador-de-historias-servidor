@@ -18,7 +18,7 @@ def POST_usuario():
         #imagen_usu = str(base64.b64encode((request.files['imagen']).read()))
         #imagen_usu = str(imagen_usu[2:(len(imagen_usu))-1])
         #insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], usu_dict['imagen_usu'])
-        insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], imagen_usu)
+        insertar_usuario(usu_dict['email'], usu_dict['nombre'], usu_dict['password'], usu_dict['imagen_usu'])
         return Response(json.dumps( {'status': '201','resultado': 'Se ha registrado correctamente'}, indent=4 ), status=201, mimetype='application/json')
 
 """
