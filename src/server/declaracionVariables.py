@@ -19,6 +19,8 @@ from flask import send_from_directory
 
 import hashlib
 
+import requests
+
 # Flask initialisation
 app = Flask(__name__)
 

@@ -44,6 +44,14 @@ def POST_cambio_password():
     print("Ha llegado una peticion post de cambio de contrseña")
     usu_dict = request.form.to_dict()
     ruta = hashlib.sha224(usu_dict['email'].encode('utf-8')).hexdigest()
+    #Inserto la ruta en la bbdd
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("UPDATE usuario SET ruta ='" + ruta +"' WHERE email='" + usu_dict['email'] +"'")
+        con.commit()
+    con.close()
+    #Envio email
+    return "OK"
 
 """
 Vista auxiliar que muestra la tabla usuario
