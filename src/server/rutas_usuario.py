@@ -37,6 +37,15 @@ def POST_login():
         return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para solicitar un cambio de contraseña
+"""
+@app.route('/rest/cambio', methods=['POST', 'PUT'])
+def POST_cambio_password():
+    print("Ha llegado una peticion post de cambio de contrseña")
+    usu_dict = request.form.to_dict()
+    ruta = hashlib.sha224(usu_dict['email'].encode('utf-8')).hexdigest()
+
+"""
 Vista auxiliar que muestra la tabla usuario
 """
 @app.route('/rest/list/usuario', methods=['GET'])

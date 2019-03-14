@@ -77,7 +77,8 @@ Vista de prueba para el registro de usuarios
 """
 @app.route('/prueba', methods=['GET'])
 def registro():
-    return passwordCprrecto("hkjnjkjb","klnknkn")
+    var = "Nobody inspects the spammish repetition"
+    return hashlib.sha224(var.encode('utf-8')).hexdigest()
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():

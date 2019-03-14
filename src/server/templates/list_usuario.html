@@ -11,6 +11,7 @@
                   <td>nombre</td>
                   <td>password</td>
                   <td>imagen</td>
+                  <td>ruta</td>
                </thead>
 
                {% for row in rows %}
@@ -19,6 +20,7 @@
                      <td>{{row["nombre"]}}</td>
                      <td> {{ row["password"]}}</td>
                      <td>{{row['imagen']}}</td>
+                     <td>{{row['ruta']}}</td>
                   </tr>
                {% endfor %}
             </table>
