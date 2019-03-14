@@ -54,6 +54,24 @@ def POST_cambio_password():
     return "OK"
 
 """
+Vista para cambiar la contraseña de un usuario
+"""
+@app.route('/usuario/<cod>', methods=['GET'])
+def GET_cambio_password(cod):
+    mail = False
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT email FROM usuario WHERE ruta="' + cod + '"')
+        for row in cur.fetchall():
+            mail = True
+    con.close()
+    if mail:
+        return "El usuario tiene para cambiar la contraseña"
+    else:
+        return render_template('404.html'), 404
+
+
+"""
 Vista auxiliar que muestra la tabla usuario
 """
 @app.route('/rest/list/usuario', methods=['GET'])
