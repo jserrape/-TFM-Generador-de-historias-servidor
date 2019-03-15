@@ -52,21 +52,24 @@ def POST_cambio_password():
         con.commit()
     con.close()
     #Envio email
-    remitente = "Desde gnucita <gestor.predictivo@gmail.com>"
-    destinatario = "Usuario <" + usu_dict['email'] + ">"
-    asunto = "E-mal HTML enviado desde Python"
-    mensaje = """Hola!<br/> <br/>
-    Este es un <b>e-mail</b> enviando desde <b>Python</b>
-    """
-    email = """From: %s
-    To: %s
-    MIME-Version: 1.0
-    Content-type: text/html
-    Subject: %s
-    %s
-    """ % (remitente, destinatario, asunto, mensaje)
-    smtp = smtplib.SMTP('localhost')
-    smtp.sendmail(remitente, destinatario, email)
+    # create message object instance
+    msg = MIMEMultipart()
+    message = "Ha solicitado un cambio de contraseña de Historias interactivas. Para cambiar su contraseña acceda al siguiente enlace:\n https://tfm-historias.herokuapp.com/usuario/" + ruta
+    # setup the parameters of the message
+    password = "jcsp0003"
+    msg['From'] = "gestor.predictivo@gmail.com"
+    msg['To'] = usu_dict['email']
+    msg['Subject'] = "Cambio de contraseña: Historias interactivas"
+    # add in the message body
+    msg.attach(MIMEText(message, 'plain'))
+    #create server
+    server = smtplib.SMTP('smtp.gmail.com: 587')
+    server.starttls()
+    # Login Credentials for sending the mail
+    server.login(msg['From'], password)
+    # send the message via the server.
+    server.sendmail(msg['From'], msg['To'], msg.as_string())
+    server.quit()
     return "Enviado"
 
 """
