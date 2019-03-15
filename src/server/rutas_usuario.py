@@ -66,7 +66,7 @@ def GET_cambio_password(cod):
             mail = True
     con.close()
     if mail:
-        return "El usuario tiene para cambiar la contraseña"
+        return render_template('cambiar_contraseña.html')
     else:
         return render_template('404.html'), 404
 
@@ -131,6 +131,24 @@ def UPDATE_nombre_usuario():
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute("UPDATE usuario SET nombre ='" + nombrelNuevo +"' WHERE email='" + correo +"'")
+        con.commit()
+    con.close()
+    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
+Ruta para actualizar la contraseña de un usuario
+"""
+@app.route('/rest/update_password/usuario', methods=['POST'])
+def update_password_usuario():
+    print("Peticion POST de cambio de contraseña")
+    data = request.data.decode("utf-8").split("&")
+    data[0] = data[0].replace("ruta=","")
+    data[1] = data[1].replace("password=","")
+    print(data)
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("UPDATE usuario SET password ='" + data[1] +"' WHERE ruta='" + data[0] +"'")
+        cur.execute("UPDATE usuario SET ruta ='' WHERE ruta='" + data[0] +"'")
         con.commit()
     con.close()
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')

@@ -20,3 +20,24 @@ div#see-misiones-tab {
     width: 80%;
     margin: auto;
 }
+
+input.centrar {
+    margin: auto;
+    display: block;
+}
+
+label#error_pass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    display: none;
+}
+
+label#error_pass2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    display: none;
+}
