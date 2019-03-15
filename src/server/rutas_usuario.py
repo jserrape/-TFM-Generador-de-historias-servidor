@@ -47,6 +47,8 @@ def POST_cambio_password():
     print("Ha llegado una peticion post de cambio de contrseña")
     usu_dict = request.form.to_dict()
     ruta = hashlib.sha224(usu_dict['email'].encode('utf-8')).hexdigest()
+    print("Email: " + usu_dict['email'])
+    print("Ruta: " + ruta)
     #Inserto la ruta en la bbdd
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -54,6 +56,9 @@ def POST_cambio_password():
         con.commit()
     con.close()
     #Envio email
+    #
+    #
+    #
     return Response(json.dumps( {'status': '200','resultado': 'Solicitud de cambio de contraseña correcto'}, indent=4 ), status=201, mimetype='application/json')
 
 """
