@@ -4,9 +4,10 @@ from generar_json import *
 """
 Vista que devuelve un JSON completo de una historia a partir de su id
 """
-@app.route('/historia/<id>', methods=['GET'])
-def GET_historia(id):
-    return historia_json(id)
+@app.route('/historia', methods=['POST', 'PUT'])
+def GET_historia():
+    hist_dict = request.form.to_dict()
+    return historia_json(hist_dict['id'])
 
 """
 Vista que devuelve un JSON con el id y nombre de todas las historias
