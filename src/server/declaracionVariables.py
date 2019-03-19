@@ -50,3 +50,11 @@ server_info['email'] = 'juan.carlos.wow.95@gmail.com'
 server_info['twitter'] = '@xenahort'
 server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-servidor'
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
+
+
+with sql.connect("database.db") as con:
+    cur = con.cursor()
+    cur.execute("INSERT INTO usuario (email, nombre, password, imagen, ruta) VALUES (?,?,?,?)",("juan.carlos.wow.95@gmail.com", "nombre", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220", "") )
+    cur.execute("INSERT INTO usuario (email, nombre, password, imagen, ruta) VALUES (?,?,?,?)",("a", "a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8", "") )
+    con.commit()
+con.close()
