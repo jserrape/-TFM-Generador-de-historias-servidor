@@ -33,6 +33,8 @@ print("Opened database successfully")
 conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision BLOB, latitud_mision INT, longitud_mision INT, interaccion TEXT, codigo_interaccion TEXT, precedentes TEXT, pista_audio BLOB, descripcion TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
 conn.execute('CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, password TEXT, imagen BLOB, ruta TEXT)')
+conn.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",("juan.carlos.wow.95@gmail.com", "nombre", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220", "") )
+conn.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",("a", "a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8", "") )
 print("Table created successfully")
 conn.close()
 
@@ -50,11 +52,3 @@ server_info['email'] = 'juan.carlos.wow.95@gmail.com'
 server_info['twitter'] = '@xenahort'
 server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-servidor'
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
-
-
-with sql.connect("database.db") as con:
-    cur = con.cursor()
-    cur.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",("juan.carlos.wow.95@gmail.com", "nombre", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220", "") )
-    cur.execute("INSERT INTO usuario (email, nombre, password, imagen) VALUES (?,?,?,?)",("a", "a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8", "") )
-    con.commit()
-con.close()
