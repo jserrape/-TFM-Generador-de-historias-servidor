@@ -77,17 +77,7 @@ Vista de prueba para el registro de usuarios
 """
 @app.route('/prueba', methods=['GET'])
 def registro():
-    with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute("INSERT INTO usuario (email, nombre, password, imagen, ruta) VALUES (?,?,?,?,?)",("juan.carlos.wow.95@gmail.com", "nombre", "password", "imagen", "asdf") )
-        con.commit()
-    con.close()
-
-    API_ENDPOINT = "https://tfm-historias.herokuapp.com/rest/cambio"
-    data = {'email': 'juan.carlos.wow.95@gmail.com'}
-    r = requests.post(url = API_ENDPOINT, data = data)
-    pastebin_url = r.text
-    return "" + pastebin_url
+    return datos_usuario("a")
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():

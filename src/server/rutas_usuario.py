@@ -34,7 +34,7 @@ def POST_login():
     correcto = passwordCprrecto(usu_dict['email'], usu_dict['password'])
     if correcto:
         print("Login correcto")
-        return Response(json.dumps( {'status': '200','resultado': 'Inicio de sesión correcto'}, indent=4 ), status=201, mimetype='application/json')
+        return Response(json.dumps( {'status': '200','resultado': datos_usuario(usu_dict['email'])}, indent=4 ), status=201, mimetype='application/json')
     else:
         print("Login incorrecto")
         return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')

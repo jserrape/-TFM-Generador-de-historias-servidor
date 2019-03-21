@@ -90,3 +90,15 @@ def misiones_historia_to_json(id_historia,jso):
         return json.dumps(data_max)
     else:
         return data_max
+
+def datos_usuario(email):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT email, nombre, imagen FROM usuario WHERE email="' + email + '"')
+        data = {}
+        for row in cur.fetchall():
+            data['email'] = row[0]
+            data['nombre'] = row[1]
+            data['imagen'] = row[2]
+    con.close()
+    return json.dumps(data)
