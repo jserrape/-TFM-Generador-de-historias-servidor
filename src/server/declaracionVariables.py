@@ -55,29 +55,34 @@ server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-
 
 
 #Creo la bbdd sql
-db = MySQLdb.connect(host='us-cdbr-gcp-east-01.cleardb.net',
-                             user='b761ae150766d3',
-                             passwd='4bcf3d10',
-                             db='gcp_ca2ad2566039a3f0f01c',
-                             port=3306)
-cursor = db.cursor()
+query = """DROP TABLE IF EXISTS usuario"""
+cursor.execute(query)
+query = """CREATE TABLE usuario (
+                email    CHAR(30) NOT NULL PRIMARY KEY,
+                nombre     CHAR(30),
+                password CHAR(60),
+                imagen BLOB,
+                ruta CHAR(30) )"""
+cursor.execute(query)
 
-try:
-    query = """DROP TABLE IF EXISTS usuario"""
-    cursor.execute(query)
-    query = """CREATE TABLE usuario (
-                    email    CHAR(30) NOT NULL PRIMARY KEY,
-                    nombre     CHAR(30),
-                    password CHAR(60),
-                    imagen BLOB,
-                    ruta CHAR(30) )"""
-    cursor.execute(query)
-except Exception as error:
+
+
+def execute_query(self, query):
+    db = MySQLdb.connect(host='us-cdbr-gcp-east-01.cleardb.net',
+                         user='b761ae150766d3',
+                         passwd='4bcf3d10',
+                         db='gcp_ca2ad2566039a3f0f01c',
+                         port=3306)
+    cursor = db.cursor()
+
+    try:
+        cursor.execute(query)
+    except Exception as error:
+        cursor.close()
+        db.close()
+        raise error
+
+    db.commit()
+    result = cursor.fetchall()
     cursor.close()
     db.close()
-    raise error
-
-db.commit()
-result = cursor.fetchall()
-cursor.close()
-db.close()
