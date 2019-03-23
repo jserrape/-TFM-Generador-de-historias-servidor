@@ -63,9 +63,14 @@ db = MySQLdb.connect(host='us-cdbr-gcp-east-01.cleardb.net',
 cursor = db.cursor()
 
 try:
-    query = "DROP TABLE IF EXISTS usuario"
+    query = """DROP TABLE IF EXISTS usuario"""
     cursor.execute(query)
-    query = "CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, password TEXT, imagen BLOB, ruta TEXT)"
+    query = """CREATE TABLE usuario (
+                    email    CHAR(30) NOT NULL PRIMARY KEY,
+                    nombre     CHAR(30),
+                    password CHAR(60),
+                    imagen BLOB,
+                    ruta CHAR(30) )"""
     cursor.execute(query)
 except Exception as error:
     cursor.close()
