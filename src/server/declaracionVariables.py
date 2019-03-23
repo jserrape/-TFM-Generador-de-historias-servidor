@@ -52,3 +52,27 @@ server_info['email'] = 'juan.carlos.wow.95@gmail.com'
 server_info['twitter'] = '@xenahort'
 server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-servidor'
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
+
+
+#Creo la bbdd sql
+db = MySQLdb.connect(host='us-cdbr-gcp-east-01.cleardb.net',
+                             user='b761ae150766d3',
+                             passwd='4bcf3d10',
+                             db='gcp_ca2ad2566039a3f0f01c',
+                             port=3306)
+cursor = db.cursor()
+
+try:
+    query = "DROP TABLE IF EXISTS usuario"
+    cursor.execute(query)
+    query = "CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, password TEXT, imagen BLOB, ruta TEXT)"
+    cursor.execute(query)
+except Exception as error:
+    cursor.close()
+    db.close()
+    raise error
+
+db.commit()
+result = cursor.fetchall()
+cursor.close()
+db.close()
