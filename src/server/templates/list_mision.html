@@ -13,11 +13,16 @@
                   <td>icono_mision</td>
                   <td>latitud_mision</td>
                   <td>longitud_mision</td>
-                  <td>interaccion</td>
-                  <td>codigo_interaccion</td>
+                  <td>tipo_localizacion</td>
+                  <td>codigo_localizacion</td>
+                  <td>tipo_prueba</td>
+                  <td>codigo_prueba</td>
+                  <td>descripcion_inicial</td>
+                  <td>imagen_inicial</td>
+                  <td>descripcion_final</td>
+                  <td>imagen_final</td>
+                  <td>resumen</td>
                   <td>precedentes</td>
-                  <td>pista_audio</td>
-                  <td>descripcion</td>
                </thead>
 
                {% for row in rows %}
@@ -25,14 +30,19 @@
                      <td>{{row["id"]}}</td>
                      <td>{{row["id_historia"]}}</td>
                      <td>{{row["nombre_mision"]}}</td>
-                     <td><img class="img_perfil" src="data:image/png;base64, {{row["icono_mision"]}}" alt="Imagen de perfil" /></td>
+                     <td><img class="img_perfil" src="data:image/png;base64, {{row["icono_mision"]}}" alt="Imagen de mision" /></td>
                      <td>{{row["latitud_mision"]}}</td>
                      <td>{{row["longitud_mision"]}}</td>
-                     <td>{{row["interaccion"]}}</td>
-                     <td>{{row["codigo_interaccion"]}}</td>
+                     <td>{{row["tipo_localizacion"]}}</td>
+                     <td>{{row["codigo_localizacion"]}}</td>
+                     <td>{{row["tipo_prueba"]}}</td>
+                     <td>{{row["codigo_prueba"]}}</td>
+                     <td>{{row["descripcion_inicial"]}}</td>
+                     <td><img class="imagen_inicial" src="data:image/png;base64, {{row["imagen_inicial"]}}" alt="Imagen de mision inicial" /></td>
+                     <td>{{row["descripcion_final"]}}</td>
+                     <td><img class="imagen_final" src="data:image/png;base64, {{row["imagen_final"]}}" alt="Imagen de mision final" /></td>
+                     <td>{{row["resumen"]}}</td>
                      <td>{{row["precedentes"]}}</td>
-                     <td>Desactivado</td>
-                     <td>{{row["descripcion"]}}</td>
                   </tr>
                {% endfor %}
             </table>
