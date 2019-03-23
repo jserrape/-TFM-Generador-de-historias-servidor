@@ -21,6 +21,8 @@ import hashlib
 
 import requests
 
+import MySQLdb
+
 # Flask initialisation
 app = Flask(__name__)
 
