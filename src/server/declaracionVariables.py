@@ -56,18 +56,18 @@ server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-
 
 #Creo la bbdd sql
 query = """DROP TABLE IF EXISTS usuario"""
-cursor.execute(query)
+execute_query(query)
 query = """CREATE TABLE usuario (
                 email    CHAR(30) NOT NULL PRIMARY KEY,
                 nombre     CHAR(30),
                 password CHAR(60),
                 imagen BLOB,
                 ruta CHAR(30) )"""
-cursor.execute(query)
+execute_query(query)
 
 
 
-def execute_query(self, query):
+def execute_query(query):
     db = MySQLdb.connect(host='us-cdbr-gcp-east-01.cleardb.net',
                          user='b761ae150766d3',
                          passwd='4bcf3d10',
