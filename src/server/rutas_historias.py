@@ -64,15 +64,53 @@ def POST_historia(post_id):
     #Insertar misiones
     for i in range(int(post_id)):
         num=i+1
-
+        #Nombre de la mision
         nombre_mision = request.form["nombre_mision_"+str(num)]
-        latitud_mision = request.form["latitud_mision_" + str(num) ]
-        longitud_mision = request.form["longitud_mision_" + str(num)]
-        interaccion = request.form["tipo_mision_" + str(num)]
-        codigo_interaccion = request.form["codigo_tipo_mision_" + str(num)]
-        precedentes = request.form["precedentes_mision_" + str(num)]
-        descripcion = request.form["descripcion_mision_" + str(num)]
 
+        #Icono de la mision
+        icono_mision = str(base64.b64encode((request.files['icono_mision_' + str(num)]).read()))
+        icono_mision = str(icono_mision[2:(len(icono_mision))-1])
+
+        #Latitud de la mision
+        latitud_mision = request.form["latitud_mision_" + str(num) ]
+
+        #Longitud de la mision
+        longitud_mision = request.form["longitud_mision_" + str(num)]
+
+        #Localizacion
+        tipo_localizacion = request.form["tipo_localizacion_" + str(num)]
+
+        #Codigo de localización
+        codigo_localizacion = request.form["codigo_localizacion_" + str(num)]
+
+        #Tipo de prueba
+        tipo_prueba = request.form["tipo_prueba_" + str(num)]
+
+        #Código de la prueba
+        codigo_prueba = request.form["codigo_prueba_" + str(num)]
+
+        #Descripcion inicial
+        descripcion_inicial = request.form["descripcion_inicial_" + str(num)]
+
+        #Imagen inicial
+        imagen_inicial = str(base64.b64encode((request.files['imagen_inicial_' + str(num)]).read()))
+        imagen_inicial = str(imagen_inicial[2:(len(imagen_inicial))-1])
+
+        #Descipción final
+        descripcion_final = request.form["descripcion_final_" + str(num)]
+
+        #Imagen final
+        imagen_final = str(base64.b64encode((request.files['imagen_final_' + str(num)]).read()))
+        imagen_final = str(imagen_final[2:(len(imagen_final))-1])
+
+        #Resumen
+        resumen = request.form["resumen_" + str(num)]
+
+        #Precedentes
+        precedentes = request.form["precedentes_" + str(num)]
+
+        """
+        interaccion = ""
         if interaccion == 'qr':
             img = qrcode.make(codigo_interaccion)
             f = open("qr/" + nombre_historia + "___" + nombre_mision + ".png", "wb")
@@ -80,15 +118,11 @@ def POST_historia(post_id):
             f.close()
             zip.write("qr/" + nombre_historia + "___" + nombre_mision + ".png", compress_type=zipfile.ZIP_DEFLATED)
             os.remove("qr/" + nombre_historia + "___" + nombre_mision + ".png")
-
-        #pista_audio = str(base64.b64encode((request.files['audio_mision_' + str(num)]).read()))
-        pista_audio = ""
-        icono_mision = str(base64.b64encode((request.files['icono_mision_' + str(num)]).read()))
-        icono_mision = str(icono_mision[2:(len(icono_mision))-1])
+        """
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO mision (id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) VALUES (?,?,?,?,?,?,?,?,?,?)",(id_historia,nombre_mision,icono_mision,latitud_mision,longitud_mision,interaccion,codigo_interaccion,precedentes,pista_audio,descripcion) )
+            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) )
             con.commit()
         con.close()
     zip.close()

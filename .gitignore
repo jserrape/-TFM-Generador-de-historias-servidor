@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+qr/
+
+# Ignoro la BBDD
+database.db
 
 # C extensions
 *.so
