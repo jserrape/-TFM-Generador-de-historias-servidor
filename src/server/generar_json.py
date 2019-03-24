@@ -5,6 +5,7 @@ Función que devuelve una historia a partir de su id con todas
 sus misiones en formato JSON
 """
 def historia_json(id):
+    print("llamada la fincion historia_json(id)")
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute('SELECT * FROM historia WHERE id="' + id + '"')
@@ -18,9 +19,11 @@ def historia_json(id):
             data['longitud_historia'] = row[5]
             data['zoom'] = row[6]
             data['descripcion_historia'] = row[7]
-            data['misiones'] = []
-            data['misiones'] = misiones_historia_to_json(row[0],False)
+            #data['misiones'] = []
+            #data['misiones'] = misiones_historia_to_json(row[0],False)
     con.close()
+    print("Han solicitado los datos de la mision con id="+str(id))
+    print(json.dumps(data))
     return json.dumps(data)
 
 """
