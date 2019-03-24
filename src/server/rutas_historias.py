@@ -1,6 +1,8 @@
 from declaracionVariables import *
 from generar_json import *
 
+from random import choice
+
 """
 Vista que devuelve un JSON completo de una historia a partir de su id
 """
@@ -87,7 +89,11 @@ def POST_historia(post_id):
         tipo_prueba = request.form["tipo_prueba_" + str(num)]
 
         #Código de la prueba
-        codigo_prueba = request.form["codigo_prueba_" + str(num)]
+        if tipo_prueba == "qr":
+            print("Encontrado qr")
+            codigo_prueba = request.form["codigo_prueba_" + str(num)]
+        else:
+            codigo_prueba = str(id_historia) + "_" + nombre_mision
 
         #Descripcion inicial
         descripcion_inicial = request.form["descripcion_inicial_" + str(num)]

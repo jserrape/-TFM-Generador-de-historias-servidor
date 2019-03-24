@@ -21,6 +21,7 @@ import hashlib
 
 import requests
 
+from random import choice
 
 # Flask initialisation
 app = Flask(__name__)
@@ -35,7 +36,7 @@ conn.execute('DROP TABLE IF EXISTS pregunta')
 conn.execute('CREATE TABLE IF NOT EXISTS historia (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_historia TEXT, idioma_historia TEXT, imagen_historia BLOB, latitud_historia INT, longitud_historia INT, zoom INT, descripcion_historia TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS mision (id INTEGER PRIMARY KEY AUTOINCREMENT, id_historia INTEGER, nombre_mision TEXT, icono_mision BLOB, latitud_mision INT, longitud_mision INT, tipo_localizacion TEXT, codigo_localizacion TEXT, tipo_prueba TEXT, codigo_prueba TEXT, descripcion_inicial TEXT, imagen_inicial BLOB, descripcion_final TEXT, imagen_final BLOB, resumen TEXT, precedentes TEXT, FOREIGN KEY(id_historia) REFERENCES historia(id))')
 conn.execute('CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre TEXT, password TEXT, imagen BLOB, ruta TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS pregunta (id TEXT PRIMARY KEY, enunciado TEXT, respues_correcta TEXT, respues_incorrecta_1 TEXT, respues_incorrecta_2 TEXT, respues_incorrecta_3 TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS pregunta (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo_prueba_mision TEXT, enunciado TEXT, respues_correcta TEXT, respues_incorrecta_1 TEXT, respues_incorrecta_2 TEXT, respues_incorrecta_3 TEXT, FOREIGN KEY(codigo_prueba_mision) REFERENCES mision(codigo_prueba))')
 print("Table created successfully")
 conn.close()
 

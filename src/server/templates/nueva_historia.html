@@ -103,10 +103,13 @@
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Código de localización</label><input id="codigo_localizacion_' + num + '" name="codigo_localizacion_' + num + '" type="text" class="form-control" value="" placeholder="Introduzca el código de la localización" /></div>';
 
       //Tipo de prueba
-      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Tipo de prueba  </label><select name="tipo_prueba_' + num + '"><option value="qr">Código QR</option><option value="pregunta">Pregunta</option></select></div>'
+      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Tipo de prueba  </label><select id="tipo_prueba_' + num + '" name="tipo_prueba_' + num + '"><option value="qr">Código QR</option><option value="pregunta">Pregunta</option></select></div>'
 
       //Código de la prueba
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Código de prueba</label><input id="codigo_prueba_' + num + '" name="codigo_prueba_' + num + '" type="text" class="form-control" value="" placeholder="Introduzca el código de la prueba" /></div>';
+
+      //Aquí irán las preguntas
+      document.getElementById("form_mision_"+num).innerHTML += '<div id="div_tipo_prueba_' + num + '"></div>';
 
       //Descripcion inicial
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Descipción inicial</label><input id="descripcion_inicial_' + num + '" name="descripcion_inicial_' + num + '" type="text" class="form-control" value="" placeholder="Introduzca la descripción inicial" /></div>';
@@ -130,6 +133,39 @@
       document.getElementById("form_mision_"+num).innerHTML += '<br><hr>';
 
       $('#nueva_historia_form').attr("action", "/rest/historia/"+num);
+
+      console.log("tipo_prueba_" + num);
+      var activities = document.getElementById("tipo_prueba_" + num);
+      activities.addEventListener("change", function() {
+        console.log(activities.id);
+        if(activities.value == "qr"){
+          document.getElementById("codigo_prueba_" + num).disabled = false;
+          var element = document.getElementById("form_pregunta_" + num);
+          element.parentNode.removeChild(element);
+        }else{
+          document.getElementById("codigo_prueba_" + num).disabled = true;
+          //Div contenedor
+          var para = document.createElement("div");
+          para.setAttribute("id", "form_pregunta_" + num);
+          var element = document.getElementById("div_"+activities.id);
+          element.appendChild(para);
+
+          //Enunciado de la pregunta
+          document.getElementById("form_pregunta_" + num).innerHTML += '<div class="form-group"><label for="id">Enunciado de la pregunta</label><input id="enunciado_' + num + '" name="enunciado_' + num + '" type="text" class="form-control" value="soy el enunciado" placeholder="Introduzca el enunciado de la pregunta" /></div>';
+
+          //Respuesta correcta de la pregunta
+          document.getElementById("form_pregunta_" + num).innerHTML += '<div class="form-group"><label for="id">Respuesta correcta de la pregunta</label><input id="respues_correcta_' + num + '" name="respues_correcta_' + num + '" type="text" class="form-control" value="soy correcta" placeholder="Introduzca la respuesta correcta de la pregunta" /></div>';
+
+          //Respuesta incorrecta 1
+          document.getElementById("form_pregunta_" + num).innerHTML += '<div class="form-group"><label for="id">Respuesta incorrecta 1 de la pregunta</label><input id="respues_incorrecta_1_' + num + '" name="respues_incorrecta_1_' + num + '" type="text" class="form-control" value="soy el fallo 1" placeholder="Introduzca la respuesta incorrecta 1 de la pregunta" /></div>';
+
+          //Respuesta incorrecta 2
+          document.getElementById("form_pregunta_" + num).innerHTML += '<div class="form-group"><label for="id">Respuesta incorrecta 2 de la pregunta</label><input id="respues_incorrecta_2_' + num + '" name="respues_incorrecta_2_' + num + '" type="text" class="form-control" value="soy el fallo 2" placeholder="Introduzca la respuesta incorrecta 2 de la pregunta" /></div>';
+
+          //Respuesta incorrecta 3
+          document.getElementById("form_pregunta_" + num).innerHTML += '<div class="form-group"><label for="id">Respuesta incorrecta 3 de la pregunta</label><input id="respues_incorrecta_3_' + num + '" name="respues_incorrecta_3_' + num + '" type="text" class="form-control" value="soy el fallo 3" placeholder="Introduzca la respuesta incorrecta 3 de la pregunta" /></div>';
+        }
+      });
     }
 </script>
 </body>

@@ -77,9 +77,8 @@ Vista de prueba para el registro de usuarios
 """
 @app.route('/prueba', methods=['GET'])
 def registro():
-    while True:
-        req = requests.get('https://codeshare.io/24MAgb')
-    return req.text
+    p = ""
+    return p.join([choice("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+") for i in range(30)])
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():
