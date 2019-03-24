@@ -131,6 +131,32 @@ def POST_historia(post_id):
             cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) )
             con.commit()
         con.close()
+
+        if tipo_prueba == "pregunta":
+            print("Voy a insertar la pregunta en la bbdd")
+            #Enunciado
+            enunciado = request.form["enunciado_" + str(num)]
+
+            #Respuesta correcta
+            respues_correcta = request.form["respues_correcta_" + str(num)]
+
+            #Respuesta incorrecta 1
+            respues_incorrecta_1 = request.form["respues_incorrecta_1_" + str(num)]
+
+            #Respuesta incorrecta 2
+            respues_incorrecta_2 = request.form["respues_incorrecta_2_" + str(num)]
+
+            #Respuesta incorrecta 3
+            respues_incorrecta_3 = request.form["respues_incorrecta_3_" + str(num)]
+
+            #Inserto la pregunta en la bbdd
+            with sql.connect("database.db") as con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO pregunta (codigo_prueba_mision, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) VALUES (?,?,?,?,?,?)",(codigo_prueba, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) )
+                con.commit()
+            con.close()
+
+
     zip.close()
     return redirect("/historias", code=302)
 
@@ -159,6 +185,19 @@ def GET_misiones():
    rows = cur.fetchall();
    print(rows)
    return render_template("list_mision.html",rows = rows)
+
+"""
+Vista auxiliar que muestra la tabla pregunta
+"""
+@app.route('/rest/list/pregunta', methods=['GET'])
+def GET_preguntas():
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+   cur = con.cursor()
+   cur.execute("select * from pregunta")
+   rows = cur.fetchall();
+   print(rows)
+   return render_template("list_preguntas.html",rows = rows)
 
 """
 Ruta para eliminar una historia y sus misiones asociadas
