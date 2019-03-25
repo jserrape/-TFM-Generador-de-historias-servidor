@@ -19,8 +19,8 @@ def historia_json(id):
             data['longitud_historia'] = row[5]
             data['zoom'] = row[6]
             data['descripcion_historia'] = row[7]
-            #data['misiones'] = []
-            #data['misiones'] = misiones_historia_to_json(row[0],False)
+            data['misiones'] = []
+            data['misiones'] = misiones_historia_to_json(row[0],False)
     con.close()
     print("Han solicitado los datos de la mision con id="+str(id))
     print(json.dumps(data))
@@ -82,11 +82,16 @@ def misiones_historia_to_json(id_historia,jso):
             data_min['icono_mision'] = row[3]
             data_min['latitud_mision'] = row[4]
             data_min['longitud_mision'] = row[5]
-            data_min['interaccion'] = row[6]
-            data_min['codigo_interaccion'] = row[7]
-            data_min['precedentes'] = row[8]
-            data_min['pista_audio'] = row[9]
-            data_min['descripcion'] = row[10]
+            data_min['tipo_localizacion'] = row[6]
+            data_min['codigo_localizacion'] = row[7]
+            data_min['tipo_prueba'] = row[8]
+            data_min['codigo_prueba'] = row[9]
+            data_min['descripcion_inicial'] = row[10]
+            data_min['imagen_inicial'] = row[11]
+            data_min['descripcion_final'] = row[12]
+            data_min['imagen_final'] = row[13]
+            data_min['resumen'] = row[14]
+            data_min['precedentes'] = row[15]
             data_max.append(data_min)
     con.close()
     if jso:
@@ -105,3 +110,24 @@ def datos_usuario(email):
             data['imagen'] = row[2]
     con.close()
     return json.dumps(data)
+
+
+def misiones_pregunta_to_json(codigo_prueba_mision,jso):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM pregunta WHERE codigo_prueba_mision="' + str(codigo_prueba_mision) + '"')
+        data_max = []
+        for row in cur.fetchall():
+            data_min = {}
+            data_min['id'] = row[0]
+            data_min['enunciado'] = row[2]
+            data_min['respues_correcta'] = row[3]
+            data_min['respues_incorrecta_1'] = row[4]
+            data_min['respues_incorrecta_2'] = row[5]
+            data_min['respues_incorrecta_3'] = row[6]
+            data_max.append(data_min)
+    con.close()
+    if jso:
+        return json.dumps(data_max)
+    else:
+        return data_max

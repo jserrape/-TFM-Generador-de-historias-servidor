@@ -77,8 +77,7 @@ Vista de prueba para el registro de usuarios
 """
 @app.route('/prueba', methods=['GET'])
 def registro():
-    p = ""
-    return p.join([choice("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+") for i in range(30)])
+    return misiones_historia_to_json(1, True)
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():
