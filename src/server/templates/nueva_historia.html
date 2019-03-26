@@ -24,11 +24,11 @@
          </div>
          <div class="form-group">
             <label for="id">Latitud inicial</label>
-            <input name="latitud_historia" type="number" step="0.0001" class="form-control" value="37.1707751" placeholder="Introduzca la latitud inicial" />
+            <input name="latitud_historia" type="number" step="any" class="form-control" value="37.1707751" placeholder="Introduzca la latitud inicial" />
          </div>
          <div class="form-group">
             <label for="id">Longitud inicial</label>
-            <input name="longitud_historia" type="number" step="0.0001" class="form-control" value="-3.607208" placeholder="Introduzca la longitud inicial" />
+            <input name="longitud_historia" type="number" step="any" class="form-control" value="-3.607208" placeholder="Introduzca la longitud inicial" />
          </div>
          <div class="form-group">
             <label for="id">Zoom de la cámara</label>
@@ -91,10 +91,10 @@
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Icono</label><input id="icono_mision_' + num + '" name="icono_mision_' + num + '" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca el icono" /></div>';
 
       //Latitud de la mision
-      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Latitud</label><input id="latitud_mision_' + num + '" name="latitud_mision_' + num + '" type="number" step="0.00000001" class="form-control" value="37.197" placeholder="Introduzca la latitud" /></div>';
+      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Latitud</label><input id="latitud_mision_' + num + '" name="latitud_mision_' + num + '" type="number" step="any" maxlength=10 class="form-control" value="37.197" placeholder="Introduzca la latitud" /></div>';
 
       //Longitud de la mision
-      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Longitud</label><input id="longitud_mision_' + num + '" name="longitud_mision_' + num + '" type="number" step="0.00000001" class="form-control" value="-3.62" placeholder="Introduzca la longitud" /></div>';
+      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Longitud</label><input id="longitud_mision_' + num + '" name="longitud_mision_' + num + '" type="number" step="any" maxlength=10 class="form-control" value="-3.62" placeholder="Introduzca la longitud" /></div>';
 
       //Localizacion
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Tipo de localización  </label><select name="tipo_localizacion_' + num + '"><option value="qr">Código QR</option><option value="beacon">Beacon</option></select></div>'
