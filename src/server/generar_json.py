@@ -57,11 +57,21 @@ def mision_json(id):
             data['icono_mision'] = row[3]
             data['latitud_mision'] = row[4]
             data['longitud_mision'] = row[5]
-            data['interaccion'] = row[6]
-            data['codigo_interaccion'] = row[7]
-            data['precedentes'] = row[8]
-            data['pista_audio'] = row[9]
-            data['descripcion'] = row[10]
+            data['tipo_localizacion'] = row[6]
+            data['codigo_localizacion'] = row[7]
+            data['tipo_prueba'] = row[8]
+            data['codigo_prueba'] = row[9]
+            data['descripcion_inicial'] = row[10]
+            data['imagen_inicial'] = row[11]
+            data['descripcion_final'] = row[12]
+            data['imagen_final'] = row[13]
+            data['resumen'] = row[14]
+            data['precedentes'] = row[15]
+
+            if row[8] == "pregunta":
+                print("Solicitada una mision con pregunta")
+                data['pregunta'] = []
+                data['pregunta'] = misiones_pregunta_to_json(row[9],False)
     con.close()
     return json.dumps(data)
 

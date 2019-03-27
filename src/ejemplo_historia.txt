@@ -1,0 +1,26 @@
+HISTORIA
+
+Nombre de la historia: Dónde está Wally
+Imagen de título: ----
+Latitud inicial: 37,1707751
+Longitud inicial: -3,607208
+Zoom de la cámara: 15
+Descripción de la historia: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.#Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.#Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+
+MISIÓN #1
+
+Nombre de la misión: Misión 1
+Icono: ----
+Latitud: 37.171848829416604
+Longitud: -3.607918605539055
+Tipo de localización
+Código de localización
+Tipo de prueba
+Código de prueba
+Descipción inicial: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Imagen inicial: ----
+Descipción final: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Imagen final: ----
+Resumen: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Precedentes
