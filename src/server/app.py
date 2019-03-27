@@ -72,12 +72,13 @@ Vista mostrada al acceder a una vista que no existe
 def page_not_found(e):
     return render_template('404.html'), 404
 
-"""
-Vista de prueba para el registro de usuarios
-"""
-@app.route('/prueba', methods=['GET'])
-def registro():
-    return misiones_historia_to_json(1, True)
+
+@app.route('/prueba', methods=['POST', 'PUT'])
+def POST_prueba():
+    print("ruta /prueba/texto funcion para ver un texto escaneado")
+    hist_dict = request.form.to_dict()
+    print(hist_dict['texto'])
+    return ""
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():
