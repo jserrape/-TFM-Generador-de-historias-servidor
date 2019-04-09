@@ -59,5 +59,5 @@ server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
 
 mail_info = {}
-mail_info['email'] = 'gestor.predictivo@gmail.com'
-mail_info['password'] = 'jcsp0003'
+mail_info['email'] = 'mail'
+mail_info['password'] = 'password'
