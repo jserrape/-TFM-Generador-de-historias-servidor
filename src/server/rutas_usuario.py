@@ -32,6 +32,11 @@ def POST_login():
     correcto = passwordCprrecto(usu_dict['email'], usu_dict['password'])
     if correcto:
         print("Login correcto")
+        with sql.connect("database.db") as con:
+            cur = con.cursor()
+            cur.execute("INSERT INTO sesion (email) VALUES (?)",(usu_dict['email']) )
+            con.commit()
+        con.close()
         return Response(json.dumps( {'status': '200','resultado': datos_usuario(usu_dict['email'])}, indent=4 ), status=201, mimetype='application/json')
     else:
         print("Login incorrecto")
