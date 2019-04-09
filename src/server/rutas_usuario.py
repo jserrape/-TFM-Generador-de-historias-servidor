@@ -53,7 +53,7 @@ def POST_cambio_password():
         cur.execute("UPDATE usuario SET ruta ='" + ruta +"' WHERE email='" + usu_dict['email'] +"'")
         con.commit()
     con.close()
-    
+
     #Envio email
     m = text("Se ha solicitado un cambio de contraseña de su cuenta de Historias Interactivas. Para cambiar su contraseña entre al siguiente enlace:\n\n\t " + ruta)
     m['From'] = mail_info['email']
@@ -95,6 +95,31 @@ def GET_usuarios():
    cur.execute("select * from usuario")
    rows = cur.fetchall();
    return render_template("list_usuario.html",rows = rows)
+
+"""
+Vista auxiliar que muestra la tabla sesiones
+"""
+@app.route('/rest/list/sesion', methods=['GET'])
+def GET_sesiones():
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+   cur = con.cursor()
+   cur.execute("select * from sesion")
+   rows = cur.fetchall();
+   return render_template("list_sesion.html",rows = rows)
+
+
+"""
+Vista auxiliar que muestra la tabla de misiones completadas
+"""
+@app.route('/rest/list/completado', methods=['GET'])
+def GET_mision_completada():
+   con = sql.connect("database.db")
+   con.row_factory = sql.Row
+   cur = con.cursor()
+   cur.execute("select * from mision_usuario")
+   rows = cur.fetchall();
+   return render_template("list_mision_completada.html",rows = rows)
 
 """
 Vista para la edición de un usuario a partir de su email

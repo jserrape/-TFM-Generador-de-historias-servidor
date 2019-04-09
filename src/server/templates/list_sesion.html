@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+      <div class="container">
+         <div class="col-md-12">
+            <br><br><br><br>
+            <h1 class="titulo">Tabla de sesiones.</h1>
+            <hr>
+            <table border = 1 class="table table-striped">
+               <thead>
+                  <td>id</td>
+                  <td>email</td>
+                  <td>fecha</td>
+               </thead>
+
+               {% for row in rows %}
+                  <tr>
+                     <td>{{row["id"]}}</td>
+                     <td>{{row["email"]}}</td>
+                     <td> {{row["fecha"]}}</td>
+                  </tr>
+               {% endfor %}
+            </table>
+      </div>
+   </div>
+
+   <script type="text/javascript" href="{{ url_for('static', filename='js/jquery.js') }}"></script>
+ </body>
+ </html>
+ {% endblock %}
