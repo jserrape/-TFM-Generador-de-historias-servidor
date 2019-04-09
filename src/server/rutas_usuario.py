@@ -1,8 +1,6 @@
 from declaracionVariables import *
 from generar_json import *
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
+
 
 """
 Ruta para el registro de usuarios
@@ -56,9 +54,19 @@ def POST_cambio_password():
         con.commit()
     con.close()
     #Envio email
-    #
-    #
-    #
+    m = text("Se ha solicitado un cambio de contraseña de su cuenta de Historias Interactivas. Para cambiar su contraseña entre al siguiente enlace:\n\n\t " + ruta)
+    m['From'] = mail_info['email']
+    m['To'] = usu_dict['email']
+    m['Subject'] = 'Cambio de contraseña: Historias interactivas'
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(mail_info['email'], mail_info['password'])
+
+    server.sendmail(m['From'], m['To'], m.as_string())
+
+    server.quit()
+
     return Response(json.dumps( {'status': '200','resultado': 'Solicitud de cambio de contraseña correcto'}, indent=4 ), status=201, mimetype='application/json')
 
 """

@@ -21,6 +21,9 @@ import hashlib
 
 import requests
 
+import smtplib
+from email.mime.text import MIMEText as text
+
 from random import choice
 
 # Flask initialisation
@@ -54,3 +57,7 @@ server_info['email'] = 'juan.carlos.wow.95@gmail.com'
 server_info['twitter'] = '@xenahort'
 server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-servidor'
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
+
+mail_info = {}
+mail_info['email'] = 'gestor.predictivo@gmail.com'
+mail_info['password'] = 'jcsp0003'

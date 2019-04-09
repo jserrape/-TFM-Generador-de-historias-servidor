@@ -80,6 +80,12 @@ def POST_prueba():
     print(hist_dict['texto'])
     return ""
 
+@app.route('/prueba2', methods=['GET'])
+def POST_prueba2():
+    print("ruta para enviar mail")
+
+    return ""
+
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():
     return send_from_directory(directory='qr', filename='qr_1.zip', as_attachment=True)
