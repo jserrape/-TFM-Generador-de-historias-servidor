@@ -61,7 +61,7 @@ def POST_cambio_password():
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login(mail_info['email'], mail_info['password'])
+    server.login('gestor.predictivo@gmail.com', 'jcsp0003')
 
     server.sendmail(m['From'], m['To'], m.as_string())
 
