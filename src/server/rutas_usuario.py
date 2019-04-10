@@ -43,6 +43,20 @@ def POST_login():
         return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para completar misión de los usuarios
+"""
+@app.route('/rest/completar_mision', methods=['POST', 'PUT'])
+def POST_completar_mision():
+    print("Ha llegado una peticion post de mision completada")
+    usu_dict = request.form.to_dict()
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO mision_usuario (email, id_historia, id_mision) VALUES (?,?,?)",(usu_dict['email'], usu_dict['id_historia'], usu_dict['id_mision']) )
+        con.commit()
+    con.close()
+    return Response(json.dumps( {'status': '200','resultado': 'Misión completada con éxito'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
 Ruta para solicitar un cambio de contraseña
 """
 @app.route('/rest/cambio', methods=['POST', 'PUT'])
