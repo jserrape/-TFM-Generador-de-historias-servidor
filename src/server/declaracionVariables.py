@@ -53,7 +53,7 @@ try:
 except:
     os.mkdir(directorio)
 
-# Metadata
+# Información general
 server_info = {}
 server_info['desarrollador'] = 'Juan Carlos Serrano Pérez'
 server_info['email'] = 'juan.carlos.wow.95@gmail.com'
@@ -61,6 +61,7 @@ server_info['twitter'] = '@xenahort'
 server_info['server_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-servidor'
 server_info['app_repository']  = 'https://github.com/xenahort/-TFM-Generador-de-historias-Android'
 
+# Información de email
 mail_info = {}
 mail_info['email'] = 'mail'
 mail_info['password'] = 'password'

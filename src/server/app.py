@@ -83,8 +83,7 @@ def POST_prueba():
 @app.route('/prueba2', methods=['GET'])
 def POST_prueba2():
     print("ruta para enviar mail")
-
-    return ""
+    return historia_json(1)
 
 @app.route('/descargar', methods=['GET', 'POST'])
 def descarga():

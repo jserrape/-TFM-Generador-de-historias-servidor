@@ -8,7 +8,7 @@ def historia_json(id):
     print("llamada la fincion historia_json(id)")
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute('SELECT * FROM historia WHERE id="' + id + '"')
+        cur.execute('SELECT * FROM historia WHERE id="' + str(id) + '"')
         data = {}
         for row in cur.fetchall():
             data['id'] = row[0]
@@ -95,7 +95,11 @@ def misiones_historia_to_json(id_historia,jso):
             data_min['tipo_localizacion'] = row[6]
             data_min['codigo_localizacion'] = row[7]
             data_min['tipo_prueba'] = row[8]
-            data_min['codigo_prueba'] = row[9]
+            if row[8] == "qr":
+                data_min['codigo_prueba'] = row[9]
+            else:
+                data_min['pregunta'] = []
+                data_min['pregunta'] = misiones_pregunta_to_json(row[9],False)
             data_min['descripcion_inicial'] = row[10]
             data_min['imagen_inicial'] = row[11]
             data_min['descripcion_final'] = row[12]
@@ -120,7 +124,6 @@ def datos_usuario(email):
             data['imagen'] = row[2]
     con.close()
     return json.dumps(data)
-
 
 def misiones_pregunta_to_json(codigo_prueba_mision,jso):
     with sql.connect("database.db") as con:
