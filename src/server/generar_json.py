@@ -68,10 +68,10 @@ def mision_json(id):
             data['resumen'] = row[14]
             data['precedentes'] = row[15]
 
-            if row[8] == "pregunta":
-                print("Solicitada una mision con pregunta")
-                data['pregunta'] = []
-                data['pregunta'] = misiones_pregunta_to_json(row[9],False)
+            #if row[8] == "pregunta":
+            #    print("Solicitada una mision con pregunta")
+            #    data['pregunta'] = []
+            #    data['pregunta'] = misiones_pregunta_to_json(row[9],False)
     con.close()
     return json.dumps(data)
 
@@ -95,11 +95,11 @@ def misiones_historia_to_json(id_historia,jso):
             data_min['tipo_localizacion'] = row[6]
             data_min['codigo_localizacion'] = row[7]
             data_min['tipo_prueba'] = row[8]
-            if row[8] == "qr":
-                data_min['codigo_prueba'] = row[9]
-            else:
-                data_min['pregunta'] = []
-                data_min['pregunta'] = misiones_pregunta_to_json(row[9],False)
+            #if row[8] == "qr":
+            data_min['codigo_prueba'] = row[9]
+            #else:
+            #    data_min['pregunta'] = []
+            #    data_min['pregunta'] = misiones_pregunta_to_json(row[9],False)
             data_min['descripcion_inicial'] = row[10]
             data_min['imagen_inicial'] = row[11]
             data_min['descripcion_final'] = row[12]

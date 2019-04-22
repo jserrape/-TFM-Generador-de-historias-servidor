@@ -43,6 +43,21 @@ def POST_login():
         return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para obtener una lista con las misiones completadas por un usuario <----------------------------------------
+"""
+@app.route('/rest/misiones_completadas', methods=['POST', 'PUT'])
+def POST_misiones_completadas():
+    print("Ha llegado una peticion de misiones_completadas")
+    usu_dict = request.form.to_dict()
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute('SELECT id_mision FROM mision_usuario WHERE email="' + usu_dict['email'] + '" AND id_historia="' + usu_dict['id_historia'] + '"')
+    rows = cur.fetchall();
+    print(rows)
+    return "PROXIMAMENTE"
+
+"""
 Ruta para completar misión de los usuarios
 """
 @app.route('/rest/completar_mision', methods=['POST', 'PUT'])
