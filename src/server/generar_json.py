@@ -129,18 +129,16 @@ def misiones_pregunta_to_json(codigo_prueba_mision,jso):
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute('SELECT * FROM pregunta WHERE codigo_prueba_mision="' + str(codigo_prueba_mision) + '"')
-        data_max = []
+        data = {}
         for row in cur.fetchall():
-            data_min = {}
-            data_min['id'] = row[0]
-            data_min['enunciado'] = row[2]
-            data_min['respues_correcta'] = row[3]
-            data_min['respues_incorrecta_1'] = row[4]
-            data_min['respues_incorrecta_2'] = row[5]
-            data_min['respues_incorrecta_3'] = row[6]
-            data_max.append(data_min)
+            data['id'] = row[0]
+            data['enunciado'] = row[2]
+            data['respues_correcta'] = row[3]
+            data['respues_incorrecta_1'] = row[4]
+            data['respues_incorrecta_2'] = row[5]
+            data['respues_incorrecta_3'] = row[6]
     con.close()
     if jso:
-        return json.dumps(data_max)
+        return json.dumps(data)
     else:
-        return data_max
+        return data
