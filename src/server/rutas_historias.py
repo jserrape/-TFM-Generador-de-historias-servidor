@@ -19,6 +19,8 @@ Vista que devuelve un JSON completo de una pregunta a partir de su codigo_prueba
 def GET_pregunta():
     print("ruta /pregunta_json/codigo_prueba_mision funcion GET_pregunta")
     pre_dict = request.form.to_dict()
+    print("Codigo de la pregunta: " + pre_dict['codigo_prueba_mision'])
+    print("Devuelvo: " + misiones_pregunta_to_json(pre_dict['codigo_prueba_mision'],True))
     return misiones_pregunta_to_json(pre_dict['codigo_prueba_mision'],True)
 
 """
