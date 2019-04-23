@@ -13,6 +13,15 @@ def GET_historia():
     return historia_json(hist_dict['id'])
 
 """
+Vista que devuelve un JSON completo de una pregunta a partir de su codigo_prueba_mision
+"""
+@app.route('/pregunta_json', methods=['POST', 'PUT'])
+def GET_pregunta():
+    print("ruta /pregunta_json/codigo_prueba_mision funcion GET_pregunta")
+    pre_dict = request.form.to_dict()
+    return misiones_pregunta_to_json(pre_dict['codigo_prueba_mision'],True)
+
+"""
 Vista que devuelve un JSON con el id y nombre de todas las historias
 """
 @app.route('/historia/list', methods=['GET'])
