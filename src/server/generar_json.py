@@ -51,12 +51,12 @@ def mision_json(id):
         cur.execute('SELECT * FROM mision WHERE id="' + str(id) + '"')
         data = {}
         for row in cur.fetchall():
-            data['id'] = row[0]
-            data['id_historia'] = row[1]
-            data['nombre_mision'] = row[2]
-            data['icono_mision'] = row[3]
-            data['latitud_mision'] = row[4]
-            data['longitud_mision'] = row[5]
+            #data['id'] = row[0]
+            #data['id_historia'] = row[1]
+            #data['nombre_mision'] = row[2]
+            #data['icono_mision'] = row[3]
+            #data['latitud_mision'] = row[4]
+            #data['longitud_mision'] = row[5]
             data['tipo_localizacion'] = row[6]
             data['codigo_localizacion'] = row[7]
             data['tipo_prueba'] = row[8]
@@ -65,13 +65,8 @@ def mision_json(id):
             data['imagen_inicial'] = row[11]
             data['descripcion_final'] = row[12]
             data['imagen_final'] = row[13]
-            data['resumen'] = row[14]
-            data['precedentes'] = row[15]
-
-            #if row[8] == "pregunta":
-            #    print("Solicitada una mision con pregunta")
-            #    data['pregunta'] = []
-            #    data['pregunta'] = misiones_pregunta_to_json(row[9],False)
+            #data['resumen'] = row[14]
+            #data['precedentes'] = row[15]
     con.close()
     return json.dumps(data)
 
@@ -92,18 +87,14 @@ def misiones_historia_to_json(id_historia,jso):
             data_min['icono_mision'] = row[3]
             data_min['latitud_mision'] = row[4]
             data_min['longitud_mision'] = row[5]
-            data_min['tipo_localizacion'] = row[6]
-            data_min['codigo_localizacion'] = row[7]
-            data_min['tipo_prueba'] = row[8]
-            #if row[8] == "qr":
-            data_min['codigo_prueba'] = row[9]
-            #else:
-            #    data_min['pregunta'] = []
-            #    data_min['pregunta'] = misiones_pregunta_to_json(row[9],False)
-            data_min['descripcion_inicial'] = row[10]
-            data_min['imagen_inicial'] = row[11]
-            data_min['descripcion_final'] = row[12]
-            data_min['imagen_final'] = row[13]
+            #data_min['tipo_localizacion'] = row[6]
+            #data_min['codigo_localizacion'] = row[7]
+            #data_min['tipo_prueba'] = row[8]
+            #data_min['codigo_prueba'] = row[9]
+            #data_min['descripcion_inicial'] = row[10]
+            #data_min['imagen_inicial'] = row[11]
+            #data_min['descripcion_final'] = row[12]
+            #data_min['imagen_final'] = row[13]
             data_min['resumen'] = row[14]
             data_min['precedentes'] = row[15]
             data_max.append(data_min)
