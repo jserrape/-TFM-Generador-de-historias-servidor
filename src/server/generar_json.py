@@ -4,7 +4,7 @@ from declaracionVariables import *
 Función que devuelve una historia a partir de su id con todas
 sus misiones en formato JSON
 """
-def historia_json(id):
+def historia_json(id, email):
     print("llamada la fincion historia_json(id)")
     with sql.connect("database.db") as con:
         cur = con.cursor()
@@ -20,7 +20,7 @@ def historia_json(id):
             data['zoom'] = row[6]
             data['descripcion_historia'] = row[7]
             data['misiones'] = []
-            data['misiones'] = misiones_historia_to_json(row[0],False)
+            data['misiones'] = misiones_historia_to_json(row[0],False,email)
     con.close()
     print("Han solicitado los datos de la mision con id="+str(id))
     print(json.dumps(data))
@@ -74,7 +74,7 @@ def mision_json(id):
 Función que devuelve todas las misiones asociadas al id de una historia
 en formato JSON o como cadena de texto
 """
-def misiones_historia_to_json(id_historia,jso):
+def misiones_historia_to_json(id_historia, jso, email):
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute('SELECT * FROM mision WHERE id_historia="' + str(id_historia) + '"')
@@ -97,12 +97,23 @@ def misiones_historia_to_json(id_historia,jso):
             #data_min['imagen_final'] = row[13]
             data_min['resumen'] = row[14]
             data_min['precedentes'] = row[15]
+            data_min['completado'] = bool_mision_completada(email, row[1], row[0])
             data_max.append(data_min)
     con.close()
     if jso:
         return json.dumps(data_max)
     else:
         return data_max
+
+def bool_mision_completada(email, id_historia, id_mision):
+    val = 'False'
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM mision WHERE id_historia="' + str(id_historia) + '"')
+        for row in cur.fetchall():
+            val = 'True'
+    con.close()
+    return val
 
 def datos_usuario(email):
     with sql.connect("database.db") as con:

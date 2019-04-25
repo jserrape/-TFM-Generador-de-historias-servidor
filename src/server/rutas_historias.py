@@ -10,7 +10,7 @@ Vista que devuelve un JSON completo de una historia a partir de su id
 def GET_historia():
     print("ruta /historia/id funcion GET_historia")
     hist_dict = request.form.to_dict()
-    return historia_json(hist_dict['id'])
+    return historia_json(hist_dict['id'], hist_dict['email'])
 
 """
 Vista que devuelve un JSON completo de una mision a partir de su id
