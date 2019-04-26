@@ -109,7 +109,7 @@ def bool_mision_completada(email, id_historia, id_mision):
     val = 'False'
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute('SELECT * FROM mision WHERE id_historia="' + str(id_historia) + '"')
+        cur.execute('SELECT email FROM mision_usuario WHERE email="' + str(email) + '" AND id_historia="' + str(id_historia) + '" AND id_mision="' + str(id_mision) + '"')
         for row in cur.fetchall():
             val = 'True'
     con.close()
