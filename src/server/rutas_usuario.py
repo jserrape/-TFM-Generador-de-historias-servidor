@@ -43,21 +43,6 @@ def POST_login():
         return Response(json.dumps( {'status': '400','resultado': 'El usuario o la contraseña no son válidos'}, indent=4 ), status=201, mimetype='application/json')
 
 """
-Ruta para obtener una lista con las misiones completadas por un usuario <----------------------------------------
-"""
-@app.route('/rest/misiones_completadas', methods=['POST', 'PUT'])
-def POST_misiones_completadas():
-    print("Ha llegado una peticion de misiones_completadas")
-    usu_dict = request.form.to_dict()
-    con = sql.connect("database.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute('SELECT id_mision FROM mision_usuario WHERE email="' + usu_dict['email'] + '" AND id_historia="' + usu_dict['id_historia'] + '"')
-    rows = cur.fetchall();
-    print(rows)
-    return "PROXIMAMENTE"
-
-"""
 Ruta para completar misión de los usuarios
 """
 @app.route('/rest/completar_mision', methods=['POST', 'PUT'])
@@ -75,7 +60,7 @@ def POST_completar_mision():
 Ruta para solicitar un cambio de contraseña
 """
 @app.route('/rest/cambio', methods=['POST', 'PUT'])
-def POST_cambio_password():
+def POST_solicitar_cambio_password():
     print("Ha llegado una peticion post de cambio de contrseña")
     usu_dict = request.form.to_dict()
     ruta = hashlib.sha224(usu_dict['email'].encode('utf-8')).hexdigest()
@@ -98,6 +83,38 @@ def POST_cambio_password():
     server.login(mail_info['email'], mail_info['password'])
     server.sendmail(m['From'], m['To'], m.as_string())
     server.quit()
+    return Response(json.dumps( {'status': '200','resultado': 'Solicitud de cambio de contraseña correcto'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
+Ruta para cambiar la contraseña
+"""
+@app.route('/rest/cambio_password', methods=['POST', 'PUT'])
+def POST_cambiar_password():
+    print("Ha llegado una peticion post de cambio de contrseña")
+    usu_dict = request.form.to_dict()
+    #Inserto la nueva password en la bbdd
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("UPDATE usuario SET password ='" + usu_dict['pass'] +"' WHERE email='" + usu_dict['email'] +"'")
+        con.commit()
+    con.close()
+    return Response(json.dumps( {'status': '200','resultado': 'Solicitud de cambio de contraseña correcto'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
+Ruta para eliminar usuario
+"""
+@app.route('/rest/eliminar_usuario', methods=['DELETE'])
+def POST_cambiar_password():
+    print("Ha llegado una peticion DELETE de eliminar usuario")
+    usu_dict = request.form.to_dict()
+    #Elimino el usuario de la bbdd
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM sesion WHERE email='" + usu_dict['email'] +"'")
+        cur.execute("DELETE FROM mision_usuario WHERE email='" + usu_dict['email'] +"'")
+        cur.execute("DELETE FROM usuario WHERE email='" + usu_dict['email'] +"'")
+        con.commit()
+    con.close()
     return Response(json.dumps( {'status': '200','resultado': 'Solicitud de cambio de contraseña correcto'}, indent=4 ), status=201, mimetype='application/json')
 
 """
