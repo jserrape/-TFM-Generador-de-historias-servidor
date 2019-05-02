@@ -104,7 +104,7 @@ def POST_cambiar_password():
 Ruta para eliminar usuario
 """
 @app.route('/rest/eliminar_usuario', methods=['DELETE'])
-def POST_cambiar_password():
+def POST_eliminar_usuario():
     print("Ha llegado una peticion DELETE de eliminar usuario")
     usu_dict = request.form.to_dict()
     #Elimino el usuario de la bbdd
