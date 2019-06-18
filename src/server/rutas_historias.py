@@ -132,7 +132,7 @@ def POST_historia(post_id):
         resumen = request.form["resumen_" + str(num)]
 
         #Precedentes
-        precedentes = request.form["precedentes_" + str(num)]
+        precedentes = "{" + request.form["precedentes_" + str(num)] + "}"
 
         """
         interaccion = ""
