@@ -131,6 +131,9 @@ def POST_historia(post_id):
         #Resumen
         resumen = request.form["resumen_" + str(num)]
 
+        #Localizacion
+        final = request.form["prueba" + str(num)]
+
         #Precedentes
         precedentes = request.form["precedentes_" + str(num)]
 
@@ -147,7 +150,7 @@ def POST_historia(post_id):
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes) )
+            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final) )
             con.commit()
         con.close()
 
