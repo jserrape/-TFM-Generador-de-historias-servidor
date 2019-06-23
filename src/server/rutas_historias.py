@@ -238,6 +238,13 @@ def DELETE_historia(id):
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para eliminar una mision completada
+"""
+@app.route('/rest/delete/mision_completada/<string:email>_<string:id_historia>_<string:id_mision>', methods=['DELETE'])
+def DELETE_mision_completada(email,id_historia,id_mision):
+    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
+
+"""
 Vista para la edición de una historia a partir de su id
 """
 @app.route('/editar_historia/<string:id>', methods=['GET'])

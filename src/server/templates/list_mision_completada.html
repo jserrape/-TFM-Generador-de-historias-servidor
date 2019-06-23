@@ -3,7 +3,7 @@
       <div class="container">
          <div class="col-md-12">
             <br><br><br><br>
-            <h1 class="titulo">Tabla de sesiones.</h1>
+            <h1 class="titulo">Tabla de misiones completadas.</h1>
             <hr>
             <table border = 1 class="table table-striped">
                <thead>
@@ -11,14 +11,16 @@
                   <td>id_historia</td>
                   <td>id_mision</td>
                   <td>fecha</td>
+                  <td></td>
                </thead>
 
                {% for row in rows %}
                   <tr>
                      <td>{{row["email"]}}</td>
                      <td>{{row["id_historia"]}}</td>
-                     <td> {{row["id_mision"]}}</td>
-                     <td> {{row["fecha"]}}</td>
+                     <td>{{row["id_mision"]}}</td>
+                     <td>{{row["fecha"]}}</td>
+                     <td><a href="/rest/delete/mision_completada/{{row['email']}_{{row['id_historia']}}_{{row['id_mision']}}" class="button">Eliminar</a></td>
                   </tr>
                {% endfor %}
             </table>
