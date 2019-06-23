@@ -23,6 +23,7 @@
                   <td>imagen_final</td>
                   <td>resumen</td>
                   <td>precedentes</td>
+                  <td>misiones_a_cancelar</td>
                   <td>final</td>
                </thead>
 
@@ -44,6 +45,7 @@
                      <td><img class="img_perfil" src="data:image/png;base64, {{row["imagen_final"]}}" alt="Imagen de mision final" /></td>
                      <td>{{row["resumen"]}}</td>
                      <td>{{row["precedentes"]}}</td>
+                     <td>{{row["misiones_a_cancelar"]}}</td>
                      <td>{{row["final"]}}</td>
                   </tr>
                {% endfor %}

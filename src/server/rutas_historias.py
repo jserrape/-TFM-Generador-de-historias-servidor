@@ -137,6 +137,9 @@ def POST_historia(post_id):
         #Precedentes
         precedentes = request.form["precedentes_" + str(num)]
 
+        #Misiones a cancelar
+        misiones_a_cancelar = request.form["misiones_a_cancelar_" + str(num)]
+
         """
         interaccion = ""
         if interaccion == 'qr':
@@ -150,7 +153,7 @@ def POST_historia(post_id):
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final) )
+            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final, misiones_a_cancelar) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final, misiones_a_cancelar) )
             con.commit()
         con.close()
 

@@ -98,6 +98,7 @@ def misiones_historia_to_json(id_historia, jso, email):
             data_min['resumen'] = row[14]
             data_min['precedentes'] = row[15]
             data_min['mision_final'] = row[16]
+            data_min['misiones_canceladas'] = row[17]
             data_min['completado'] = bool_mision_completada(email, row[1], row[0])
             data_max.append(data_min)
     con.close()

@@ -129,6 +129,9 @@
       //Precedentes
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Precedentes</label><input id="precedentes_' + num + '" name="precedentes_' + num + '" type="text" class="form-control" value="" placeholder="Precedentes" /></div>';
 
+      //Misiones a cancelar
+      document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Misiones a cancelar al completar</label><input id="misiones_a_cancelar_' + num + '" name="misiones_a_cancelar_' + num + '" type="text" class="form-control" value="" placeholder="Misiones a cancelar al completar la misión" /></div>';
+
       //Final
       document.getElementById("form_mision_"+num).innerHTML += '<div class="form-group"><label for="id">Misión final &nbsp;&nbsp;</label><select name="prueba' + num + '"><option value="0">False</option><option value="1">True</option></select></div>'
 
