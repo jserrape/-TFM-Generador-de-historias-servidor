@@ -242,6 +242,11 @@ Ruta para eliminar una mision completada
 """
 @app.route('/rest/delete/mision_completada/<string:email>_<string:id_historia>_<string:id_mision>', methods=['GET'])
 def DELETE_mision_completada(email,id_historia,id_mision):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM mision_usuario WHERE email='" + email + "' AND id_historia='" + id_historia + "' AND id_mision='" + id_mision + "'")
+        con.commit()
+    con.close()
     return redirect("/rest/list/completado", code=302)
 
 """
