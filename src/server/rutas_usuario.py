@@ -243,6 +243,19 @@ def update_password_usuario():
     return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
 """
+Ruta para eliminar el progreso de un usuario en una historia
+"""
+@app.route('/rest/delete/progreso_historia', methods=['DELETE'])
+def DELETE_progreso_historia():
+    print("Ha llegado una peticion post")
+    usu_dict = request.form.to_dict()
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM mision_usuario WHERE email='" + usu_dict['email'] + "' AND id_historia='" + usu_dict['id_historia'] + "'")
+        con.commit()
+    con.close()
+
+"""
 Función para comprobar si existe un usuario
 """
 def existe_usuario(email):
