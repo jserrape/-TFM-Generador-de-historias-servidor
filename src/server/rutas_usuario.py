@@ -245,7 +245,7 @@ def update_password_usuario():
 """
 Ruta para eliminar el progreso de un usuario en una historia
 """
-@app.route('/rest/delete/progreso_historia', methods=['DELETE'])
+@app.route('/rest/delete/progreso_historia', methods=['POST'])
 def DELETE_progreso_historia():
     print("Ha llegado una peticion post")
     usu_dict = request.form.to_dict()
