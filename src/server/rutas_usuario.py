@@ -254,6 +254,7 @@ def DELETE_progreso_historia():
         cur.execute("DELETE FROM mision_usuario WHERE email='" + usu_dict['email'] + "' AND id_historia='" + usu_dict['id_historia'] + "'")
         con.commit()
     con.close()
+    return Response(json.dumps( {'status': '201'}, indent=4 ), status=201, mimetype='application/json')
 
 """
 Función para comprobar si existe un usuario
