@@ -64,12 +64,17 @@
          <!-- BOTONES -->
          <div class="row">
             <div class="col-md-12">
-               <div class="col-md-6">
+               <div class="col-md-4">
                   <div class="form-group">
-                     <input value="Cancelar" class="btn btn-danger" id="btn_add_mision" autocomplete="off" onclick="irHistorias()"/>
+                     <input value="Cancelar" class="btn btn-danger" id="btn_cancell" autocomplete="off" onclick="irHistorias()"/>
                   </div>
                </div>
-               <div class="col-md-6">
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <input value="Nueva misión" class="btn btn-success" id="btn_add_mision" autocomplete="off" onclick="irNuevaMision()"/>
+                  </div>
+               </div>
+               <div class="col-md-4">
                   <div class="form-group">
                      <input value="Aceptar" class="btn btn-success" id="btn_add_historia" autocomplete="off" onclick="actualizarHistorias()"/>
                   </div>
@@ -96,6 +101,10 @@
       //Botones de la historia
       function irHistorias(){
         window.location.href = "/historias";
+      }
+
+      function irNuevaMision(){
+        window.location.href = "/privado/nueva_mision/{{rows[0][0]}}";
       }
 
       function actualizarHistorias(){

@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Nueva misión</h1>
+      <hr>
+
+      <form name="nueva_historia_form" id="nueva_historia_form" action="/rest/nueva_mision/{{id}}" method="POST" enctype="multipart/form-data">
+
+        <!-- Nombre de la mision -->
+        <div class="form-group">
+          <label for="id">Nombre de la misión</label>
+          <input id="nombre_mision" name="nombre_mision" type="text" class="form-control" value="" placeholder="Introduzca nombre de la misión" />
+        </div>
+
+        <!-- Icono -->
+        <div class="form-group">
+          <label for="id">Icono</label>
+          <input id="icono_mision" name="icono_mision" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca el icono" />
+        </div>
+
+        <!-- Latitud -->
+        <div class="form-group">
+          <label for="id">Latitud</label>
+          <input id="latitud_mision" name="latitud_mision" type="number" step="any" maxlength=10 class="form-control" value="37.171848829416604" placeholder="Introduzca la latitud" /></div>
+
+        <!-- Longitud -->
+        <div class="form-group">
+          <label for="id">Longitud</label>
+          <input id="longitud_mision" name="longitud_mision" type="number" step="any" maxlength=10 class="form-control" value="-3.607918605539055" placeholder="Introduzca la longitud" /></div>
+
+        <!-- Tipo de localizacion -->
+        <div class="form-group">
+          <label for="id">Tipo de localización &nbsp;&nbsp;</label>
+          <select name="tipo_localizacion">
+            <option value="qr">Código QR</option>
+            <option value="beacon">Beacon</option>
+          </select>
+        </div>
+
+        <!-- Codigo de localizacion -->
+        <div class="form-group">
+          <label for="id">Código de localización</label>
+          <input id="codigo_localizacion" name="codigo_localizacion" type="text" class="form-control" value="" placeholder="Introduzca el código de la localización" />
+        </div>
+
+        <!-- Añadir prueba de localizacion -->
+        <div class="form-group">
+          <label for="id">Añadir prueba de localizacion &nbsp;&nbsp;</label>
+          <select id="prueba_loc_op" name="prueba_loc_op">
+            <option value="0">False</option>
+            <option value="1">True</option>
+          </select>
+        </div>
+
+        <div class="bloque_prueba" id="bloque_prueba">
+          <!-- Tipo de prueba -->
+          <div class="form-group">
+            <label for="id">Tipo de prueba &nbsp;&nbsp;</label>
+            <select id="tipo_prueba" name="tipo_prueba">
+              <option value="qr">Código QR</option>
+              <option value="pregunta">Pregunta</option>
+            </select>
+          </div>
+
+          <!-- Codigo de prueba -->
+          <div id="div_cod_prueba">
+            <div class="form-group">
+              <label for="id">Código de prueba</label>
+              <input id="codigo_prueba" name="codigo_prueba" type="text" class="form-control" value="" placeholder="Introduzca el código de la prueba" />
+            </div>
+          </div>
+
+          <!-- Preguntas -->
+          <div id="div_preguntas_prueba">
+            <div class="form-group">
+              <label for="id">Enunciado de la pregunta</label>
+              <input id="enunciado" name="enunciado" type="text" class="form-control" value="soy el enunciado" placeholder="Introduzca el enunciado de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta correcta de la pregunta</label>
+              <input id="respues_correcta" name="respues_correcta" type="text" class="form-control" value="soy correcta" placeholder="Introduzca la respuesta correcta de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 1 de la pregunta</label>
+              <input id="respues_incorrecta_1" name="respues_incorrecta_1" type="text" class="form-control" value="soy el fallo 1" placeholder="Introduzca la respuesta incorrecta 1 de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 2 de la pregunta</label>
+              <input id="respues_incorrecta_2" name="respues_incorrecta_2" type="text" class="form-control" value="soy el fallo 2" placeholder="Introduzca la respuesta incorrecta 2 de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 3 de la pregunta</label>
+              <input id="respues_incorrecta_3" name="respues_incorrecta_3" type="text" class="form-control" value="soy el fallo 3" placeholder="Introduzca la respuesta incorrecta 3 de la pregunta" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Descipción inicial -->
+        <div class="form-group">
+          <label for="id">Descipción inicial</label>
+          <input id="descripcion_inicial" name="descripcion_inicial" type="text" class="form-control" value="" placeholder="Introduzca la descripción inicial" />
+        </div>
+
+        <!-- Imagen inicial -->
+        <div class="form-group">
+          <label for="id">Imagen inicial</label>
+          <input id="imagen_inicial" name="imagen_inicial" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen inicial" />
+        </div>
+
+        <!-- Descripcion final -->
+        <div class="form-group">
+          <label for="id">Descipción final</label>
+          <input id="descripcion_final" name="descripcion_final" type="text" class="form-control" value="" placeholder="Introduzca la descripción final" />
+        </div>
+
+        <!-- Imagen final -->
+        <div class="form-group">
+          <label for="id">Imagen final</label>
+          <input id="imagen_final" name="imagen_final" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen final" />
+        </div>
+
+        <!-- Resumen -->
+        <div class="form-group">
+          <label for="id">Resumen</label>
+          <input id="resumen" name="resumen" type="text" class="form-control" value="" placeholder="Resumen" />
+        </div>
+
+        <!-- Precedentes -->
+        <div class="form-group">
+          <label for="id">Precedentes</label>
+          <input id="precedentes" name="precedentes" type="text" class="form-control" value="" placeholder="Precedentes" />
+        </div>
+
+        <!-- Misiones a cancelar -->
+        <div class="form-group">
+          <label for="id">Misiones a cancelar al completar</label>
+          <input id="misiones_a_cancelar" name="misiones_a_cancelar" type="text" class="form-control" value="" placeholder="Misiones a cancelar al completar la misión" />
+        </div>
+
+        <!-- Es mision final -->
+        <div class="form-group">
+          <label for="id">Misión final &nbsp;&nbsp;</label>
+          <select name="prueba">
+            <option value="0">False</option>
+            <option value="1">True</option>
+          </select>
+        </div>
+
+         <br>
+         <hr>
+         <!-- BOTONES -->
+         <div class="row">
+            <div class="col-md-12">
+               <div class="col-md-6">
+                  <div class="form-group">
+                     <input value="Cancelar" class="btn btn-success" id="btn_cancell" autocomplete="off"/>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="form-group">
+                     <input value="Crear misión" type="submit" class="btn btn-primary" id="btn_add_mision" autocomplete="off"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+<!-- FINAL -->
+
+<script>
+  var activities = document.getElementById("tipo_prueba");
+  activities.addEventListener("change", function() {
+    if(activities.value == "pregunta"){
+      document.getElementById('div_cod_prueba').style.display = 'none';
+      document.getElementById('div_preguntas_prueba').style.display = 'unset';
+    }else{
+      document.getElementById('div_cod_prueba').style.display = 'unset';
+      document.getElementById('div_preguntas_prueba').style.display = 'none';
+    }
+  });
+
+
+  var activities2 = document.getElementById("prueba_loc_op");
+  activities2.addEventListener("change", function() {
+    console.log(activities2.value);
+    if(activities2.value == "0"){
+      document.getElementById('bloque_prueba').style.display = 'none';
+    }else{
+      document.getElementById('bloque_prueba').style.display = 'unset';
+    }
+  });
+
+</script>
+</body>
+</html>
+{% endblock %}

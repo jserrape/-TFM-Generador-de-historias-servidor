@@ -54,8 +54,8 @@ def GET_misiones_asociadas(id_historia):
 """
 Ruta para el registro de una historia y sus misiones asociadas
 """
-@app.route('/rest/historia/<post_id>', methods=['POST'])
-def POST_historia(post_id):
+@app.route('/rest/historia/nueva', methods=['POST'])
+def POST_historia():
     #Insertar historia
     nombre_historia = request.form["nombre_historia"]
     idioma_historia = request.form["idioma_historia"]
@@ -75,13 +75,14 @@ def POST_historia(post_id):
         cur = con.cursor()
         cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?,?)",(nombre_historia,idioma_historia,str(imagen_historia),latitud_historia,longitud_historia,zoom,descripcion_historia) )
         con.commit()
-        cur.execute('SELECT id FROM historia WHERE nombre_historia="' + nombre_historia + '"')
-        for row in cur.fetchall():
-            id_historia = row[0]
+        #cur.execute('SELECT id FROM historia WHERE nombre_historia="' + nombre_historia + '"')
+        #for row in cur.fetchall():
+        #    id_historia = row[0]
     con.close()
 
-    zip = zipfile.ZipFile('qr/qr_' + nombre_historia.replace(" ","_") + '.zip', 'w')
+    #zip = zipfile.ZipFile('qr/qr_' + nombre_historia.replace(" ","_") + '.zip', 'w')
 
+    """
     #Insertar misiones
     for i in range(int(post_id)):
         num=i+1
@@ -140,7 +141,7 @@ def POST_historia(post_id):
         #Misiones a cancelar
         misiones_a_cancelar = request.form["misiones_a_cancelar_" + str(num)]
 
-        """
+        """"""
         interaccion = ""
         if interaccion == 'qr':
             img = qrcode.make(codigo_interaccion)
@@ -149,7 +150,7 @@ def POST_historia(post_id):
             f.close()
             zip.write("qr/" + nombre_historia + "___" + nombre_mision + ".png", compress_type=zipfile.ZIP_DEFLATED)
             os.remove("qr/" + nombre_historia + "___" + nombre_mision + ".png")
-        """
+        """"""
 
         with sql.connect("database.db") as con:
             cur = con.cursor()
@@ -180,10 +181,16 @@ def POST_historia(post_id):
                 cur.execute("INSERT INTO pregunta (codigo_prueba_mision, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) VALUES (?,?,?,?,?,?)",(codigo_prueba, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) )
                 con.commit()
             con.close()
+            """
+    #zip.close()
+    return redirect("privado/historias", code=302)
 
-
-    zip.close()
-    return redirect("/historias", code=302)
+"""
+Ruta para el registro de una historia y sus misiones asociadas
+"""
+@app.route('/rest/nueva_mision/<id_historia>', methods=['POST'])
+def POST_mision(id_historia):
+    return redirect("/privado/historias", code=302)
 
 """
 Vista auxiliar que muestra la tabla historia
@@ -252,7 +259,7 @@ def DELETE_mision_completada(email,id_historia,id_mision):
 """
 Vista para la edición de una historia a partir de su id
 """
-@app.route('/editar_historia/<string:id>', methods=['GET'])
+@app.route('/privado/editar_historia/<string:id>', methods=['GET'])
 def GET_editar_historias(id):
    con = sql.connect("database.db")
    con.row_factory = sql.Row

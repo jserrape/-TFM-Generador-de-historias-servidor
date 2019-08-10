@@ -5,22 +5,29 @@ from flask import send_file
 """
 Vista principal de la web que muestra información de la aplicación
 """
-@app.route('/', methods=['GET'])
+@app.route('/privado/', methods=['GET'])
 def get_index():
     return render_template('index.html')
 
 """
-Vista para crear una nueva historia y sus misiones asociadas
+Vista para crear una nueva historia
 """
-@app.route('/nueva_historia', methods=['GET'])
+@app.route('/privado/nueva_historia', methods=['GET'])
 def get_nueva_historia():
     return render_template('nueva_historia.html')
+
+"""
+Vista para crear una nueva misión
+"""
+@app.route('/privado/nueva_mision/<id_historia>', methods=['GET'])
+def get_nueva_mision(id_historia):
+    return render_template('nueva_mision.html', id = id_historia)
 
 """
 Vista que permite ver un listado con los principales datos de los usuarios
 y permite su borrado e ir a una nueva vista para su edición
 """
-@app.route('/usuarios', methods=['GET'])
+@app.route('/privado/usuarios', methods=['GET'])
 def get_gestionar_usuarios():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
@@ -33,7 +40,7 @@ def get_gestionar_usuarios():
 Vista que permite ver un listado con los principales datos de las historias
 y permite su borrado e ir a una nueva vista para su edición
 """
-@app.route('/historias', methods=['GET'])
+@app.route('/privado/historias', methods=['GET'])
 def get_gestionar_historias():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
@@ -45,14 +52,14 @@ def get_gestionar_historias():
 """
 Vista que permite monitorizar la ubicación de los usuarios activos
 """
-@app.route('/monitorizacion', methods=['GET'])
+@app.route('/privado/monitorizacion', methods=['GET'])
 def get_monitorizacion():
     return render_template('monitorizacion.html')
 
 """
 Vista auxiliar con algunas de las rutas implementadas
 """
-@app.route('/rutas', methods=['GET'])
+@app.route('/privado/rutas', methods=['GET'])
 def get_rutas():
     return render_template('rutas.html')
 

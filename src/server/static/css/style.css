@@ -50,3 +50,8 @@ a.button {
     text-decoration: none;
     color: initial;
 }
+
+div#div_preguntas_prueba, div#bloque_prueba  {
+    display: none;
+}
+

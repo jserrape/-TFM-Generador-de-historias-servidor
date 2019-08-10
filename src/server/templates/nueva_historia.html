@@ -6,7 +6,7 @@
       <h1 class="titulo">Nueva historia</h1>
       <hr>
       <!--Historia -->
-      <form name="nueva_historia_form" id="nueva_historia_form" action="/rest/historia/1" method="POST" enctype="multipart/form-data">
+      <form name="nueva_historia_form" id="nueva_historia_form" action="/rest/historia/nueva" method="POST" enctype="multipart/form-data">
          <div class="form-group">
             <label for="id">Nombre de la historia</label>
             <input name="nombre_historia" type="text" class="form-control" value="" autocomplete="off" placeholder="Introduzca nombre de la historia" />
@@ -67,7 +67,7 @@
    var HISTORIA_REST_URL = "/rest/historia";
 
    $( document ).ready(function(){
-     nueva_mision();
+     //nueva_mision();
    });
 
    $('input#btn_add_mision').on('click', nueva_mision);
