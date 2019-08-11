@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="col-md-12">
+      <br><br><br><br>
+      <h1 class="titulo">Editar misión #{{row["id"]}}</h1>
+      <hr>
+
+      <form name="nueva_historia_form" id="nueva_historia_form" action="" method="POST" enctype="multipart/form-data">
+
+        <!-- Nombre de la mision -->
+        <div class="form-group">
+          <label for="id">Nombre de la misión</label>
+          <input id="nombre_mision" name="nombre_mision" type="text" class="form-control" value="{{row['nombre_mision']}}" placeholder="Introduzca nombre de la misión" />
+        </div>
+
+        <!-- Icono  AÑADIR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Icono</label>
+          <input id="icono_mision" name="icono_mision" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca el icono" />
+        </div>
+
+        <!-- Latitud -->
+        <div class="form-group">
+          <label for="id">Latitud</label>
+          <input id="latitud_mision" name="latitud_mision" type="number" step="any" maxlength=10 class="form-control" value="{{row['latitud_mision']}}" placeholder="Introduzca la latitud" /></div>
+
+        <!-- Longitud -->
+        <div class="form-group">
+          <label for="id">Longitud</label>
+          <input id="longitud_mision" name="longitud_mision" type="number" step="any" maxlength=10 class="form-control" value="{{row['longitud_mision']}}" placeholder="Introduzca la longitud" /></div>
+
+        <!-- Tipo de localizacion -->
+        <div class="form-group">
+          <label for="id">Tipo de localización &nbsp;&nbsp;</label>
+          <select name="tipo_localizacion">
+            <option value="qr">Código QR</option>
+            {% if row['tipo_localizacion'] == "qr" %}
+              <option value="beacon">Beacon</option>
+            {% else %}
+              <option value="beacon" selected>Beacon</option>
+            {% endif %}
+          </select>
+        </div>
+
+        <!-- Codigo de localizacion -->
+        <div class="form-group">
+          <label for="id">Código de localización</label>
+          <input id="codigo_localizacion" name="codigo_localizacion" type="text" class="form-control" value="{{row['codigo_localizacion']}}" placeholder="Introduzca el código de la localización" />
+        </div>
+
+        <!-- Añadir prueba de localizacion -->
+        <div class="form-group">
+          <label for="id">Añadir prueba de localizacion &nbsp;&nbsp;</label>
+          <select id="prueba_loc_op" name="prueba_loc_op">
+            <option value="0">False</option>
+            {% if row['bool_loc'] == "0" %}
+              <option value="1">True</option>
+            {% else %}
+              <option value="1" selected>True</option>
+            {% endif %}
+          </select>
+        </div>
+
+        <div class="bloque_prueba" id="bloque_prueba">
+          <!-- Tipo de prueba -->
+          <div class="form-group">
+            <label for="id">Tipo de prueba &nbsp;&nbsp;</label>
+            <select id="tipo_prueba" name="tipo_prueba">
+              <option value="qr">Código QR</option>
+              {% if row['tipo_prueba'] == "qr" %}
+                <option value="pregunta">Pregunta</option>
+              {% else %}
+                <option value="pregunta" selected>Pregunta</option>
+              {% endif %}
+            </select>
+          </div>
+
+          <!-- Codigo de prueba -->
+          <div id="div_cod_prueba">
+            <div class="form-group">
+              <label for="id">Código de prueba</label>
+              <input id="codigo_prueba" name="codigo_prueba" type="text" class="form-control" value="{{row['codigo_prueba']}}" placeholder="Introduzca el código de la prueba" />
+            </div>
+          </div>
+
+          <!-- Preguntas -->
+          <div id="div_preguntas_prueba">
+            <div class="form-group">
+              <label for="id">Enunciado de la pregunta</label>
+                <input id="enunciado" name="enunciado" type="text" class="form-control" {% if preg %} value="{{preg[0]['enunciado']}}" {% endif %} placeholder="Introduzca el enunciado de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta correcta de la pregunta</label>
+              <input id="respues_correcta" name="respues_correcta" type="text" class="form-control" {% if preg %} value="{{preg[0]['respues_correcta']}}" {% endif %} placeholder="Introduzca la respuesta correcta de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 1 de la pregunta</label>
+              <input id="respues_incorrecta_1" name="respues_incorrecta_1" type="text" class="form-control" {% if preg %} value="{{preg[0]['respues_incorrecta_1']}}" {% endif %} placeholder="Introduzca la respuesta incorrecta 1 de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 2 de la pregunta</label>
+              <input id="respues_incorrecta_2" name="respues_incorrecta_2" type="text" class="form-control" {% if preg %} value="{{preg[0]['respues_incorrecta_2']}}" {% endif %} placeholder="Introduzca la respuesta incorrecta 2 de la pregunta" />
+            </div>
+
+            <div class="form-group">
+              <label for="id">Respuesta incorrecta 3 de la pregunta</label>
+              <input id="respues_incorrecta_3" name="respues_incorrecta_3" type="text" class="form-control" {% if preg %} value="{{preg[0]['respues_incorrecta_3']}}" {% endif %} placeholder="Introduzca la respuesta incorrecta 3 de la pregunta" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Descipción inicial -->
+        <div class="form-group">
+          <label for="id">Descipción inicial</label>
+          <input id="descripcion_inicial" name="descripcion_inicial" type="text" class="form-control" value="{{row['descripcion_inicial']}}" placeholder="Introduzca la descripción inicial" />
+        </div>
+
+        <!-- Imagen inicial REVISAR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Imagen inicial</label>
+          <input id="imagen_inicial" name="imagen_inicial" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen inicial" />
+        </div>
+
+        <!-- Descripcion final -->
+        <div class="form-group">
+          <label for="id">Descipción final</label>
+          <input id="descripcion_final" name="descripcion_final" type="text" class="form-control" value="{{row['descripcion_final']}}" placeholder="Introduzca la descripción final" />
+        </div>
+
+        <!-- Imagen final REVISAR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Imagen final</label>
+          <input id="imagen_final" name="imagen_final" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen final" />
+        </div>
+
+        <!-- Resumen -->
+        <div class="form-group">
+          <label for="id">Resumen</label>
+          <input id="resumen" name="resumen" type="text" class="form-control" value="{{row['resumen']}}" placeholder="Resumen" />
+        </div>
+
+        <!-- Precedentes -->
+        <div class="form-group">
+          <label for="id">Precedentes</label>
+          <input id="precedentes" name="precedentes" type="text" class="form-control" value="{{row['precedentes']}}" placeholder="Precedentes" />
+        </div>
+
+        <!-- Misiones a cancelar -->
+        <div class="form-group">
+          <label for="id">Misiones a cancelar al completar</label>
+          <input id="misiones_a_cancelar" name="misiones_a_cancelar" type="text" class="form-control" value="{{row['misiones_a_cancelar']}}" placeholder="Misiones a cancelar al completar la misión" />
+        </div>
+
+        <!-- Es mision final -->
+        <div class="form-group">
+          <label for="id">Misión final &nbsp;&nbsp;</label>
+          <select name="final">
+            <option value="0">False</option>
+            {% if row["final"] == 0 %}
+              <option value="1">True</option>
+            {% else %}
+              <option value="1" selected>True</option>
+            {% endif %}
+          </select>
+        </div>
+
+         <br>
+         <hr>
+         <!-- BOTONES -->
+         <div class="row">
+            <div class="col-md-12">
+               <div class="col-md-6">
+                  <div class="form-group">
+                     <input value="Cancelar" class="btn btn-success" id="btn_cancell" autocomplete="off"/>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="form-group">
+                     <input value="Crear misión" type="submit" class="btn btn-primary" id="btn_add_mision" autocomplete="off"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+<!-- FINAL -->
+
+<script>
+  $( document ).ready(function(){
+    bool_loc = "{{row['bool_loc']}}";
+    if(bool_loc == 1){
+      document.getElementById('bloque_prueba').style.display = 'unset';
+      tipo_prueba = "{{row['tipo_prueba']}}";
+      if(tipo_prueba == "qr"){
+        document.getElementById('div_cod_prueba').style.display = 'unset';
+        document.getElementById('div_preguntas_prueba').style.display = 'none';
+      }else{
+        document.getElementById('div_cod_prueba').style.display = 'none';
+        document.getElementById('div_preguntas_prueba').style.display = 'unset';
+      }
+    }
+  });
+
+  var activities = document.getElementById("tipo_prueba");
+  activities.addEventListener("change", function() {
+    if(activities.value == "pregunta"){
+      document.getElementById('div_cod_prueba').style.display = 'none';
+      document.getElementById('div_preguntas_prueba').style.display = 'unset';
+    }else{
+      document.getElementById('div_cod_prueba').style.display = 'unset';
+      document.getElementById('div_preguntas_prueba').style.display = 'none';
+    }
+  });
+
+
+  var activities2 = document.getElementById("prueba_loc_op");
+  activities2.addEventListener("change", function() {
+    console.log(activities2.value);
+    if(activities2.value == "0"){
+      document.getElementById('bloque_prueba').style.display = 'none';
+    }else{
+      document.getElementById('bloque_prueba').style.display = 'unset';
+    }
+  });
+
+</script>
+</body>
+</html>
+{% endblock %}

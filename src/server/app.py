@@ -17,6 +17,20 @@ def get_nueva_historia():
     return render_template('nueva_historia.html')
 
 """
+Vista para editar una misión
+"""
+@app.route('/privado/editar_mision/<id_mision>', methods=['GET'])
+def get_editar_mision(id_mision):
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM mision WHERE id='"+id_mision+"'")
+    rows = cur.fetchall();
+    cur.execute("SELECT * FROM pregunta WHERE codigo_prueba_mision='"+rows[0]['codigo_prueba']+"'")
+    rows2 = cur.fetchall();
+    return render_template('editar_mision.html', row = rows[0], preg = rows2)
+
+"""
 Vista para crear una nueva misión
 """
 @app.route('/privado/nueva_mision/<id_historia>', methods=['GET'])
