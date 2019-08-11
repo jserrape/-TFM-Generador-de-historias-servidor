@@ -120,6 +120,17 @@
       function eliminarMision(bot){
         let id = bot.id;
         console.log(id);
+        $.ajax({
+         url: "/rest/delete/mision/" + id,
+         type: 'DELETE',
+         data: {},
+         success: function (){
+           location.reload();
+         },
+         error: function (request, message, error){
+           console.log("Error eliminando historia");
+         }
+       });
       }
  </script>
 </body>
