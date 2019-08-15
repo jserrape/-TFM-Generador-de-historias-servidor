@@ -67,123 +67,39 @@ def POST_historia():
 
     imagen_historia = str(imagen_historia[2:(len(imagen_historia))-1])
 
-    #decoded_string = base64.b64decode(imagen_historia)
-    #with open("test_img.png", "wb") as image_file2:
-    #    image_file2.write(decoded_string);
-
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute("INSERT INTO historia (nombre_historia,idioma_historia,imagen_historia,latitud_historia,longitud_historia,zoom,descripcion_historia) VALUES (?,?,?,?,?,?,?)",(nombre_historia,idioma_historia,str(imagen_historia),latitud_historia,longitud_historia,zoom,descripcion_historia) )
         con.commit()
-        #cur.execute('SELECT id FROM historia WHERE nombre_historia="' + nombre_historia + '"')
-        #for row in cur.fetchall():
-        #    id_historia = row[0]
     con.close()
 
     #zip = zipfile.ZipFile('qr/qr_' + nombre_historia.replace(" ","_") + '.zip', 'w')
-
-    """
-    #Insertar misiones
-    for i in range(int(post_id)):
-        num=i+1
-        #Nombre de la mision
-        nombre_mision = request.form["nombre_mision_"+str(num)]
-
-        #Icono de la mision
-        icono_mision = str(base64.b64encode((request.files['icono_mision_' + str(num)]).read()))
-        icono_mision = str(icono_mision[2:(len(icono_mision))-1])
-
-        #Latitud de la mision
-        latitud_mision = request.form["latitud_mision_" + str(num) ]
-
-        #Longitud de la mision
-        longitud_mision = request.form["longitud_mision_" + str(num)]
-
-        #Localizacion
-        tipo_localizacion = request.form["tipo_localizacion_" + str(num)]
-
-        #Codigo de localización
-        codigo_localizacion = request.form["codigo_localizacion_" + str(num)]
-
-        #Tipo de prueba
-        tipo_prueba = request.form["tipo_prueba_" + str(num)]
-
-        #Código de la prueba
-        if tipo_prueba == "qr":
-            print("Encontrado qr")
-            codigo_prueba = request.form["codigo_prueba_" + str(num)]
-        else:
-            codigo_prueba = str(id_historia) + "_" + nombre_mision
-
-        #Descripcion inicial
-        descripcion_inicial = request.form["descripcion_inicial_" + str(num)]
-
-        #Imagen inicial
-        imagen_inicial = str(base64.b64encode((request.files['imagen_inicial_' + str(num)]).read()))
-        imagen_inicial = str(imagen_inicial[2:(len(imagen_inicial))-1])
-
-        #Descipción final
-        descripcion_final = request.form["descripcion_final_" + str(num)]
-
-        #Imagen final
-        imagen_final = str(base64.b64encode((request.files['imagen_final_' + str(num)]).read()))
-        imagen_final = str(imagen_final[2:(len(imagen_final))-1])
-
-        #Resumen
-        resumen = request.form["resumen_" + str(num)]
-
-        #Localizacion
-        final = request.form["prueba" + str(num)]
-
-        #Precedentes
-        precedentes = request.form["precedentes_" + str(num)]
-
-        #Misiones a cancelar
-        misiones_a_cancelar = request.form["misiones_a_cancelar_" + str(num)]
-
-        """"""
-        interaccion = ""
-        if interaccion == 'qr':
-            img = qrcode.make(codigo_interaccion)
-            f = open("qr/" + nombre_historia + "___" + nombre_mision + ".png", "wb")
-            img.save(f)
-            f.close()
-            zip.write("qr/" + nombre_historia + "___" + nombre_mision + ".png", compress_type=zipfile.ZIP_DEFLATED)
-            os.remove("qr/" + nombre_historia + "___" + nombre_mision + ".png")
-        """"""
-
-        with sql.connect("database.db") as con:
-            cur = con.cursor()
-            cur.execute("INSERT INTO mision (id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final, misiones_a_cancelar) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(id_historia, nombre_mision, icono_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, imagen_inicial, descripcion_final, imagen_final, resumen, precedentes, final, misiones_a_cancelar) )
-            con.commit()
-        con.close()
-
-        if tipo_prueba == "pregunta":
-            print("Voy a insertar la pregunta en la bbdd")
-            #Enunciado
-            enunciado = request.form["enunciado_" + str(num)]
-
-            #Respuesta correcta
-            respues_correcta = request.form["respues_correcta_" + str(num)]
-
-            #Respuesta incorrecta 1
-            respues_incorrecta_1 = request.form["respues_incorrecta_1_" + str(num)]
-
-            #Respuesta incorrecta 2
-            respues_incorrecta_2 = request.form["respues_incorrecta_2_" + str(num)]
-
-            #Respuesta incorrecta 3
-            respues_incorrecta_3 = request.form["respues_incorrecta_3_" + str(num)]
-
-            #Inserto la pregunta en la bbdd
-            with sql.connect("database.db") as con:
-                cur = con.cursor()
-                cur.execute("INSERT INTO pregunta (codigo_prueba_mision, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) VALUES (?,?,?,?,?,?)",(codigo_prueba, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) )
-                con.commit()
-            con.close()
-            """
     #zip.close()
     return redirect("privado/historias", code=302)
+
+
+"""
+Ruta para actualizar una historia
+"""
+@app.route('/rest/historia/update/<id_historia>', methods=['POST'])
+def POST_update_historia(id_historia):
+    nombre_historia = request.form["nombre_historia"]
+    idioma_historia = request.form["idioma_historia"]
+    #imagen_historia = str(base64.b64encode((request.files['imagen_historia']).read()))
+    latitud_historia = request.form["latitud_historia"]
+    longitud_historia = request.form["longitud_historia"]
+    zoom = request.form["zoom"]
+    descripcion_historia = request.form["descripcion_historia"]
+
+    #Actualizo la historia en la bbdd
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('''UPDATE historia SET nombre_historia = ?, idioma_historia = ?, latitud_historia = ?, longitud_historia = ?, zoom = ?, descripcion_historia = ? WHERE id = ?''', (nombre_historia, idioma_historia, latitud_historia, longitud_historia, zoom, descripcion_historia, id_historia))
+        con.commit()
+    con.close()
+
+    return redirect("/privado/editar_historia/"+id_historia, code=302)
+
 
 """
 Ruta para el registro de una historia y sus misiones asociadas

@@ -5,7 +5,7 @@
       <br><br><br><br>
       <h1 class="titulo">Editar historia</h1>
       <hr>
-      <form name="" id="" action="" method="POST" enctype="multipart/form-data" data-toggle="validator" role="form">
+      <form name="" id="" action="/rest/historia/update/{{rows[0][0]}}" method="POST" enctype="multipart/form-data" data-toggle="validator" role="form">
         <div class="form-group">
            <label for="id">Nombre de la historia</label>
            <input name="nombre_historia" type="text" class="form-control" value="{{rows[0][1]}}" autocomplete="off" placeholder="Introduzca nombre de la historia" />
@@ -76,7 +76,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group">
-                     <input value="Aceptar" class="btn btn-success" id="btn_add_historia" autocomplete="off" onclick="actualizarHistorias()"/>
+                     <input type="submit" value="Aceptar" class="btn btn-success" id="btn_add_historia" autocomplete="off"/>
                   </div>
                </div>
             </div>
