@@ -100,13 +100,99 @@ def POST_update_historia(id_historia):
 
     return redirect("/privado/editar_historia/"+id_historia, code=302)
 
+"""
+Ruta para actualizar una misión
+"""
+@app.route('/rest/mision/update/<id_mision>/<id_historia>', methods=['POST'])
+def POST_update_mision(id_mision, id_historia):
+    #Nombre de la mision
+    nombre_mision = request.form["nombre_mision"]
+
+    #Latitud de la mision
+    latitud_mision = request.form["latitud_mision"]
+
+    #Longitud de la mision
+    longitud_mision = request.form["longitud_mision"]
+
+    #Localizacion
+    tipo_localizacion = request.form["tipo_localizacion"]
+
+    #Codigo de localización
+    codigo_localizacion = request.form["codigo_localizacion"]
+
+    #Miro si hay prueba
+    bool_loc = request.form["prueba_loc_op"]
+
+    if bool_loc == '1':
+        print("if 1")
+        #Tipo de prueba
+        tipo_prueba = request.form["tipo_prueba"]
+
+        #Código de la prueba
+        if tipo_prueba == "qr":
+            codigo_prueba = request.form["codigo_prueba"]
+        else:
+            codigo_prueba = str(id_historia) + "_" + nombre_mision
+            print("Voy a insertar la pregunta en la bbdd")
+            #Enunciado
+            enunciado = request.form["enunciado"]
+
+            #Respuesta correcta
+            respues_correcta = request.form["respues_correcta"]
+
+            #Respuesta incorrecta 1
+            respues_incorrecta_1 = request.form["respues_incorrecta_1"]
+
+            #Respuesta incorrecta 2
+            respues_incorrecta_2 = request.form["respues_incorrecta_2"]
+
+            #Respuesta incorrecta 3
+            respues_incorrecta_3 = request.form["respues_incorrecta_3"]
+
+            #Inserto la pregunta en la bbdd
+            with sql.connect("database.db") as con:
+                cur = con.cursor()
+                cur.execute("DELETE FROM pregunta WHERE codigo_prueba_mision='" + codigo_prueba + "'")
+                cur.execute("INSERT INTO pregunta (codigo_prueba_mision, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) VALUES (?,?,?,?,?,?)",(codigo_prueba, enunciado, respues_correcta, respues_incorrecta_1, respues_incorrecta_2, respues_incorrecta_3) )
+                con.commit()
+            con.close()
+    else:
+        tipo_prueba = ""
+        codigo_prueba = ""
+        print("if 0")
+
+    #Descripcion inicial
+    descripcion_inicial = request.form["descripcion_inicial"]
+
+    #Descipción final
+    descripcion_final = request.form["descripcion_final"]
+
+    #Resumen
+    resumen = request.form["resumen"]
+
+    #Precedentes
+    precedentes = request.form["precedentes"]
+
+    #Misiones a cancelar
+    misiones_a_cancelar = request.form["misiones_a_cancelar"]
+
+    #Final
+    final = request.form["final"]
+
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('''UPDATE mision SET nombre_mision = ?, latitud_mision = ?, longitud_mision = ?, tipo_localizacion = ?, codigo_localizacion = ?, tipo_prueba = ?, codigo_prueba = ?, descripcion_inicial = ?, descripcion_final = ?, resumen = ?, precedentes = ?, final = ?, misiones_a_cancelar = ?, bool_loc = ? WHERE id = ?''', (nombre_mision, latitud_mision, longitud_mision, tipo_localizacion, codigo_localizacion, tipo_prueba, codigo_prueba, descripcion_inicial, descripcion_final, resumen, precedentes, final, misiones_a_cancelar, bool_loc, id_mision))
+        #cur.execute("INSERT INTO mision (, , , , , , , , , , imagen_inicial, , imagen_final, , , , ,) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",() )
+        con.commit()
+    con.close()
+
+    return redirect("/privado/editar_historia/"+id_historia, code=302)
 
 """
 Ruta para el registro de una historia y sus misiones asociadas
 """
 @app.route('/rest/nueva_mision/<id_historia>', methods=['POST'])
 def POST_mision(id_historia):
-    print(request.form);
     #Nombre de la mision
     nombre_mision = request.form["nombre_mision"]
 
