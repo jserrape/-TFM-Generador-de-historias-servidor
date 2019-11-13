@@ -51,7 +51,7 @@ with sql.connect("database.db") as con:
     cur.execute("INSERT INTO tarea (id,nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?,?)",
     (2,'Recogida de niños', 'Recoger a los nietos del colegio para llevarlos a natación', 'false', '','') )
     cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(1, ahora + datetime.timedelta(days=1), 'null') )
-    cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(2, ahora + datetime.timedelta(days=1), 'null') )
+    cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(2, ahora + datetime.timedelta(days=0), 'null') )
     
     
     con.commit()
