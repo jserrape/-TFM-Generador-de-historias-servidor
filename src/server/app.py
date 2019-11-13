@@ -4,7 +4,6 @@ from flask import send_file
 
 
 @app.route('/list/tarea')
-@crossdomain(origin='*')
 def list_users():
     respons = {}
     respons['status'] = 'OK'
