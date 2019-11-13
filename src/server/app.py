@@ -1,12 +1,6 @@
 from rutas_historias import *
 from rutas_usuario import *
-from open import *
 from flask import send_file
-
-
-
-
-
 
 
 @app.route('/list/tarea')
