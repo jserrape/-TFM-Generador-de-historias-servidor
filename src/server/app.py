@@ -4,6 +4,7 @@ from flask import send_file
 
 
 @app.route('/list/tarea')
+@crossdomain(origin='*')
 def list_users():
     respons = {}
     respons['status'] = 'OK'
@@ -257,6 +258,19 @@ def POST_usuario():
 """
 ========================================================================================
 """
+
+
+@app.route('/rest/historia/confirmar', methods=['POST', 'PUT'])
+def POST_confirmar():
+    print("Ha llegado una peticion post de tarea")
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) > date("now") LIMIT 1')
+        for row in cur.fetchall():
+            id = row[0]
+            cur.execute('UPDATE historia SET historial = "true" WHERE id='+id)
+            con.commit()
+    con.close()
 
 
 """
