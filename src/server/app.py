@@ -3,14 +3,13 @@ from rutas_usuario import *
 from open import *
 from flask import send_file
 
-from flask_cors import CORS, cross_origin
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+
+
+
+
 
 
 @app.route('/list/tarea')
-@cross_origin()
 def list_users():
     respons = {}
     respons['status'] = 'OK'
@@ -37,9 +36,11 @@ def list_users():
     respons.status_code = 201
 
     return respons
-
+    
+    
+    
+    
 @app.route('/list/tarea_hoy')
-@cross_origin()
 def list_tareas_hoy():
     respons = {}
     respons['status'] = 'OK'
@@ -72,7 +73,6 @@ def list_tareas_hoy():
     
     
 @app.route('/list/tarea_siguiente')
-@cross_origin()
 def list_tareas_siguiente():
     respons = {}
     respons['status'] = 'OK'
@@ -101,9 +101,15 @@ def list_tareas_siguiente():
     respons.status_code = 201
 
     return respons
+    
+    
+    
+    
+    
+    
+    
 
 @app.route('/list/historial')
-@cross_origin()
 def list_historial():
     respons = {}
     respons['status'] = 'OK'
@@ -129,8 +135,8 @@ def list_historial():
 
     return respons
 
+
 @app.route('/list/tarea/<id_tarea>', methods=['GET'])
-@cross_origin()
 def get_tarea(id_tarea):
     respons = {}
     respons['status'] = 'OK'
@@ -159,7 +165,6 @@ def get_tarea(id_tarea):
     return respons
 
 @app.route('/list/historial/<id_historial>', methods=['GET'])
-@cross_origin()
 def get_historial_id(id_historial):
     respons = {}
     respons['status'] = 'OK'
@@ -188,7 +193,6 @@ def get_historial_id(id_historial):
 
 
 @app.route('/list/historial_tarea/<id_tarea>', methods=['GET'])
-@cross_origin()
 def get_historial_id_tarea(id_tarea):
     respons = {}
     respons['status'] = 'OK'
