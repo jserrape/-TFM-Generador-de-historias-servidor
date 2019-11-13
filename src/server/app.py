@@ -267,7 +267,7 @@ def POST_confirmar():
         cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) > date("now") LIMIT 1')
         for row in cur.fetchall():
             id = row[0]
-            cur.execute('UPDATE historia SET historial = "true" WHERE id='+int(id))
+            cur.execute('UPDATE historia SET historial = "true" WHERE id="'+id+'"')
             con.commit()
     con.close()
 
