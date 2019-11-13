@@ -30,78 +30,6 @@ def list_users():
     respons.status_code = 201
 
     return respons
-    
-    
-    
-    
-@app.route('/list/tarea_hoy')
-def list_tareas_hoy():
-    respons = {}
-    respons['status'] = 'OK'
-    respons['ruta'] = '/list/tarea'
-
-    with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) = date("now")')
-        data_max = []
-        for row in cur.fetchall():
-            data_min = {}
-            data_min['id'] = row[0]
-            data_min['nombre'] = row[1]
-            data_min['descripcon'] = row[2]
-            data_min['repetible'] = row[3]
-            data_min['periodidad_dia'] = row[4]
-            data_min['periodicidad_hora'] = row[5]
-            data_min['time'] = row[6]
-            data_min['realizada'] = row[7]
-            data_max.append(data_min)
-    con.close()
-
-    respons['tareas'] = json.dumps(data_max)
-
-    respons = jsonify(respons)
-    respons.status_code = 201
-
-    return respons
-    
-    
-    
-@app.route('/list/tarea_siguiente')
-def list_tareas_siguiente():
-    respons = {}
-    respons['status'] = 'OK'
-    respons['ruta'] = '/list/tarea'
-
-    with sql.connect("database.db") as con:
-        cur = con.cursor()
-        cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) > date("now") LIMIT 1')
-        data_max = []
-        for row in cur.fetchall():
-            data_min = {}
-            data_min['id'] = row[0]
-            data_min['nombre'] = row[1]
-            data_min['descripcon'] = row[2]
-            data_min['repetible'] = row[3]
-            data_min['periodidad_dia'] = row[4]
-            data_min['periodicidad_hora'] = row[5]
-            data_min['time'] = row[6]
-            data_min['realizada'] = row[7]
-            data_max.append(data_min)
-    con.close()
-
-    respons['tareas'] = json.dumps(data_max)
-
-    respons = jsonify(respons)
-    respons.status_code = 201
-
-    return respons
-    
-    
-    
-    
-    
-    
-    
 
 @app.route('/list/historial')
 def list_historial():
@@ -194,7 +122,7 @@ def get_historial_id_tarea(id_tarea):
 
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute('SELECT h.id, h.id_tarea, strftime("%s",h.time), h.realizada FROM historial h WHERE id_tarea="' + id_tarea + '"')
+        cur.execute('SELECT * FROM historial WHERE id_tarea="' + id_tarea + '"')
         data_max = []
         for row in cur.fetchall():
             data_min = {}
@@ -222,9 +150,6 @@ def get_historial_id_tarea(id_tarea):
 def POST_usuario():
     print("Ha llegado una peticion post de tarea")
     tarea_dict = request.form.to_dict()
-    ahora = datetime.datetime.utcnow()
-    
-    print(tarea_dict)
     
     nombre = tarea_dict['nombre']
     descripcion = tarea_dict['descripcion']
@@ -235,27 +160,8 @@ def POST_usuario():
     with sql.connect("database.db") as con:
         cur = con.cursor()
         cur.execute("INSERT INTO tarea (nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?)",(nombre,descripcion,repetible,periodidad_dia,periodicidad_hora) )
-        
-        if repetible == 'true':
-            print("repetible es true")
-        else:
-            print("repetible es false")
-            cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(1, ahora + datetime.timedelta(days=int(periodidad_dia),hours=int(periodicidad_hora)), 'null') )
-
         con.commit()
     con.close()
-
-    respons = {}
-    respons['status'] = 'OK'
-    respons['ruta'] = '/rest/tarea'
-    respons = jsonify(respons)
-    respons.status_code = 201
-    return respons
-
-
-"""
-========================================================================================
-"""
 
 
 """
