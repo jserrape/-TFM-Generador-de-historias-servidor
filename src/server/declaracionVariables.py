@@ -43,15 +43,32 @@ conn.execute('CREATE TABLE IF NOT EXISTS usuario (email TEXT PRIMARY KEY, nombre
 conn.execute('CREATE TABLE IF NOT EXISTS pregunta (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo_prueba_mision TEXT, enunciado TEXT, respues_correcta TEXT, respues_incorrecta_1 TEXT, respues_incorrecta_2 TEXT, respues_incorrecta_3 TEXT, FOREIGN KEY(codigo_prueba_mision) REFERENCES mision(codigo_prueba))')
 conn.execute('CREATE TABLE IF NOT EXISTS mision_usuario (email TEXT, id_historia INTEGER, id_mision INTEGER, fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, primary key(email, id_historia, id_mision))')
 conn.execute('CREATE TABLE IF NOT EXISTS sesion (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(email) REFERENCES usuario(email))')
+
+
+
+
+#conn.execute('DROP TABLE IF EXISTS tarea')
+
+#conn.execute('CREATE TABLE IF NOT EXISTS tarea (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, repetible BOOLEAN, periodidad_dia TEXT, periodicidad_hora TEXT)')
+#conn.execute('CREATE TABLE IF NOT EXISTS historial (id INTEGER PRIMARY KEY AUTOINCREMENT, id_tarea INTEGER, time timestamp, realizada )')
+
 print("Table created successfully")
 conn.close()
 
-#Crear directorio qr
-directorio = "qr"
-try:
-    os.stat(directorio)
-except:
-    os.mkdir(directorio)
+
+
+
+with sql.connect("database.db") as con:
+    cur = con.cursor()
+    cur.execute("INSERT INTO tarea (nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?)",('TArea de prueba 1', 'Pastilla del corazon', 'false', '','') )
+    con.commit()
+
+con.close()
+
+
+
+
+
 
 # Información general
 server_info = {}

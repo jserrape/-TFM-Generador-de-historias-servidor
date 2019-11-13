@@ -1,114 +1,76 @@
 from rutas_historias import *
 from rutas_usuario import *
+from open import *
 from flask import send_file
 
-"""
-Vista principal de la web que muestra información de la aplicación
-"""
-@app.route('/privado/', methods=['GET'])
-def get_index():
-    return render_template('index.html')
-
-"""
-Vista para crear una nueva historia
-"""
-@app.route('/privado/nueva_historia', methods=['GET'])
-def get_nueva_historia():
-    return render_template('nueva_historia.html')
-
-"""
-Vista para editar una misión
-"""
-@app.route('/privado/editar_mision/<id_mision>', methods=['GET'])
-def get_editar_mision(id_mision):
-    con = sql.connect("database.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM mision WHERE id='"+id_mision+"'")
-    rows = cur.fetchall();
-    cur.execute("SELECT * FROM pregunta WHERE codigo_prueba_mision='"+rows[0]['codigo_prueba']+"'")
-    rows2 = cur.fetchall();
-    return render_template('editar_mision.html', row = rows[0], preg = rows2)
-
-"""
-Vista para crear una nueva misión
-"""
-@app.route('/privado/nueva_mision/<id_historia>', methods=['GET'])
-def get_nueva_mision(id_historia):
-    return render_template('nueva_mision.html', id = id_historia)
-
-"""
-Vista que permite ver un listado con los principales datos de los usuarios
-y permite su borrado e ir a una nueva vista para su edición
-"""
-@app.route('/privado/usuarios', methods=['GET'])
-def get_gestionar_usuarios():
-    con = sql.connect("database.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT email, nombre FROM usuario")
-    rows = cur.fetchall();
-    return render_template('gestionar_usuarios.html',rows = rows)
-
-"""
-Vista que permite ver un listado con los principales datos de las historias
-y permite su borrado e ir a una nueva vista para su edición
-"""
-@app.route('/privado/historias', methods=['GET'])
-def get_gestionar_historias():
-    con = sql.connect("database.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT id, nombre_historia FROM historia")
-    rows = cur.fetchall();
-    return render_template('gestionar_historias.html',rows = rows)
-
-"""
-Vista que permite monitorizar la ubicación de los usuarios activos
-"""
-@app.route('/privado/monitorizacion', methods=['GET'])
-def get_monitorizacion():
-    return render_template('monitorizacion.html')
-
-"""
-Vista auxiliar con algunas de las rutas implementadas
-"""
-@app.route('/privado/rutas', methods=['GET'])
-def get_rutas():
-    return render_template('rutas.html')
-
-"""
-Vista que proporciona información de la aplicación como el desarrollador,
-estado de la aplicación o versión
-"""
-@app.route('/rest/status', methods=['GET'])
-def get_status():
-    response = Response(json.dumps( server_info, indent=4 ), status=200, mimetype='application/json')
-    return response
-
-"""
-Vista mostrada al acceder a una vista que no existe
-"""
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
 
 
-@app.route('/prueba', methods=['POST', 'PUT'])
-def POST_prueba():
-    print("ruta /prueba/texto funcion para ver un texto escaneado")
-    hist_dict = request.form.to_dict()
-    print(hist_dict['texto'])
-    return ""
 
-@app.route('/prueba2', methods=['GET'])
-def POST_prueba2():
-    print("ruta para enviar mail")
-    return historia_json(1)
 
-@app.route('/descargar', methods=['GET', 'POST'])
-def descarga():
-    return send_from_directory(directory='qr', filename='qr_1.zip', as_attachment=True)
+
+
+
+
+@app.route('/list/tarea')
+def list_users():
+    respons = {}
+    respons['status'] = 'OK'
+    respons['ruta'] = '/list/tarea'
+
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM tarea')
+        data_max = []
+        for row in cur.fetchall():
+            data_min = {}
+            data_min['id'] = row[0]
+            data_min['nombre'] = row[1]
+            data_min['descripcon'] = row[2]
+            data_min['repetible'] = row[3]
+            data_min['periodidad_dia'] = row[4]
+            data_min['periodicidad_hora'] = row[5]
+            data_max.append(data_min)
+    con.close()
+
+    respons['tareas'] = json.dumps(data_max)
+
+    respons = jsonify(respons)
+    respons.status_code = 201
+
+    return respons
+
+
+
+@app.route('/list/tarea/<id_tarea>', methods=['GET'])
+def get_tarea(id_tarea):
+    respons = {}
+    respons['status'] = 'OK'
+    respons['ruta'] = '/list/tarea'
+
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM tarea WHERE id="' + id_tarea + '"')
+        data_max = []
+        for row in cur.fetchall():
+            data_min = {}
+            data_min['id'] = row[0]
+            data_min['nombre'] = row[1]
+            data_min['descripcon'] = row[2]
+            data_min['repetible'] = row[3]
+            data_min['periodidad_dia'] = row[4]
+            data_min['periodicidad_hora'] = row[5]
+            data_max.append(data_min)
+    con.close()
+
+    respons['tareas'] = json.dumps(data_max)
+
+    respons = jsonify(respons)
+    respons.status_code = 201
+
+    return respons
+
+
+
 
 """
 Función de ejecución principal del sistema
@@ -116,4 +78,4 @@ Función de ejecución principal del sistema
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
     #crear_modelo()
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
