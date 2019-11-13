@@ -39,6 +39,31 @@ def list_users():
 
     return respons
 
+@app.route('/list/historial')
+def list_historial():
+    respons = {}
+    respons['status'] = 'OK'
+    respons['ruta'] = '/list/historial'
+
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM historial')
+        data_max = []
+        for row in cur.fetchall():
+            data_min = {}
+            data_min['id'] = row[0]
+            data_min['id_tarea'] = row[1]
+            data_min['time'] = row[2]
+            data_min['realizada'] = row[3]
+            data_max.append(data_min)
+    con.close()
+
+    respons['tareas'] = json.dumps(data_max)
+
+    respons = jsonify(respons)
+    respons.status_code = 201
+
+    return respons
 
 
 @app.route('/list/tarea/<id_tarea>', methods=['GET'])
