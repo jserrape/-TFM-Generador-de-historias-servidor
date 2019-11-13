@@ -270,7 +270,12 @@ def POST_confirmar():
             cur.execute('UPDATE historial SET realizada = "true" WHERE id="'+str(id)+'"')
             con.commit()
     con.close()
-
+    respons = {}
+    respons['status'] = 'OK'
+    respons['ruta'] = '/rest/tarea'
+    respons = jsonify(respons)
+    respons.status_code = 201
+    return respons
 
 """
 Función de ejecución principal del sistema
