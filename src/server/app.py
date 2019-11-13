@@ -74,7 +74,7 @@ def list_tareas_siguiente():
 
     with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) > date("now") LIMIT 1')
+        cur.execute('SELECT t.*, strftime("%s",h.time), h.realizada FROM tarea t INNER JOIN historial h ON t.id = h.id_tarea WHERE date(h.time) > date("now") AND h.realizada != "true" LIMIT 1')
         data_max = []
         for row in cur.fetchall():
             data_min = {}
