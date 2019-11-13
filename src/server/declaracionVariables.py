@@ -35,7 +35,7 @@ print("Opened database successfully")
 conn.execute('DROP TABLE IF EXISTS tarea')
 conn.execute('DROP TABLE IF EXISTS historial')
 
-conn.execute('CREATE TABLE IF NOT EXISTS tarea (id INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT, repetible BOOLEAN, periodidad_dia TEXT, periodicidad_hora TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS tarea (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, repetible BOOLEAN, periodidad_dia TEXT, periodicidad_hora TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS historial (id INTEGER PRIMARY KEY AUTOINCREMENT, id_tarea INTEGER, time TEXT, realizada TEXT)')
 
 print("Table created successfully")
