@@ -150,6 +150,29 @@ def get_historial_id_tarea(id_tarea):
 
 
 """
+========================================================================================
+"""
+
+
+@app.route('/rest/tarea', methods=['POST', 'PUT'])
+def POST_usuario():
+    print("Ha llegado una peticion post de tarea")
+    tarea_dict = request.form.to_dict()
+    
+    nombre = tarea_dict['nombre']
+    descripcion = tarea_dict['descripcion']
+    repetible = tarea_dict['repetible']
+    periodidad_dia = tarea_dict['periodidad_dia']
+    periodicidad_hora = tarea_dict['periodicidad_hora']
+    
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO tarea (nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?)",(nombre,descripcion,repetible,periodidad_dia,periodicidad_hora) )
+        con.commit()
+    con.close()
+
+
+"""
 Función de ejecución principal del sistema
 """
 if __name__ == '__main__':
