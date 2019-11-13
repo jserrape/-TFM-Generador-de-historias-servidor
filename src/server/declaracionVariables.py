@@ -46,7 +46,7 @@ conn.close()
 ahora = datetime.datetime.utcnow()
 with sql.connect("database.db") as con:
     cur = con.cursor()
-    cur.execute("INSERT INTO tarea (nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?)",('TArea de prueba 1', 'Pastilla del corazon e irte a la puta cama.', 'false', '','') )
+    cur.execute("INSERT INTO tarea (nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?)",('TArea de prueba 1', 'Pastilla del corazon e irte a la PUTTA cama.', 'false', '','') )
     cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(1, ahora + datetime.timedelta(days=1), 'null') )
     con.commit()
 con.close()
