@@ -35,7 +35,7 @@ print("Opened database successfully")
 conn.execute('DROP TABLE IF EXISTS tarea')
 conn.execute('DROP TABLE IF EXISTS historial')
 
-conn.execute('CREATE TABLE IF NOT EXISTS tarea (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, repetible BOOLEAN, periodidad_dia TEXT, periodicidad_hora TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS tarea (id INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT, repetible BOOLEAN, periodidad_dia TEXT, periodicidad_hora TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS historial (id INTEGER PRIMARY KEY AUTOINCREMENT, id_tarea INTEGER, time TEXT, realizada TEXT)')
 
 print("Table created successfully")
@@ -47,9 +47,9 @@ ahora = datetime.datetime.utcnow()
 with sql.connect("database.db") as con:
     cur = con.cursor()
     cur.execute("INSERT INTO tarea (id,nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?,?)",
-    (1,'nombre1', 'Recuerde tomar las pastillas del desayuno tiene que tomar la pastilla de tensión y la del azucar', 'false', '','') )
+    (1,'Toma de pastillas', 'Recuerde tomar las pastillas del desayuno tiene que tomar la pastilla de tensión y la del azucar', 'false', '','') )
     cur.execute("INSERT INTO tarea (id,nombre, descripcion, repetible, periodidad_dia, periodicidad_hora) VALUES (?,?,?,?,?,?)",
-    (2,'nombre2', 'Recoger a los nietos del colegio para llevarlos a natación', 'false', '','') )
+    (2,'Recogida de niños', 'Recoger a los nietos del colegio para llevarlos a natación', 'false', '','') )
     cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(1, ahora + datetime.timedelta(days=1), 'null') )
     cur.execute("INSERT INTO historial (id_tarea, time, realizada) VALUES (?,?,?)",(2, ahora + datetime.timedelta(days=1), 'null') )
     
