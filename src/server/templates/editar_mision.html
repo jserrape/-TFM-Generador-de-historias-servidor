@@ -6,12 +6,18 @@
       <h1 class="titulo">Editar misión #{{row["id"]}}</h1>
       <hr>
 
-      <form name="nueva_historia_form" id="nueva_historia_form" action="/rest/mision/update/{{row['id']}}/{{row['id_historia']}}" method="POST" enctype="multipart/form-data">
+      <form name="nueva_historia_form" id="nueva_historia_form" action="" method="POST" enctype="multipart/form-data">
 
         <!-- Nombre de la mision -->
         <div class="form-group">
           <label for="id">Nombre de la misión</label>
           <input id="nombre_mision" name="nombre_mision" type="text" class="form-control" value="{{row['nombre_mision']}}" placeholder="Introduzca nombre de la misión" />
+        </div>
+
+        <!-- Icono  AÑADIR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Icono</label>
+          <input id="icono_mision" name="icono_mision" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca el icono" />
         </div>
 
         <!-- Latitud -->
@@ -113,12 +119,24 @@
           <input id="descripcion_inicial" name="descripcion_inicial" type="text" class="form-control" value="{{row['descripcion_inicial']}}" placeholder="Introduzca la descripción inicial" />
         </div>
 
+        <!-- Imagen inicial REVISAR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Imagen inicial</label>
+          <input id="imagen_inicial" name="imagen_inicial" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen inicial" />
+        </div>
+
         <!-- Descripcion final -->
         <div class="form-group">
           <label for="id">Descipción final</label>
           <input id="descripcion_final" name="descripcion_final" type="text" class="form-control" value="{{row['descripcion_final']}}" placeholder="Introduzca la descripción final" />
         </div>
-        
+
+        <!-- Imagen final REVISAR IMAGEN-->
+        <div class="form-group">
+          <label for="id">Imagen final</label>
+          <input id="imagen_final" name="imagen_final" type="file" accept=".jpg,.png" class="form-control" value="" placeholder="Introduzca la imagen final" />
+        </div>
+
         <!-- Resumen -->
         <div class="form-group">
           <label for="id">Resumen</label>
@@ -162,7 +180,7 @@
                </div>
                <div class="col-md-6">
                   <div class="form-group">
-                     <input value="Guardar cambios" type="submit" class="btn btn-primary" id="btn_add_mision" autocomplete="off"/>
+                     <input value="Crear misión" type="submit" class="btn btn-primary" id="btn_add_mision" autocomplete="off"/>
                   </div>
                </div>
             </div>
